@@ -1,3 +1,188 @@
+<script>
+export default {
+  data() {
+    return {
+      imagesPath: "src/assets/img/itens/",
+      menu: {
+        hamburgers: [
+          {
+            id: 1,
+            name: "Salada",
+            description: "Pão cervejinha, 1x hambúrguer de 180g de costela, 1,5x queijo mussarela, maionese, molho especial, alface, tomate, cebola roxa e picles. Acompanha ketchup e molho especial separadamente.",
+            price: "R$20,00",
+            image: "salada.jpg"
+          },
+          {
+            id: 2,
+            name: "Duplo Cheddar",
+            description: "Pão brioche, 2x hambúrguer de 180g de costela, 3 camadas de queijo cheddar, maionese, bacon picadinho. Acompanha ketchup separadamente.",
+            price: "R$32,00",
+            image: "duploCheddar.jpg"
+          },
+          {
+            id: 3,
+            name: "Simples",
+            description: "Pão brioche, 1x hambúrguer de 150g de costela, 1x queijo mussarela, maionese, molho especial, alface e tomate.",
+            price: "R$15,00",
+            image: "simples.jpg"
+          },
+          {
+            id: 4,
+            name: "Bersk's Burger",
+            description: "Pão brioche, 2x hambúrgueres de 180g de costela, 3 camadas de queijo mussarela, barbecue, maionese, molho especial, alface americana, tomate, cebola picadinha e picles. Acompanha ketchup, barbecue, molho especial e uma porção de batata com cheddar e bacon separadamente.",
+            price: "R$70,00",
+            image: "bersk.jpg"
+          },
+          {
+            id: 5,
+            name: "Intense Burger",
+            description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo gorgonzola, cebola roxa crispy, 2x tiras de bacon, molho especial. Acompanha molho especial separadamente.",
+            price: "R$29,00",
+            image: "intense.jpg"
+          },
+          {
+            id: 6,
+            name: "Flipicante",
+            description: "Pão australiano, 1x hambúrguer de 200g de linguiça blumenau, queijo gorgonzola e queijo coalho, geléia de pimenta, molho especial, alface e cebola roxa chapeada. Acompanha ketchup, barbecue e molho especial separadamente.",
+            price: "R$41,00",
+            image: "flipicante.jpg"
+          },
+          {
+            id: 7,
+            name: "Queso Caliente",
+            description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo empanado, geléia de pimenta, rúcula e tomate. Acompanha molho especial separadamente.",
+            price: "R$49,00",
+            image: "queso.jpg"
+          }
+        ],
+        hotdogs: [
+          {
+            id: 8,
+            name: "Dog Simples",
+            description: "Pão 25cm, salsicha, maionese, ketchup e mostarda. Acompanha ketchup e maionese separadamente.",
+            price: "R$20,00",
+            image: "dogsimples.jpg"
+          },
+          {
+            id: 9,
+            name: "Dog Cheddar Bacon",
+            description: "Pão 25cm, salsicha, maionese, ketchup, cheddar derretido e bacon picadinho. Acompanha ketchup e maionese separadamente.",
+            price: "R$26,00",
+            image: "dogCheddar.jpg"
+          },
+          {
+            id: 10,
+            name: "Chickão",
+            description: "Pão 35cm, 4x salsichas, maionese, ketchup, milho, bacon picadinho, frango desfiado, calabresa e molho verde. Acompanha ketchup e maionese separadamente.",
+            price: "R$40,00",
+            image: "chickao.jpg"
+          }
+        ],
+        servings: [
+          {
+            id: 11,
+            name: "Fritas Simples",
+            description: "400g de batata frita, muito cheddar, 100g de bacon.",
+            price: "R$25,00",
+            image: "fritasSimples.jpg"
+          },
+          {
+            id: 12,
+            name: "O Comilão",
+            description: "1 kg de batata frita, muito cheddar, 500g de coração de galinha, 500g de frango chapeado, 350g bacon em tiras, 500g de linguiça calabresa, 500g de picanha fatiada. Acompanha salada. Acompanha ketchup e maionese separadamente.",
+            price: "R$220,00",
+            image: "oComilao.jpg"
+          },
+          {
+            id: 13,
+            name: "Chicken Nuggets",
+            description: "500g de nuggets de frango. Acompanha Ketchup e a maionese especial.",
+            price: "R$30,00",
+            image: "nuggets.jpg"
+          }
+        ],
+        juices: [
+          {
+            id: 14,
+            name: "Laranja",
+            description: "600ml de suco de laranja natural.",
+            price: "R$10,00",
+            image: "sucoLaranja.jpg"
+          },
+          {
+            id: 15,
+            name: "Uva",
+            description: "600ml de suco de uva natural.",
+            price: "R$10,00",
+            image: "sucoUva.jpg"
+          },
+          {
+            id: 16,
+            name: "Abacaxi com Hortelã",
+            description: "600ml de suco de abacaxi com hortelã.",
+            price: "R$10,00",
+            image: "sucoAbacaxi.jpg"
+          },
+          {
+            id: 17,
+            name: "Limonada",
+            description: "400ml de limonada.",
+            price: "R$10,00",
+            image: "sucoLimonada.jpg"
+          }
+        ],
+        otherDrinks: [
+          {
+            id: 18,
+            name: "Refrigerante",
+            description: "Refrigerante 2L.",
+            price: "R$14,00",
+            image: "refrigerante.jpg"
+          },
+          {
+            id: 19,
+            name: "Água com/sem gás",
+            description: "700ml de água com ou sem gás.",
+            price: "R$4,00",
+            image: "agua.jpg"
+          },
+          {
+            id: 20,
+            name: "Caipirinha de vinho",
+            description: "400ml de caipirinha de vinho.",
+            price: "R$14,00",
+            image: "caipirinhaVinho.jpg"
+          }
+        ],
+        desserts: [
+          {
+            id: 21,
+            name: "Coração Mole",
+            description: "Bolo de chocolate utilizando leite condensado, cacau em pó e granulado. Serve 2 pessoas.",
+            price: "R$30,00",
+            image: "coracaoMole.jpg"
+          },
+          {
+            id: 22,
+            name: "Casquinha",
+            description: "Casquinha de sorvete de baunilha com cobertura de chocolate.",
+            price: "R$7,00",
+            image: "casquinha.jpg"
+          },
+          {
+            id: 22,
+            name: "Bersk's Mix",
+            description: "Pote de 1L de sorvete de baunilha com cobertura de chocolate e pedaços de chocolate. Serve de 2 à 4 pessoas.",
+            price: "R$18,00",
+            image: "bersksMix.jpg"
+          }
+        ],
+      }
+    }
+  }
+}
+</script>
+
 <template>
   <header>
     <!--
@@ -11,7 +196,7 @@
     -->
     <section id="header-content">
         <div id="place-image"></div>
-        <div id="place-name">Baierski Burger & Beer</div>
+        <div id="place-name">Baierski Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
           <div id="address-info">Rua de Teste - 296, Floresta, Joinville, SC</div>
@@ -28,117 +213,72 @@
     <p class="navegation-item">Hambúrgueres</p>
     <p class="navegation-item">Hotdogs</p>
     <p class="navegation-item">Porções</p>
-    <p class="navegation-item">Refrigerantes</p>
     <p class="navegation-item">Sucos</p>
-    <p class="navegation-item">Cervejas</p>
     <p class="navegation-item">Outras bebidas</p>
     <p class="navegation-item">Sobremesas</p>
   </section>
   <section id="menu-itens">
 
     <h2 class="menu-category">Hambúrgueres</h2>
-    <div class="menu-item">
+    <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id">
       <div class="item-information">
-        <h3 class="item-name">Salada</h3>
-        <div class="item-description">Pão cervejinha, 1x hambúrguer de 180g de costela, 1,5x queijo mussarela, maionese, molho especial, alface, tomate, cebola roxa e picles. Acompanha ketchup e molho especial separadamente.</div>
-        <div class="item-price">R$20,00</div>
+        <h3 class="item-name">{{ hamburger.name }}</h3>
+        <div class="item-description">{{ hamburger.description }}</div>
+        <div class="item-price">{{ hamburger.price }}</div>
       </div>
-      <img class="item-image" src="../assets/img/itens/salada.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Duplo Cheddar</h3>
-        <div class="item-description">Pão brioche, 2x hambúrguer de 180g de costela, 3 camadas de queijo cheddar, maionese, bacon picadinho. Acompanha ketchup separadamente.</div>
-        <div class="item-price">R$32,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/duploCheddar.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Simples</h3>
-        <div class="item-description">Pão brioche, 1x hambúrguer de 150g de costela, 1x queijo mussarela, maionese, molho especial, alface e tomate.</div>
-        <div class="item-price">R$15,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/simples.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Bersk's Burger</h3>
-        <div class="item-description">Pão brioche, 2x hambúrgueres de 180g de costela, 3 camadas de queijo mussarela, barbecue, maionese, molho especial, alface americana, tomate, cebola picadinha e picles. Acompanha ketchup, barbecue, molho especial e uma porção de batata com cheddar e bacon separadamente.</div>
-        <div class="item-price">R$70,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/bersk.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Intense Burger</h3>
-        <div class="item-description">Pão brioche, 1x hambúrguer de 150g de costela, queijo gorgonzola, cebola roxa crispy, 2x tiras de bacon, molho especial. Acompanha molho especial separadamente.</div>
-        <div class="item-price">R$29,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/intense.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Flipicante</h3>
-        <div class="item-description">Pão australiano, 1x hambúrguer de 200g de linguiça blumenau, queijo gorgonzola e queijo coalho, geléia de pimenta, molho especial, alface e cebola roxa chapeada. Acompanha ketchup, barbecue e molho especial separadamente.</div>
-        <div class="item-price">R$41,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/flipicante.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Queso Caliente</h3>
-        <div class="item-description">Pão brioche, 1x hambúrguer de 150g de costela, queijo empanado, geléia de pimenta, rúcula e tomate. Acompanha molho especial separadamente.</div>
-        <div class="item-price">R$49,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/queso.jpg">
+      <img class="item-image" :src="imagesPath + hamburger.image">
     </div>
 
     <h2 class="menu-category">Hotdogs</h2>
-    <div class="menu-item">
+    <div class="menu-item" v-for="hotdog in menu.hotdogs" :key="hotdog.id">
       <div class="item-information">
-        <h3 class="item-name">Dog Simples</h3>
-        <div class="item-description">Pão 25cm, salsicha, maionese, ketchup e mostarda. Acompanha ketchup e maionese separadamente.</div>
-        <div class="item-price">R$20,00</div>
+        <h3 class="item-name">{{ hotdog.name }}</h3>
+        <div class="item-description">{{ hotdog.description }}</div>
+        <div class="item-price">{{ hotdog.price }}</div>
       </div>
-      <img class="item-image" src="../assets/img/itens/dogsimples.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Dog Cheddar Bacon</h3>
-        <div class="item-description">Pão 25cm, salsicha, maionese, ketchup, cheddar derretido e bacon picadinho. Acompanha ketchup e maionese separadamente.</div>
-        <div class="item-price">R$26,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/dogcheddar.jpg">
-    </div>
-    <div class="menu-item">
-      <div class="item-information">
-        <h3 class="item-name">Chickão</h3>
-        <div class="item-description">Pão 35cm, 4x salsichas, maionese, ketchup, milho, bacon picadinho, frango desfiado, calabresa e molho verde. Acompanha ketchup e maionese separadamente.</div>
-        <div class="item-price">R$40,00</div>
-      </div>
-      <img class="item-image" src="../assets/img/itens/chickao.jpg">
+      <img class="item-image" :src="imagesPath + hotdog.image">
     </div>
 
     <h2 class="menu-category">Porções</h2>
-    <div class="menu-item">
+    <div class="menu-item" v-for="serving in menu.servings" :key="serving.id">
       <div class="item-information">
-        <h3 class="item-name">O Comilão</h3>
-        <div class="item-description">1 kg de batata frita, muito cheddar, 500g de coração de galinha, 500g de frango chapeado, 350g bacon em tiras, 500g de linguiça calabresa, 500g de picanha fatiada. Acompanha salada. Acompanha ketchup e maionese separadamente.</div>
-        <div class="item-price">R$220,00</div>
+        <h3 class="item-name">{{ serving.name }}</h3>
+        <div class="item-description">{{ serving.description }}</div>
+        <div class="item-price">{{ serving.price }}</div>
       </div>
-      <img class="item-image" src="../assets/img/itens/ocomilao.jpg">
+      <img class="item-image" :src="imagesPath + serving.image">
+    </div>
+
+    <h2 class="menu-category">Sucos</h2>
+    <div class="menu-item" v-for="juice in menu.juices" :key="juice.id">
+      <div class="item-information">
+        <h3 class="item-name">{{ juice.name }}</h3>
+        <div class="item-description">{{ juice.description }}</div>
+        <div class="item-price">{{ juice.price }}</div>
+      </div>
+      <img class="item-image" :src="imagesPath + juice.image">
+    </div>
+
+    <h2 class="menu-category">Outras bebidas</h2>
+    <div class="menu-item" v-for="otherDrink in menu.otherDrinks" :key="otherDrink.id">
+      <div class="item-information">
+        <h3 class="item-name">{{ otherDrink.name }}</h3>
+        <div class="item-description">{{ otherDrink.description }}</div>
+        <div class="item-price">{{ otherDrink.price }}</div>
+      </div>
+      <img class="item-image" :src="imagesPath + otherDrink.image">
     </div>
 
     <h2 class="menu-category">Sobremesas</h2>
-    <div class="menu-item">
+    <div class="menu-item" v-for="dessert in menu.desserts" :key="dessert.id">
       <div class="item-information">
-        <h3 class="item-name">Coração Mole</h3>
-        <div class="item-description">Bolo de chocolate utilizando Leite Moça Nestlé, Cacau em pó e granulado. Serve 2 pessoas.</div>
-        <div class="item-price">R$30,00</div>
+        <h3 class="item-name">{{ dessert.name }}</h3>
+        <div class="item-description">{{ dessert.description }}</div>
+        <div class="item-price">{{ dessert.price }}</div>
       </div>
-      <img class="item-image" src="../assets/img/itens/coracaoMole.jpg">
+      <img class="item-image" :src="imagesPath + dessert.image">
     </div>
+
   </section>
 </template>
 
