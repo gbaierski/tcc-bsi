@@ -1,5 +1,10 @@
 <script>
 export default {
+  methods: {
+    scrollTo(section) {
+      this.$refs[section].scrollIntoView({ behavior: 'smooth' });
+    }
+  },
   data() {
     return {
       imagesPath: "src/assets/img/itens/",
@@ -209,17 +214,17 @@ export default {
     </section>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="azure" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
-  <section id="navegation">
-    <p class="navegation-item">Hambúrgueres</p>
-    <p class="navegation-item">Hotdogs</p>
-    <p class="navegation-item">Porções</p>
-    <p class="navegation-item">Sucos</p>
-    <p class="navegation-item">Outras bebidas</p>
-    <p class="navegation-item">Sobremesas</p>
+  <section id="navegation" :class="{ 'fixed-menu': menuFixed }">
+    <p class="navegation-item" @click="scrollTo('hamburgers')">Hambúrgueres</p>
+    <p class="navegation-item" @click="scrollTo('hotdogs')">Hotdogs</p>
+    <p class="navegation-item" @click="scrollTo('servings')">Porções</p>
+    <p class="navegation-item" @click="scrollTo('juices')">Sucos</p>
+    <p class="navegation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
+    <p class="navegation-item" @click="scrollTo('desserts')">Sobremesas</p>
   </section>
   <section id="menu-itens">
 
-    <h2 class="menu-category">Hambúrgueres</h2>
+    <h2 class="menu-category" ref="hamburgers">Hambúrgueres</h2>
     <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id">
       <div class="item-information">
         <h3 class="item-name">{{ hamburger.name }}</h3>
@@ -229,7 +234,7 @@ export default {
       <img class="item-image" :src="imagesPath + hamburger.image">
     </div>
 
-    <h2 class="menu-category">Hotdogs</h2>
+    <h2 class="menu-category" ref="hotdogs">Hotdogs</h2>
     <div class="menu-item" v-for="hotdog in menu.hotdogs" :key="hotdog.id">
       <div class="item-information">
         <h3 class="item-name">{{ hotdog.name }}</h3>
@@ -239,7 +244,7 @@ export default {
       <img class="item-image" :src="imagesPath + hotdog.image">
     </div>
 
-    <h2 class="menu-category">Porções</h2>
+    <h2 class="menu-category" ref="servings">Porções</h2>
     <div class="menu-item" v-for="serving in menu.servings" :key="serving.id">
       <div class="item-information">
         <h3 class="item-name">{{ serving.name }}</h3>
@@ -249,7 +254,7 @@ export default {
       <img class="item-image" :src="imagesPath + serving.image">
     </div>
 
-    <h2 class="menu-category">Sucos</h2>
+    <h2 class="menu-category" ref="juices">Sucos</h2>
     <div class="menu-item" v-for="juice in menu.juices" :key="juice.id">
       <div class="item-information">
         <h3 class="item-name">{{ juice.name }}</h3>
@@ -259,7 +264,7 @@ export default {
       <img class="item-image" :src="imagesPath + juice.image">
     </div>
 
-    <h2 class="menu-category">Outras bebidas</h2>
+    <h2 class="menu-category" ref="otherDrinks">Outras bebidas</h2>
     <div class="menu-item" v-for="otherDrink in menu.otherDrinks" :key="otherDrink.id">
       <div class="item-information">
         <h3 class="item-name">{{ otherDrink.name }}</h3>
@@ -269,7 +274,7 @@ export default {
       <img class="item-image" :src="imagesPath + otherDrink.image">
     </div>
 
-    <h2 class="menu-category">Sobremesas</h2>
+    <h2 class="menu-category" ref="desserts">Sobremesas</h2>
     <div class="menu-item" v-for="dessert in menu.desserts" :key="dessert.id">
       <div class="item-information">
         <h3 class="item-name">{{ dessert.name }}</h3>
@@ -409,6 +414,7 @@ header {
   width: 800px;
   height: 100px;
   padding: 50px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -449,6 +455,7 @@ header {
 .item-image {
   width: 150px;
   height: 150px;
+  border-radius: 5px;
   background-color: $complementary;
 }
 </style>
