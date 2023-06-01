@@ -200,11 +200,11 @@ export default {
       https://www.upscale.media/upload
     -->
     <section id="header-content">
-        <div id="place-image"></div>
-        <div id="place-name">Baierski Burger</div>
+        <img src="src/assets/img/logo.jpg" id="place-image">
+        <div id="place-name">Bersk Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
-          <div id="address-info">Rua de Teste - 296, Floresta, Joinville, SC</div>
+          <div id="address-info">BR-280 - Colégio Agrícola, Araquari - SC, 89245-000</div>
         </div>
         <div id="place-operation">Estabelecimento aberto</div>
         <div id="place-time" class="place-info-box">
@@ -223,7 +223,6 @@ export default {
     <p class="navegation-item" @click="scrollTo('desserts')">Sobremesas</p>
   </section>
   <section id="menu-itens">
-
     <h2 class="menu-category" ref="hamburgers">Hambúrgueres</h2>
     <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id">
       <div class="item-information">
@@ -283,8 +282,8 @@ export default {
       </div>
       <img class="item-image" :src="imagesPath + dessert.image">
     </div>
-
   </section>
+  <footer></footer>
 </template>
 
 <style lang="scss">
@@ -336,7 +335,7 @@ header {
 #place-image {
   width: 120px;
   height: 120px;
-  background-color: $main;
+  border: solid 4px $main;
 }
 
 #place-name {
