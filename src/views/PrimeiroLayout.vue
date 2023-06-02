@@ -1,13 +1,9 @@
 <script>
 export default {
-  methods: {
-    scrollTo(section) {
-      this.$refs[section].scrollIntoView({ behavior: 'smooth' });
-    }
-  },
-  data() {
+    data() {
     return {
-      imagesPath: "src/assets/img/itens/",
+      imagesPath: "src/assets/img/items/",
+      isCartOpen: false,
       menu: {
         hamburgers: [
           {
@@ -15,49 +11,49 @@ export default {
             name: "Salada",
             description: "Pão cervejinha, 1x hambúrguer de 180g de costela, 1,5x queijo mussarela, maionese, molho especial, alface, tomate, cebola roxa e picles. Acompanha ketchup e molho especial separadamente.",
             price: "R$20,00",
-            image: "salada.jpg"
+            image: "salada.webp"
           },
           {
             id: 2,
             name: "Duplo Cheddar",
             description: "Pão brioche, 2x hambúrguer de 180g de costela, 3 camadas de queijo cheddar, maionese, bacon picadinho. Acompanha ketchup separadamente.",
             price: "R$32,00",
-            image: "duploCheddar.jpg"
+            image: "duploCheddar.webp"
           },
           {
             id: 3,
             name: "Simples",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, 1x queijo mussarela, maionese, molho especial, alface e tomate.",
             price: "R$15,00",
-            image: "simples.jpg"
+            image: "simples.webp"
           },
           {
             id: 4,
             name: "Bersk's Burger",
             description: "Pão brioche, 2x hambúrgueres de 180g de costela, 3 camadas de queijo mussarela, barbecue, maionese, molho especial, alface americana, tomate, cebola picadinha e picles. Acompanha ketchup, barbecue, molho especial e uma porção de batata com cheddar e bacon separadamente.",
             price: "R$70,00",
-            image: "bersk.jpg"
+            image: "bersk.webp"
           },
           {
             id: 5,
             name: "Intense Burger",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo gorgonzola, cebola roxa crispy, 2x tiras de bacon, molho especial. Acompanha molho especial separadamente.",
             price: "R$29,00",
-            image: "intense.jpg"
+            image: "intense.webp"
           },
           {
             id: 6,
             name: "Flipicante",
             description: "Pão australiano, 1x hambúrguer de 200g de linguiça blumenau, queijo gorgonzola e queijo coalho, geléia de pimenta, molho especial, alface e cebola roxa chapeada. Acompanha ketchup, barbecue e molho especial separadamente.",
             price: "R$41,00",
-            image: "flipicante.jpg"
+            image: "flipicante.webp"
           },
           {
             id: 7,
             name: "Queso Caliente",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo empanado, geléia de pimenta, rúcula e tomate. Acompanha molho especial separadamente.",
             price: "R$49,00",
-            image: "queso.jpg"
+            image: "queso.webp"
           }
         ],
         hotdogs: [
@@ -66,21 +62,21 @@ export default {
             name: "Dog Simples",
             description: "Pão 25cm, salsicha, maionese, ketchup e mostarda. Acompanha ketchup e maionese separadamente.",
             price: "R$20,00",
-            image: "dogsimples.jpg"
+            image: "dogsimples.webp"
           },
           {
             id: 9,
             name: "Dog Cheddar Bacon",
             description: "Pão 25cm, salsicha, maionese, ketchup, cheddar derretido e bacon picadinho. Acompanha ketchup e maionese separadamente.",
             price: "R$26,00",
-            image: "dogCheddar.jpg"
+            image: "dogCheddar.webp"
           },
           {
             id: 10,
             name: "Chickão",
             description: "Pão 35cm, 4x salsichas, maionese, ketchup, milho, bacon picadinho, frango desfiado, calabresa e molho verde. Acompanha ketchup e maionese separadamente.",
             price: "R$40,00",
-            image: "chickao.jpg"
+            image: "chickao.webp"
           }
         ],
         servings: [
@@ -89,21 +85,21 @@ export default {
             name: "Fritas Simples",
             description: "400g de batata frita, muito cheddar, 100g de bacon.",
             price: "R$25,00",
-            image: "fritasSimples.jpg"
+            image: "fritasSimples.webp"
           },
           {
             id: 12,
             name: "O Comilão",
             description: "1 kg de batata frita, muito cheddar, 500g de coração de galinha, 500g de frango chapeado, 350g bacon em tiras, 500g de linguiça calabresa, 500g de picanha fatiada. Acompanha salada. Acompanha ketchup e maionese separadamente.",
             price: "R$220,00",
-            image: "oComilao.jpg"
+            image: "oComilao.webp"
           },
           {
             id: 13,
             name: "Chicken Nuggets",
             description: "500g de nuggets de frango. Acompanha Ketchup e a maionese especial.",
             price: "R$30,00",
-            image: "nuggets.jpg"
+            image: "nuggets.webp"
           }
         ],
         juices: [
@@ -112,28 +108,28 @@ export default {
             name: "Laranja",
             description: "600ml de suco de laranja natural.",
             price: "R$10,00",
-            image: "sucoLaranja.jpg"
+            image: "sucoLaranja.webp"
           },
           {
             id: 15,
             name: "Uva",
             description: "600ml de suco de uva natural.",
             price: "R$10,00",
-            image: "sucoUva.jpg"
+            image: "sucoUva.webp"
           },
           {
             id: 16,
             name: "Abacaxi com Hortelã",
             description: "600ml de suco de abacaxi com hortelã.",
             price: "R$10,00",
-            image: "sucoAbacaxi.jpg"
+            image: "sucoAbacaxi.webp"
           },
           {
             id: 17,
             name: "Limonada",
             description: "400ml de limonada.",
             price: "R$10,00",
-            image: "sucoLimonada.jpg"
+            image: "sucoLimonada.webp"
           }
         ],
         otherDrinks: [
@@ -142,21 +138,21 @@ export default {
             name: "Refrigerante",
             description: "Refrigerante 2L.",
             price: "R$14,00",
-            image: "refrigerante.jpg"
+            image: "refrigerante.webp"
           },
           {
             id: 19,
             name: "Água com/sem gás",
             description: "700ml de água com ou sem gás.",
             price: "R$4,00",
-            image: "agua.jpg"
+            image: "agua.webp"
           },
           {
             id: 20,
             name: "Caipirinha de vinho",
             description: "400ml de caipirinha de vinho.",
             price: "R$14,00",
-            image: "caipirinhaVinho.jpg"
+            image: "caipirinhaVinho.webp"
           }
         ],
         desserts: [
@@ -165,25 +161,39 @@ export default {
             name: "Coração Mole",
             description: "Bolo de chocolate utilizando leite condensado, cacau em pó e granulado. Serve 2 pessoas.",
             price: "R$30,00",
-            image: "coracaoMole.jpg"
+            image: "coracaoMole.webp"
           },
           {
             id: 22,
             name: "Casquinha",
             description: "Casquinha de sorvete de baunilha com cobertura de chocolate.",
             price: "R$7,00",
-            image: "casquinha.jpg"
+            image: "casquinha.webp"
           },
           {
             id: 22,
             name: "Bersk's Mix",
             description: "Pote de 1L de sorvete de baunilha com cobertura de chocolate e pedaços de chocolate. Serve de 2 à 4 pessoas.",
             price: "R$18,00",
-            image: "bersksMix.jpg"
+            image: "bersksMix.webp"
           }
-        ],
+        ]
       }
     }
+  },
+  methods: {
+    scrollTo(section) {
+      this.$refs[section].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    },
+
+    openCart() {
+      this.isCartOpen = !this.isCartOpen;
+    },
+
+    closeCart() {
+      if(this.isCartOpen)
+        this.isCartOpen = false;
+    },
   }
 }
 </script>
@@ -214,15 +224,60 @@ export default {
     </section>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="azure" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
-  <section id="navegation" :class="{ 'fixed-menu': menuFixed }">
-    <p class="navegation-item" @click="scrollTo('hamburgers')">Hambúrgueres</p>
-    <p class="navegation-item" @click="scrollTo('hotdogs')">Hotdogs</p>
-    <p class="navegation-item" @click="scrollTo('servings')">Porções</p>
-    <p class="navegation-item" @click="scrollTo('juices')">Sucos</p>
-    <p class="navegation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
-    <p class="navegation-item" @click="scrollTo('desserts')">Sobremesas</p>
+  <section id="navigation">
+    <p class="navigation-item" @click="scrollTo('hamburgers')">Hambúrgueres</p>
+    <p class="navigation-item" @click="scrollTo('hotdogs')">Hotdogs</p>
+    <p class="navigation-item" @click="scrollTo('servings')">Porções</p>
+    <p class="navigation-item" @click="scrollTo('juices')">Sucos</p>
+    <p class="navigation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
+    <p class="navigation-item" @click="scrollTo('desserts')">Sobremesas</p>
+    <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="openCart()" :class="{ 'cart-active' : isCartOpen}"/>
+    <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">
+      <h3 id="cart-title">Meu pedido</h3>
+      <div id="cart-items">
+        <div class="cart-item">
+          <img class="cart-item-image" :src="imagesPath + 'salada.webp'">
+          <div class="cart-item-info">
+            <div class="cart-item-name">SALADA</div>
+            <div class="cart-item-price">R$20,00</div>
+            <div class="cart-item-actions">
+              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
+              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-item">
+          <img class="cart-item-image" :src="imagesPath + 'duploCheddar.webp'">
+          <div class="cart-item-info">
+            <div class="cart-item-name">DUPLO CHEDDAR</div>
+            <div class="cart-item-price">R$32,00</div>
+            <div class="cart-item-actions">
+              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
+              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-item">
+          <img class="cart-item-image" :src="imagesPath + 'simples.webp'">
+          <div class="cart-item-info">
+            <div class="cart-item-name">SIMPLES</div>
+            <div class="cart-item-price">R$15,00</div>
+            <div class="cart-item-actions">
+              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
+              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="cart-info">
+        <div id="cart-total-price">TOTAL: R$67,00</div>
+        <button type="button" id="finish-order">Finalizar pedido</button>
+      </div>
+    </nav>
   </section>
-  <section id="menu-itens">
+  <section id="menu-items">
     <h2 class="menu-category" ref="hamburgers">Hambúrgueres</h2>
     <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id">
       <div class="item-information">
@@ -290,7 +345,8 @@ export default {
 
 // SCSS Variables
 $positive: rgb(66, 218, 104);
-$negative: rgb(255, 38, 0);
+$negative: rgb(197, 54, 29);
+$optional: rgb(224, 137, 22);
 $main: azure;
 $contrast: #e8effa;
 $complementary: grey;
@@ -362,9 +418,12 @@ header {
   transform: translateY(-300px);
 }
 
-#navegation {
+#navigation {
   width: 100%;
   height: 70px;
+  z-index: 9999;
+  position: sticky;
+  top: 0;
   background-color: $main;
   box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 25px -5px, rgba(0, 0, 0, 0.01) 0px 10px 10px -5px;
   display: flex;
@@ -372,7 +431,78 @@ header {
   gap: 50px;
 }
 
-#menu-itens {
+#cart-icon {
+  width: 20px;
+  height: 20px;  
+  font-size: 20px;
+  right: 50px;
+  top: 25px;
+  color: $complementary;
+  position: absolute;
+  transition: all 0.2s;
+}
+
+#cart-icon:hover {
+  color: black;
+  transform: translateY(-3px);
+  cursor: pointer;
+}
+
+#cart {
+  width: 400px;
+  margin-top: 70px;
+  right: 50px;
+}
+
+#cart-title {
+  width: 340px;
+  margin-left: 30px;
+  color: $complementary;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  user-select: none;
+}
+
+#cart-items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#cart-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Source Sans Pro", sans-serif;
+  user-select: none;
+  color: $complementary;
+  font-weight: 500;
+  gap: 10px;
+}
+
+#finish-order {
+  padding: 10px 40px 10px 40px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: $complementary;
+  font-family: "Source Sans Pro", sans-serif;
+  color: $main;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+#finish-order:hover {
+  background-color: black;
+  transform: translateY(-3px);
+  cursor: pointer;
+}
+
+#menu-items {
   width: calc(100% - 50px);
   padding: 25px;
   gap: 25px;
@@ -387,14 +517,102 @@ header {
   gap: 5px;
 }
 
-.navegation-item {
+.cart-active {
+  background-color: $contrast;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.dropdown {
+    position: absolute;
+    border-radius: 10px;
+    background-color: $main;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+    transform: scale(1, 0);
+    transition: transform .2s;
+    transform-origin: top;
+}
+
+.dropdown-open {
+    transform: scale(1,1);
+}
+
+.cart-item {
+  width: 340px;
+  padding: 10px 0px 10px 0px;
+  background-color: $contrast;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cart-item-image {
+  width: 80px;
+  height: 80px;
+  opacity: 0.9;
+  border-radius: 10px;
+}
+
+.cart-item-info {
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.cart-item-name {
+  font-size: 15px;
+}
+
+.cart-item-price {
+  font-size: 13px;
+}
+
+.cart-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.cart-item-button {
+  width: 35px;
+  font-size: 13px;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  font-family: "Source Sans Pro", sans-serif;
+  color: $main;
+  font-weight: bold;
+  background-color: $complementary;
+  transition: all 0.2s;
+}
+
+.cart-item-button:hover {
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+.cart-item-edit:hover {
+  background-color: black;
+}
+
+.cart-item-remove:hover {
+  background-color: black;
+}
+
+
+.navigation-item {
   font-size: 20px;
   font-family: "Source Sans Pro", sans-serif;
   color: $complementary;
   transition: all 0.2s;
+  user-select: none;
 }
 
-.navegation-item:hover {
+.navigation-item:hover {
   color: black;
   transform: translateY(-3px);
   cursor: pointer;
