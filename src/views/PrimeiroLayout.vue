@@ -4,6 +4,7 @@ export default {
     return {
       imagesPath: "src/assets/img/items/",
       isCartOpen: false,
+      isItemOpen: false,
       menu: {
         hamburgers: [
           {
@@ -194,6 +195,14 @@ export default {
       if(this.isCartOpen)
         this.isCartOpen = false;
     },
+
+    openItem() {
+      this.isItemOpen = true;
+    },
+
+    closeItem() {
+      this.isItemOpen = false;
+    },
   }
 }
 </script>
@@ -222,6 +231,38 @@ export default {
           <div id="time-info">25 min - 45 min</div>
         </div>
     </section>
+    <section id="options-modal-background" @click="closeItem()" :class="{'options-modal-background-open' : isItemOpen}"></section>
+    <div id="options-modal" :class="{'options-modal-open' : isItemOpen}" >
+      <button type="button" id="modal-back" class="button" @click="closeItem()">VOLTAR</button>
+      <div id="options-modal-item">
+        <img class="item-image-modal" src="../assets/img/items/bersk.webp">
+        <div class="item-information-modal">
+          <h2 class="item-title-modal">Bersk's Burger</h2>
+          <div class="item-description-modal">Pão brioche, 2x hambúrgueres de 180g de costela, 3 camadas de queijo mussarela, barbecue, maionese, molho especial, alface americana, tomate, cebola picadinha e picles. Acompanha ketchup, barbecue, molho especial e uma porção de batata com cheddar e bacon separadamente.</div>
+        </div>
+      </div>
+      <div id="item-additional-modal">
+        <div class="item-additional-box">
+          <h3 class="item-additional-title">Remover</h3>
+          <ul class="item-additional-list">
+            <li>Queijo <div class="item-additional-checkbox item-additional-checked">✔</div></li>
+            <li>Molho  <div class="item-additional-checkbox">✔</div></li>
+            <li>Tomate <div class="item-additional-checkbox">✔</div></li>
+            <li>Cebola <div class="item-additional-checkbox">✔</div></li>
+          </ul>
+        </div>
+        <div class="item-additional-box">
+          <h3 class="item-additional-title">Adicionar</h3>
+          <ul class="item-additional-list">
+            <li>Queijo + R$2,00              <div class="item-additional-checkbox">✔</div></li>
+            <li>Hambúrguer + R$5,00          <div class="item-additional-checkbox item-additional-checked">✔</div></li>
+            <li>Maionese extra + R$3,00      <div class="item-additional-checkbox">✔</div></li>
+            <li>Batata frita extra + R$10,00 <div class="item-additional-checkbox">✔</div></li>
+          </ul>
+        </div>
+      </div>
+      <button type="button" id="modal-add" class="button">ADICIONAR R$70,00</button>
+    </div>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="azure" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
   <section id="navigation">
@@ -273,13 +314,13 @@ export default {
       </div>
       <div id="cart-info">
         <div id="cart-total-price">TOTAL: R$67,00</div>
-        <button type="button" id="finish-order">Finalizar pedido</button>
+        <button type="button" id="finish-order" class="button">FINALIZAR PEDIDO</button>
       </div>
     </nav>
   </section>
   <section id="menu-items">
     <h2 class="menu-category" ref="hamburgers">Hambúrgueres</h2>
-    <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id">
+    <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id" @click="openItem()">
       <div class="item-information">
         <h3 class="item-name">{{ hamburger.name }}</h3>
         <div class="item-description">{{ hamburger.description }}</div>
@@ -411,6 +452,52 @@ header {
   font-weight: bold;
 }
 
+#options-modal-background {
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
+  min-height: 162.5vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: scale(0,0);
+}
+
+#options-modal {
+  position: fixed;
+  margin-top: 15%;
+  z-index: 4;
+  width: 30%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: $main;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: scale(0,0);
+  transition:transform .2s;
+}
+
+#modal-back {
+  width: 200px;
+}
+
+#options-modal-item {
+  display: flex;
+  gap: 20px;
+}
+
+#item-additional-modal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+#modal-add {
+  background-color: black;
+  font-size: 17px;
+}
+
 #wave {
   width: 100%;
   height: 300px;
@@ -421,7 +508,7 @@ header {
 #navigation {
   width: 100%;
   height: 70px;
-  z-index: 9999;
+  z-index: 2;
   position: sticky;
   top: 0;
   background-color: $main;
@@ -484,22 +571,7 @@ header {
 }
 
 #finish-order {
-  padding: 10px 40px 10px 40px;
   margin-bottom: 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: $complementary;
-  font-family: "Source Sans Pro", sans-serif;
-  color: $main;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: all 0.2s;
-}
-
-#finish-order:hover {
-  background-color: black;
-  transform: translateY(-3px);
-  cursor: pointer;
 }
 
 #menu-items {
@@ -515,6 +587,123 @@ header {
 .place-info-box {
   display: flex;
   gap: 5px;
+}
+
+.button {
+  padding: 20px 40px 20px 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: $complementary;
+  font-family: "Source Sans Pro", sans-serif;
+  color: $main;
+  word-spacing: 2px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  background-color: black;
+  transform: translateY(-3px);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+  cursor: pointer;
+}
+
+.options-modal-background-open {
+  transform: scale(1,1) !important;
+}
+
+.options-modal-open {
+  transform: scale(1,1) !important;
+}
+
+.item-image-modal {
+  border-radius: 10px;
+  width: 250px;
+  align-self: center;
+}
+
+.item-title-modal {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: lighter;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.item-description-modal {
+  color: $complementary;
+  font-size: 18px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.item-additional-box {
+  width: 100%;
+  height: 195px;
+  border-radius: 10px;
+  background-color: $contrast;
+}
+
+.item-additional-title {
+  width: 100%;
+  height: 35px;
+  margin: 0px;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 18px;
+  background-color: black;
+  color: $main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: lighter;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.item-additional-list {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.item-additional-list li {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px 0px 15px;
+  font-family: "Source Sans Pro", sans-serif;
+  transition: all 0.2s;
+}
+
+.item-additional-list li:hover {
+  transition:transform .2s;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+}
+
+.item-additional-list li:last-child {
+  border-radius: 0px 0px 10px 10px;
+}
+
+.item-additional-checkbox {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: transparent;
+  background-color: transparent;
+  border: solid 1px $complementary;
+  justify-self: flex-end;
+}
+
+.item-additional-checkbox:hover {
+  cursor: pointer;
+  border: solid 1px black;
+}
+
+.item-additional-checked {
+  cursor: pointer;
+  color: $main !important;
+  border: solid 1px black !important;
+  background-color: black !important;
 }
 
 .cart-active {
@@ -592,15 +781,18 @@ header {
 
 .cart-item-button:hover {
   transform: translateY(-1px);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
   cursor: pointer;
 }
 
 .cart-item-edit:hover {
   background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
 }
 
 .cart-item-remove:hover {
   background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
 }
 
 
