@@ -183,7 +183,7 @@ export default {
             image: "casquinha.webp"
           },
           {
-            id: 22,
+            id: 23,
             name: "Bersk's Mix",
             description: "Pote de 1L de sorvete de baunilha com cobertura de chocolate e pedaços de chocolate. Serve de 2 à 4 pessoas.",
             price: "18,00",
