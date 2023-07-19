@@ -3,10 +3,19 @@ export default {
     data() {
     return {
       imagesPath: "src/assets/img/items/",
+      itemImageUrl: "src/assets/img/items/default.webp",
       isCartOpen: false,
       isItemOpen: false,
       hasAdditional: false,
-      itemImageUrl: "src/assets/img/items/default.webp",
+      activeItem: {
+        id: 0,
+        name: "",
+        description: "",
+        price: "",
+        image: "",
+      },
+      cartList: [],
+      totalPrice: 0,
       menu: {
         hamburgers: [
           {
@@ -198,15 +207,26 @@ export default {
         this.isCartOpen = false;
     },
 
+    preloadImage(url) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = url;
+      });
+    },
+
     async openItem(type, id) { 
       let item = this.menu[type].find(item => item.id === id);
-      document.getElementById("item-title-modal").innerHTML = item.name;
-      document.getElementById("item-description-modal").innerHTML = item.description;
-      document.getElementById("item-price-modal").innerHTML = 'R$' + item.price;
 
-      if(type == 'hamburgers' || type == 'hotdogs') {
+      this.activeItem.id = id;
+      this.activeItem.name = item.name;
+      this.activeItem.description = item.description;
+      this.activeItem.price = item.price;
+      this.activeItem.image = item.image;
+
+      if(type == 'hamburgers' || type == 'hotdogs')
         this.hasAdditional = true;
-      }
       else
         this.hasAdditional = false;
 
@@ -220,18 +240,31 @@ export default {
       }, 200);
     },
 
-    preloadImage(url) {
-      return new Promise((resolve, reject) => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = url;
-      });
-    },
-
     closeItem() {
       this.isItemOpen = false;
       this.itemImageUrl = this.imagesPath + "default.webp";
+    },
+
+    refreshCartPrice() {
+
+      let calculatedPrice = 0;
+      this.cartList.forEach((item) => {
+        calculatedPrice += parseFloat(item.price.replace(",", "."));
+      });
+
+      this.totalPrice = calculatedPrice;
+    },
+
+    addItem() {
+      this.cartList.push({
+        id: this.activeItem.id,
+        name: this.activeItem.name,
+        description: this.activeItem.description,
+        price: this.activeItem.price,
+        image: this.activeItem.image,
+      });
+
+      this.refreshCartPrice();
     },
   }
 }
@@ -267,8 +300,8 @@ export default {
       <div id="options-modal-item">
         <img id="item-image-modal" :src="itemImageUrl">
         <div id="item-information-modal">
-          <h2 id="item-title-modal"></h2>
-          <div id="item-description-modal"></div>
+          <h2 id="item-title-modal">{{ this.activeItem.name }}</h2>
+          <div id="item-description-modal">{{ this.activeItem.description }}</div>
         </div>
       </div>
       <div id="item-additional-modal" :class="{'item-additional-modal-open': hasAdditional}">
@@ -291,7 +324,7 @@ export default {
           </ul>
         </div>
       </div>
-      <button type="button" id="modal-add" class="button">ADICIONAR <div id="item-price-modal"></div></button>
+      <button type="button" id="modal-add" class="button" @click="addItem()">ADICIONAR <div id="item-price-modal">{{ 'R$' + this.activeItem.price }}</div></button>
     </div>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="azure" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
@@ -305,36 +338,13 @@ export default {
     <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="openCart()" :class="{ 'cart-active' : isCartOpen}"/>
     <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">
       <h3 id="cart-title">Meu pedido</h3>
+      <div id="cart-empty-message" v-if="!this.cartList.length">Opa! Seu carrinho está vazio!</div>
       <div id="cart-items">
-        <div class="cart-item">
-          <img class="cart-item-image" :src="imagesPath + 'salada.webp'">
+        <div class="cart-item" v-for="cartItem in this.cartList" :key="cartItem.id">
+          <img class="cart-item-image" :src="imagesPath + cartItem.image">
           <div class="cart-item-info">
-            <div class="cart-item-name">SALADA</div>
-            <div class="cart-item-price">R$20,00</div>
-            <div class="cart-item-actions">
-              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
-              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="cart-item">
-          <img class="cart-item-image" :src="imagesPath + 'duploCheddar.webp'">
-          <div class="cart-item-info">
-            <div class="cart-item-name">DUPLO CHEDDAR</div>
-            <div class="cart-item-price">R$32,00</div>
-            <div class="cart-item-actions">
-              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
-              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="cart-item">
-          <img class="cart-item-image" :src="imagesPath + 'simples.webp'">
-          <div class="cart-item-info">
-            <div class="cart-item-name">SIMPLES</div>
-            <div class="cart-item-price">R$15,00</div>
+            <div class="cart-item-name">{{ cartItem.name }}</div>
+            <div class="cart-item-price">R$ {{ cartItem.price }}</div>
             <div class="cart-item-actions">
               <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
               <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
@@ -343,7 +353,7 @@ export default {
         </div>
       </div>
       <div id="cart-info">
-        <div id="cart-total-price">TOTAL: R$67,00</div>
+        <div id="cart-total-price">TOTAL: {{'R$' + this.totalPrice + ',00'}}</div>
         <button type="button" id="finish-order" class="button">FINALIZAR PEDIDO</button>
       </div>
     </nav>
@@ -596,6 +606,16 @@ header {
   text-align: left;
   font-family: "Source Sans Pro", sans-serif;
   user-select: none;
+}
+
+#cart-empty-message {
+  width: 100%;
+  height: 80px;
+  color: $complementary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 #cart-items {
