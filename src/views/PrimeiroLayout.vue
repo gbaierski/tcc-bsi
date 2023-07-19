@@ -5,7 +5,6 @@ export default {
       imagesPath: "src/assets/img/items/",
       isCartOpen: false,
       isItemOpen: false,
-      isImageLoaded: false,
       hasAdditional: false,
       itemImageUrl: "src/assets/img/items/default.webp",
       menu: {
@@ -207,7 +206,6 @@ export default {
 
       if(type == 'hamburgers' || type == 'hotdogs') {
         this.hasAdditional = true;
-        console.log('sim');
       }
       else
         this.hasAdditional = false;
@@ -219,7 +217,6 @@ export default {
 
       setTimeout(() => {
         this.itemImageUrl = preloadedImage.src;
-        this.isImageLoaded = true;
       }, 200);
     },
 
@@ -268,7 +265,7 @@ export default {
     <div id="options-modal" :class="{'options-modal-open' : isItemOpen}" >
       <button type="button" id="modal-back" class="button" @click="closeItem()">VOLTAR</button>
       <div id="options-modal-item">
-        <img id="item-image-modal" v-if="isImageLoaded" :src="itemImageUrl">
+        <img id="item-image-modal" :src="itemImageUrl">
         <div id="item-information-modal">
           <h2 id="item-title-modal"></h2>
           <div id="item-description-modal"></div>
