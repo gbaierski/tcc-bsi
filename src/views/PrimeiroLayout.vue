@@ -16,6 +16,7 @@ export default {
       },
       cartList: [],
       totalPrice: 0,
+      cartCount: 0,
       menu: {
         hamburgers: [
           {
@@ -246,7 +247,6 @@ export default {
     },
 
     refreshCartPrice() {
-
       let calculatedPrice = 0;
       this.cartList.forEach((item) => {
         calculatedPrice += parseFloat(item.price.replace(",", "."));
@@ -265,11 +265,13 @@ export default {
       });
 
       this.refreshCartPrice();
+      this.cartCount++;
     },
 
     removeItem(item) {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
+      this.cartCount--;
     }
   }
 }
@@ -341,6 +343,7 @@ export default {
     <p class="navigation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
     <p class="navigation-item" @click="scrollTo('desserts')">Sobremesas</p>
     <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="openCart()" :class="{ 'cart-active' : isCartOpen}"/>
+    <div id="cart-item-count" v-if="this.cartList.length" :class="{ 'cart-item-count-active' : isCartOpen}">{{ this.cartCount }}</div>
     <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">
       <h3 id="cart-title">Meu pedido</h3>
       <div id="cart-empty-message" v-if="!this.cartList.length">Opa! Seu carrinho está vazio!</div>
@@ -582,11 +585,11 @@ header {
 }
 
 #cart-icon {
-  width: 20px;
-  height: 20px;  
-  font-size: 20px;
+  width: 30px;
+  height: 30px;  
+  font-size: 30px;
   right: 50px;
-  top: 25px;
+  top: 15px;
   color: $complementary;
   position: absolute;
   transition: all 0.2s;
@@ -594,8 +597,24 @@ header {
 
 #cart-icon:hover {
   color: black;
-  transform: translateY(-3px);
   cursor: pointer;
+}
+
+#cart-item-count {
+  width: 15px;
+  height: 15px;
+  font-size: 13px;
+  right: 45px;
+  top: 15px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: $negative;
+  color: $main;
+  font-family: "Source Sans Pro", sans-serif;
+  transition: all 0.2s;
 }
 
 #cart {
@@ -768,6 +787,10 @@ header {
   background-color: $contrast;
   padding: 10px;
   border-radius: 10px;
+}
+
+.cart-item-count-active {
+  transform: translate(-10px, 10px);
 }
 
 .dropdown {
