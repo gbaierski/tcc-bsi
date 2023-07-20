@@ -266,6 +266,11 @@ export default {
 
       this.refreshCartPrice();
     },
+
+    removeItem(item) {
+      this.cartList.splice(item, 1);
+      this.refreshCartPrice();
+    }
   }
 }
 </script>
@@ -340,14 +345,14 @@ export default {
       <h3 id="cart-title">Meu pedido</h3>
       <div id="cart-empty-message" v-if="!this.cartList.length">Opa! Seu carrinho está vazio!</div>
       <div id="cart-items">
-        <div class="cart-item" v-for="cartItem in this.cartList" :key="cartItem.id">
+        <div class="cart-item" v-for="(cartItem, index) in this.cartList" :key="cartItem.id">
           <img class="cart-item-image" :src="imagesPath + cartItem.image">
           <div class="cart-item-info">
             <div class="cart-item-name">{{ cartItem.name }}</div>
             <div class="cart-item-price">R$ {{ cartItem.price }}</div>
             <div class="cart-item-actions">
               <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
-              <button type="button" class="cart-item-button cart-item-remove"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
+              <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
             </div>
           </div>
         </div>
