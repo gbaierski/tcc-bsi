@@ -313,7 +313,7 @@ export default {
           name: item.name,
           price: type === 'add' ? item.price : 0
         });
-      } else if (!item.checked && index !== -1) {
+      } else {
         this.activeItem.additional[type].splice(index, 1);
       }
 
