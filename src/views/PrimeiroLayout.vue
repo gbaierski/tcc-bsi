@@ -7,12 +7,31 @@ export default {
       isCartOpen: false,
       isItemOpen: false,
       hasAdditional: false,
+      additionalItems: {
+        remove: [
+          { id: 1, name: "Queijo", checked: false },
+          { id: 2, name: "Molho", checked: false },
+          { id: 3, name: "Tomate", checked: false },
+          { id: 4, name: "Cebola", checked: false },
+        ],
+        add: [
+          { id: 1, name: "Queijo", price: 2, checked: false },
+          { id: 2, name: "Hambúrguer", price: 5, checked: false },
+          { id: 3, name: "Maionese extra", price: 3, checked: false },
+          { id: 4, name: "Batata frita extra", price: 10, checked: false },
+        ],
+      },
       activeItem: {
         id: 0,
         name: "",
         description: "",
         price: "",
+        totalPrice: "",
         image: "",
+        additional: {
+          remove: [],
+          add: [],
+        },
       },
       cartList: [],
       totalPrice: 0,
@@ -23,49 +42,49 @@ export default {
             id: 1,
             name: "Salada",
             description: "Pão cervejinha, 1x hambúrguer de 180g de costela, 1,5x queijo mussarela, maionese, molho especial, alface, tomate, cebola roxa e picles. Acompanha ketchup e molho especial separadamente.",
-            price: "20,00",
+            price: 20,
             image: "salada.webp"
           },
           {
             id: 2,
             name: "Duplo Cheddar",
             description: "Pão brioche, 2x hambúrguer de 180g de costela, 3 camadas de queijo cheddar, maionese, bacon picadinho. Acompanha ketchup separadamente.",
-            price: "32,00",
+            price: 32,
             image: "duploCheddar.webp"
           },
           {
             id: 3,
             name: "Simples",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, 1x queijo mussarela, maionese, molho especial, alface e tomate.",
-            price: "15,00",
+            price: 15,
             image: "simples.webp"
           },
           {
             id: 4,
             name: "Bersk's Burger",
             description: "Pão brioche, 2x hambúrgueres de 180g de costela, 3 camadas de queijo mussarela, barbecue, maionese, molho especial, alface americana, tomate, cebola picadinha e picles. Acompanha ketchup, barbecue, molho especial e uma porção de batata com cheddar e bacon separadamente.",
-            price: "70,00",
+            price: 70,
             image: "bersk.webp"
           },
           {
             id: 5,
             name: "Intense Burger",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo gorgonzola, cebola roxa crispy, 2x tiras de bacon, molho especial. Acompanha molho especial separadamente.",
-            price: "29,00",
+            price: 29,
             image: "intense.webp"
           },
           {
             id: 6,
             name: "Flipicante",
             description: "Pão australiano, 1x hambúrguer de 200g de linguiça blumenau, queijo gorgonzola e queijo coalho, geléia de pimenta, molho especial, alface e cebola roxa chapeada. Acompanha ketchup, barbecue e molho especial separadamente.",
-            price: "41,00",
+            price: 41,
             image: "flipicante.webp"
           },
           {
             id: 7,
             name: "Queso Caliente",
             description: "Pão brioche, 1x hambúrguer de 150g de costela, queijo empanado, geléia de pimenta, rúcula e tomate. Acompanha molho especial separadamente.",
-            price: "49,00",
+            price: 49,
             image: "queso.webp"
           }
         ],
@@ -74,21 +93,21 @@ export default {
             id: 8,
             name: "Dog Simples",
             description: "Pão 25cm, salsicha, maionese, ketchup e mostarda. Acompanha ketchup e maionese separadamente.",
-            price: "20,00",
+            price: 20,
             image: "dogsimples.webp"
           },
           {
             id: 9,
             name: "Dog Cheddar Bacon",
             description: "Pão 25cm, salsicha, maionese, ketchup, cheddar derretido e bacon picadinho. Acompanha ketchup e maionese separadamente.",
-            price: "26,00",
+            price: 26,
             image: "dogCheddar.webp"
           },
           {
             id: 10,
             name: "Chickão",
             description: "Pão 35cm, 4x salsichas, maionese, ketchup, milho, bacon picadinho, frango desfiado, calabresa e molho verde. Acompanha ketchup e maionese separadamente.",
-            price: "40,00",
+            price: 40,
             image: "chickao.webp"
           }
         ],
@@ -97,21 +116,21 @@ export default {
             id: 11,
             name: "Fritas Simples",
             description: "400g de batata frita, muito cheddar, 100g de bacon.",
-            price: "25,00",
+            price: 25,
             image: "fritasSimples.webp"
           },
           {
             id: 12,
             name: "O Comilão",
             description: "1 kg de batata frita, muito cheddar, 500g de coração de galinha, 500g de frango chapeado, 350g bacon em tiras, 500g de linguiça calabresa, 500g de picanha fatiada. Acompanha salada. Acompanha ketchup e maionese separadamente.",
-            price: "220,00",
+            price: 220,
             image: "oComilao.webp"
           },
           {
             id: 13,
             name: "Chicken Nuggets",
             description: "500g de nuggets de frango. Acompanha Ketchup e a maionese especial.",
-            price: "30,00",
+            price: 30,
             image: "nuggets.webp"
           }
         ],
@@ -120,28 +139,28 @@ export default {
             id: 14,
             name: "Laranja",
             description: "600ml de suco de laranja natural.",
-            price: "10,00",
+            price: 10,
             image: "sucoLaranja.webp"
           },
           {
             id: 15,
             name: "Uva",
             description: "600ml de suco de uva natural.",
-            price: "10,00",
+            price: 10,
             image: "sucoUva.webp"
           },
           {
             id: 16,
             name: "Abacaxi com Hortelã",
             description: "600ml de suco de abacaxi com hortelã.",
-            price: "10,00",
+            price: 10,
             image: "sucoAbacaxi.webp"
           },
           {
             id: 17,
             name: "Limonada",
             description: "400ml de limonada.",
-            price: "10,00",
+            price: 10,
             image: "sucoLimonada.webp"
           }
         ],
@@ -150,21 +169,21 @@ export default {
             id: 18,
             name: "Refrigerante",
             description: "Refrigerante 2L.",
-            price: "14,00",
+            price: 14,
             image: "refrigerante.webp"
           },
           {
             id: 19,
             name: "Água com/sem gás",
             description: "700ml de água com ou sem gás.",
-            price: "4,00",
+            price: 4,
             image: "agua.webp"
           },
           {
             id: 20,
             name: "Caipirinha de vinho",
             description: "400ml de caipirinha de vinho.",
-            price: "14,00",
+            price: 14,
             image: "caipirinhaVinho.webp"
           }
         ],
@@ -173,21 +192,21 @@ export default {
             id: 21,
             name: "Coração Mole",
             description: "Bolo de chocolate utilizando leite condensado, cacau em pó e granulado. Serve 2 pessoas.",
-            price: "30,00",
+            price: 30,
             image: "coracaoMole.webp"
           },
           {
             id: 22,
             name: "Casquinha",
             description: "Casquinha de sorvete de baunilha com cobertura de chocolate.",
-            price: "7,00",
+            price: 7,
             image: "casquinha.webp"
           },
           {
             id: 23,
             name: "Bersk's Mix",
             description: "Pote de 1L de sorvete de baunilha com cobertura de chocolate e pedaços de chocolate. Serve de 2 à 4 pessoas.",
-            price: "18,00",
+            price: 18,
             image: "bersksMix.webp"
           }
         ]
@@ -224,6 +243,7 @@ export default {
       this.activeItem.name = item.name;
       this.activeItem.description = item.description;
       this.activeItem.price = item.price;
+      this.activeItem.totalPrice = item.price;
       this.activeItem.image = item.image;
 
       if(type == 'hamburgers' || type == 'hotdogs')
@@ -246,10 +266,19 @@ export default {
       this.itemImageUrl = this.imagesPath + "default.webp";
     },
 
+    refreshItemPrice() {
+      let calculatedPrice = this.activeItem.price;
+      this.activeItem.additional.add.forEach((item) => {
+        calculatedPrice += item.price;
+      });
+
+      this.activeItem.totalPrice = calculatedPrice;
+    },
+
     refreshCartPrice() {
       let calculatedPrice = 0;
       this.cartList.forEach((item) => {
-        calculatedPrice += parseFloat(item.price.replace(",", "."));
+        calculatedPrice += item.price;
       });
 
       this.totalPrice = calculatedPrice;
@@ -272,7 +301,24 @@ export default {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
       this.cartCount--;
-    }
+    },
+
+    checkAdditional(item, type) {
+      item.checked = !item.checked;
+      let index = this.activeItem.additional[type].findIndex((el) => el.id === item.id);
+
+      if(item.checked && index === -1) {
+        this.activeItem.additional[type].push({
+          id: item.id,
+          name: item.name,
+          price: type === 'add' ? item.price : 0
+        });
+      } else if (!item.checked && index !== -1) {
+        this.activeItem.additional[type].splice(index, 1);
+      }
+
+      this.refreshItemPrice();
+    },
   }
 }
 </script>
@@ -315,23 +361,21 @@ export default {
         <div class="item-additional-box">
           <h3 class="item-additional-title">Remover</h3>
           <ul class="item-additional-list">
-            <li>Queijo <div class="item-additional-checkbox item-additional-checked">✔</div></li>
-            <li>Molho  <div class="item-additional-checkbox">✔</div></li>
-            <li>Tomate <div class="item-additional-checkbox">✔</div></li>
-            <li>Cebola <div class="item-additional-checkbox">✔</div></li>
+            <li v-for="(itemRemove, index) in this.additionalItems.remove" :key="index"> {{ itemRemove.name }}
+              <div class="item-additional-checkbox" :class="['item-additional-checkbox', { 'item-additional-checked': itemRemove.checked }]" @click="checkAdditional(itemRemove, 'remove')">✔</div>
+            </li>
           </ul>
         </div>
         <div class="item-additional-box">
           <h3 class="item-additional-title">Adicionar</h3>
           <ul class="item-additional-list">
-            <li>Queijo + R$2,00              <div class="item-additional-checkbox">✔</div></li>
-            <li>Hambúrguer + R$5,00          <div class="item-additional-checkbox item-additional-checked">✔</div></li>
-            <li>Maionese extra + R$3,00      <div class="item-additional-checkbox">✔</div></li>
-            <li>Batata frita extra + R$10,00 <div class="item-additional-checkbox">✔</div></li>
+            <li v-for="(itemAdd, index) in this.additionalItems.add" :key="index"> {{ itemAdd.name }} + R${{ itemAdd.price + ',00'}}
+              <div class="item-additional-checkbox" :class="['item-additional-checkbox', { 'item-additional-checked': itemAdd.checked }]" @click="checkAdditional(itemAdd, 'add')">✔</div>
+            </li>
           </ul>
         </div>
       </div>
-      <button type="button" id="modal-add" class="button" @click="addItem()">ADICIONAR <div id="item-price-modal">{{ 'R$' + this.activeItem.price }}</div></button>
+      <button type="button" id="modal-add" class="button" @click="addItem()">ADICIONAR <div id="item-price-modal">{{ 'R$' + this.activeItem.totalPrice + ',00'}}</div></button>
     </div>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="azure" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
@@ -352,7 +396,7 @@ export default {
           <img class="cart-item-image" :src="imagesPath + cartItem.image">
           <div class="cart-item-info">
             <div class="cart-item-name">{{ cartItem.name }}</div>
-            <div class="cart-item-price">R$ {{ cartItem.price }}</div>
+            <div class="cart-item-price">R$ {{ cartItem.price + ',00'}}</div>
             <div class="cart-item-actions">
               <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
               <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
@@ -372,7 +416,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ hamburger.name }}</h3>
         <div class="item-description">{{ hamburger.description }}</div>
-        <div class="item-price">{{ 'R$' + hamburger.price }}</div>
+        <div class="item-price">{{ 'R$' + hamburger.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + hamburger.image">
     </div>
@@ -382,7 +426,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ hotdog.name }}</h3>
         <div class="item-description">{{ hotdog.description }}</div>
-        <div class="item-price">{{ 'R$' + hotdog.price }}</div>
+        <div class="item-price">{{ 'R$' + hotdog.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + hotdog.image">
     </div>
@@ -392,7 +436,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ serving.name }}</h3>
         <div class="item-description">{{ serving.description }}</div>
-        <div class="item-price">{{ 'R$' + serving.price }}</div>
+        <div class="item-price">{{ 'R$' + serving.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + serving.image">
     </div>
@@ -402,7 +446,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ juice.name }}</h3>
         <div class="item-description">{{ juice.description }}</div>
-        <div class="item-price">{{ 'R$' + juice.price }}</div>
+        <div class="item-price">{{ 'R$' + juice.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + juice.image">
     </div>
@@ -412,7 +456,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ otherDrink.name }}</h3>
         <div class="item-description">{{ otherDrink.description }}</div>
-        <div class="item-price">{{ 'R$' + otherDrink.price }}</div>
+        <div class="item-price">{{ 'R$' + otherDrink.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + otherDrink.image">
     </div>
@@ -422,7 +466,7 @@ export default {
       <div class="item-information">
         <h3 class="item-name">{{ dessert.name }}</h3>
         <div class="item-description">{{ dessert.description }}</div>
-        <div class="item-price">{{ 'R$' + dessert.price }}</div>
+        <div class="item-price">{{ 'R$' + dessert.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + dessert.image">
     </div>
