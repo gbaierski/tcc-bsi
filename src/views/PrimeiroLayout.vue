@@ -286,6 +286,8 @@ export default {
     },
 
     addItem() {
+      let additionalCopy = JSON.parse(JSON.stringify(this.activeItem.additional));
+
       this.cartList.push({
         id: this.activeItem.id,
         name: this.activeItem.name,
@@ -293,7 +295,7 @@ export default {
         price: this.activeItem.price,
         totalPrice: this.activeItem.totalPrice,
         image: this.activeItem.image,
-        additional: this.activeItem.additional,
+        additional: additionalCopy,
       });
 
       this.refreshCartPrice();
@@ -411,9 +413,17 @@ export default {
         <div class="cart-item" v-for="(cartItem, index) in this.cartList" :key="cartItem.id">
           <img class="cart-item-image" :src="imagesPath + cartItem.image">
           <div class="cart-item-info">
-            <div class="cart-item-name">{{ cartItem.name }}</div>
-            <div class="cart-item-price">R$ {{ cartItem.price + ',00'}}</div>
-            <div class="cart-item-actions">
+            <div class="cart-item-name">{{ cartItem.name }}<div class="cart-item-price">{{'R$' + cartItem.price + ',00'}}</div></div>
+            <div class="cart-item-additional">
+              <ul class="cart-item-additional-list cart-item-additional-remove">
+                <li v-for="removeItem in this.cartList[index].additional.remove" :key="removeItem.id">{{ removeItem.name }}</li>
+              </ul>
+              <ul class="cart-item-additional-list cart-item-additional-add">
+                <li v-for="addItem in this.cartList[index].additional.add" :key="addItem.id">{{ addItem.name }}<div class="cart-item-add-price">{{'R$' + addItem.price + ',00'}}</div></li>
+              </ul>
+            </div>
+            <div class="cart-item-total" v-if="this.cartList[index].additional.add.length">Total do item:<div class="cart-item-total-price">{{'R$' + this.cartList[index].totalPrice + ',00'}}</div></div>
+            <div  class="cart-item-actions">
               <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
               <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
             </div>
@@ -873,7 +883,8 @@ header {
   background-color: $contrast;
   border-radius: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
 }
 
 .cart-item-image {
@@ -884,19 +895,74 @@ header {
 }
 
 .cart-item-info {
-  width: 210px;
+  width: 200px;
   display: flex;
+  justify-content: center;
+  align-items: flex-end;
   flex-direction: column;
   gap: 2px;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .cart-item-name {
+  width: 100%;
+  font-size: 18px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-item-additional {
+  width: 100%;
+}
+
+.cart-item-additional-list {
+  padding: 0px;
+  margin: 0px;
+}
+
+.cart-item-additional-list li {
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-item-additional-remove {
+  list-style-type: none;
+  text-decoration: line-through;
+  color: $complementary;
+}
+
+.cart-item-additional-remove li{
+  align-self: flex-start;
+}
+
+.cart-item-additional-add {
+  color: $complementary;
+}
+
+.cart-item-add-price {
+  width: 60px;
+}
+
+.cart-item-total {
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-item-total-price {
+  width: 60px;
   font-size: 15px;
 }
 
 .cart-item-price {
-  font-size: 13px;
+  width: 60px;
+  font-size: 15px;
 }
 
 .cart-item-actions {
@@ -904,7 +970,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   gap: 5px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .cart-item-button {
