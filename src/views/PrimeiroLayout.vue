@@ -262,6 +262,7 @@ export default {
     },
 
     closeItem() {
+      this.resetAdditionalChecks();
       this.isItemOpen = false;
       this.itemImageUrl = this.imagesPath + "default.webp";
     },
@@ -278,7 +279,7 @@ export default {
     refreshCartPrice() {
       let calculatedPrice = 0;
       this.cartList.forEach((item) => {
-        calculatedPrice += item.price;
+        calculatedPrice += item.totalPrice;
       });
 
       this.totalPrice = calculatedPrice;
@@ -290,7 +291,9 @@ export default {
         name: this.activeItem.name,
         description: this.activeItem.description,
         price: this.activeItem.price,
+        totalPrice: this.activeItem.totalPrice,
         image: this.activeItem.image,
+        additional: this.activeItem.additional,
       });
 
       this.refreshCartPrice();
@@ -318,6 +321,19 @@ export default {
       }
 
       this.refreshItemPrice();
+    },
+
+    resetAdditionalChecks() {
+      this.additionalItems.remove.forEach((item) => {
+        item.checked = false;
+      });
+
+      this.additionalItems.add.forEach((item) => {
+        item.checked = false;
+      });
+
+      this.activeItem.additional.remove.splice(0);
+      this.activeItem.additional.add.splice(0);
     },
   }
 }
