@@ -23,6 +23,7 @@ export default {
       },
       activeItem: {
         id: 0,
+        type: "",
         name: "",
         description: "",
         price: "",
@@ -236,10 +237,11 @@ export default {
       });
     },
 
-    async openItem(type, id) { 
+    async openItem(type, id, edit = false, additional = false) { 
       let item = this.menu[type].find(item => item.id === id);
 
       this.activeItem.id = id;
+      this.activeItem.type = type;
       this.activeItem.name = item.name;
       this.activeItem.description = item.description;
       this.activeItem.price = item.price;
@@ -250,6 +252,26 @@ export default {
         this.hasAdditional = true;
       else
         this.hasAdditional = false;
+
+      if(edit && additional) {
+        this.activeItem.additional = JSON.parse(JSON.stringify(additional));
+
+        this.activeItem.additional.remove.forEach(item => {
+          let correspondingItem = this.additionalItems.remove.find(
+            additionalItem => additionalItem.id === item.id
+          );
+          if (correspondingItem)
+            correspondingItem.checked = true;
+        });
+
+        this.activeItem.additional.add.forEach(item => {
+          let correspondingItem = this.additionalItems.add.find(
+            additionalItem => additionalItem.id === item.id
+          );
+          if (correspondingItem)
+            correspondingItem.checked = true;
+        });
+      }
 
       // Pré-carrega a imagem e aguarda o carregamento completo
       const preloadedImage = await this.preloadImage(this.imagesPath + item.image);
@@ -296,6 +318,7 @@ export default {
         totalPrice: this.activeItem.totalPrice,
         image: this.activeItem.image,
         additional: additionalCopy,
+        type: this.activeItem.type,
       });
 
       this.refreshCartPrice();
@@ -306,6 +329,10 @@ export default {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
       this.cartCount--;
+    },
+
+    editItem(item) {
+      this.openItem(this.cartList[item].type, this.cartList[item].id, true, this.cartList[item].additional)
     },
 
     checkAdditional(item, type) {
@@ -424,7 +451,7 @@ export default {
             </div>
             <div class="cart-item-total" v-if="this.cartList[index].additional.add.length">Total do item:<div class="cart-item-total-price">{{'R$' + this.cartList[index].totalPrice + ',00'}}</div></div>
             <div  class="cart-item-actions">
-              <button type="button" class="cart-item-button cart-item-edit"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
+              <button type="button" class="cart-item-button cart-item-edit" @click="editItem(index)"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
               <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
             </div>
           </div>
