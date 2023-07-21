@@ -339,10 +339,10 @@ export default {
           additional: additionalCopy,
           type: this.activeItem.type,
         });
+        this.cartCount++;
       }
 
       this.refreshCartPrice();
-      this.cartCount++;
       this.closeItem();
     },
 
