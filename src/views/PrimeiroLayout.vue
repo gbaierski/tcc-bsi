@@ -16,8 +16,8 @@ export default {
           { id: 4, name: "Cebola", checked: false },
         ],
         add: [
-          { id: 1, name: "Queijo", price: 2, checked: false },
-          { id: 2, name: "Hambúrguer", price: 5, checked: false },
+          { id: 1, name: "Queijo extra", price: 2, checked: false },
+          { id: 2, name: "Barbecue extra", price: 2, checked: false },
           { id: 3, name: "Maionese extra", price: 3, checked: false },
           { id: 4, name: "Batata frita extra", price: 10, checked: false },
         ],
