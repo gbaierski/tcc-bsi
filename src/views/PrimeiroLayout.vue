@@ -34,6 +34,7 @@ export default {
           remove: [],
           add: [],
         },
+        index: false,
       },
       cartList: [],
       totalPrice: 0,
@@ -238,7 +239,7 @@ export default {
       });
     },
 
-    async openItem(type, id, edit = false, additional = false) { 
+    async openItem(type, id, edit = false, additional = false, index = false) { 
       let item = this.menu[type].find(item => item.id === id);
 
       this.activeItem.id = id;
@@ -248,6 +249,7 @@ export default {
       this.activeItem.price = item.price;
       this.activeItem.totalPrice = item.price;
       this.activeItem.image = item.image;
+      this.activeItem.index = index;
 
       if(type == 'hamburgers' || type == 'hotdogs')
         this.hasAdditional = true;
@@ -315,16 +317,29 @@ export default {
     addItem() {
       let additionalCopy = JSON.parse(JSON.stringify(this.activeItem.additional));
 
-      this.cartList.push({
-        id: this.activeItem.id,
-        name: this.activeItem.name,
-        description: this.activeItem.description,
-        price: this.activeItem.price,
-        totalPrice: this.activeItem.totalPrice,
-        image: this.activeItem.image,
-        additional: additionalCopy,
-        type: this.activeItem.type,
-      });
+      if(this.activeItem.index !== false) {
+        this.cartList[this.activeItem.index] = {
+          id: this.activeItem.id,
+          name: this.activeItem.name,
+          description: this.activeItem.description,
+          price: this.activeItem.price,
+          totalPrice: this.activeItem.totalPrice,
+          image: this.activeItem.image,
+          additional: additionalCopy,
+          type: this.activeItem.type,
+        }
+      } else {
+        this.cartList.push({
+          id: this.activeItem.id,
+          name: this.activeItem.name,
+          description: this.activeItem.description,
+          price: this.activeItem.price,
+          totalPrice: this.activeItem.totalPrice,
+          image: this.activeItem.image,
+          additional: additionalCopy,
+          type: this.activeItem.type,
+        });
+      }
 
       this.refreshCartPrice();
       this.cartCount++;
@@ -338,7 +353,7 @@ export default {
     },
 
     editItem(item) {
-      this.openItem(this.cartList[item].type, this.cartList[item].id, true, this.cartList[item].additional)
+      this.openItem(this.cartList[item].type, this.cartList[item].id, true, this.cartList[item].additional, item)
     },
 
     checkAdditional(item, type) {
