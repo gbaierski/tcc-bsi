@@ -2,6 +2,10 @@
 export default {
     data() {
     return {
+      isAlertOpen: false,
+      alertType: "error",
+      alertMessage: "Erro desconhecido!",
+      alertTimeout: 0,
       imagesPath: "src/assets/img/items/",
       itemImageUrl: "src/assets/img/items/default.webp",
       isCartOpen: false,
@@ -217,12 +221,29 @@ export default {
     }
   },
   methods: {
+    alert(type, message) {
+      this.alertType = type;
+      this.alertMessage = message;
+      this.isAlertOpen = true;
+
+      if (this.alertTimeout)
+        clearTimeout(this.alertTimeout);
+
+      this.alertTimeout = setTimeout(() => {
+        this.isAlertOpen = false;
+      }, 2000);
+    },
+
     scrollTo(section) {
       this.$refs[section].scrollIntoView({ behavior: 'smooth', block: 'center' });
     },
 
-    openCart() {
+    toggleCart() {
       this.isCartOpen = !this.isCartOpen;
+    },
+
+    openCart() {
+      this.isCartOpen = true;
     },
 
     closeCart() {
@@ -328,6 +349,7 @@ export default {
           additional: additionalCopy,
           type: this.activeItem.type,
         }
+        this.alert('success', 'Item atualizado!');
       } else {
         this.cartList.push({
           id: this.activeItem.id,
@@ -340,8 +362,11 @@ export default {
           type: this.activeItem.type,
         });
         this.cartCount++;
+
+        this.alert('success', 'Item adicionado ao carrinho!');
       }
 
+      this.openCart();
       this.refreshCartPrice();
       this.closeItem();
     },
@@ -350,6 +375,9 @@ export default {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
       this.cartCount--;
+
+      if(this.cartCount == 0)
+        this.alert('info', 'Seu carrinho está vazio!');
     },
 
     editItem(item) {
@@ -385,7 +413,17 @@ export default {
       this.activeItem.additional.remove.splice(0);
       this.activeItem.additional.add.splice(0);
     },
-  }
+  },
+  computed: {
+    alertClasses: function() {
+      return {
+        'alert-open': this.isAlertOpen,
+        'alert-success': this.alertType === 'success',
+        'alert-info': this.alertType === 'info',
+        'alert-error': this.alertType === 'error',
+      };
+    },
+  },
 }
 </script>
 
@@ -400,6 +438,15 @@ export default {
       https://unsplash.com/s/photos/burger
       https://www.upscale.media/upload
     -->
+    <div id="alert" :class="alertClasses">
+      <div id="alert-border"></div>
+      <div id="alert-text">
+        <font-awesome-icon v-if="alertType === 'error'" :icon="['fas', 'circle-xmark']" class="alert-icon"/>
+        <font-awesome-icon v-else-if="alertType === 'info'" :icon="['fas', 'circle-exclamation']" class="alert-icon"/>
+        <font-awesome-icon v-else-if="alertType === 'success'" :icon="['fas', 'circle-check']" class="alert-icon"/>
+        <div id="alert-message">{{ this.alertMessage }}</div>
+      </div>
+    </div>
     <section id="header-content">
         <img src="src/assets/img/logo.jpg" id="place-image">
         <div id="place-name">Bersk Burger</div>
@@ -452,7 +499,7 @@ export default {
     <p class="navigation-item" @click="scrollTo('juices')">Sucos</p>
     <p class="navigation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
     <p class="navigation-item" @click="scrollTo('desserts')">Sobremesas</p>
-    <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="openCart()" :class="{ 'cart-active' : isCartOpen}"/>
+    <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="toggleCart()" :class="{ 'cart-active' : isCartOpen}"/>
     <div id="cart-item-count" v-if="this.cartList.length" :class="{ 'cart-item-count-active' : isCartOpen}">{{ this.cartCount }}</div>
     <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">
       <h3 id="cart-title">Meu pedido</h3>
@@ -551,9 +598,9 @@ export default {
 <style lang="scss">
 
 // SCSS Variables
-$positive: rgb(66, 218, 104);
-$negative: rgb(197, 54, 29);
-$optional: rgb(224, 137, 22);
+$positive: #2fd573;
+$optional: #ffa503;
+$negative: #ff4858;
 $main: azure;
 $contrast: #e8effa;
 $complementary: grey;
@@ -616,6 +663,39 @@ header {
   background-color: $main;
   color: $positive;
   font-weight: bold;
+}
+
+#alert {
+  position: fixed;
+  width: 500px;
+  height: 80px;
+  top: 80px;
+  border-radius: 5px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.3 ) 0px 2px 5px;
+  transform: translateY(-200px);
+  opacity: 0%;
+  transition: all .2s;
+}
+
+#alert-border {
+  width: 10px;
+  height: 100%;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#alert-text {
+  display: flex;
+  gap: 15px;
+  margin-left: 15px;
+  align-items: center;
+}
+
+#alert-message {
+  font-size: 17px;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 #options-modal-background {
@@ -700,6 +780,7 @@ header {
   display: flex;
   justify-content: center;
   gap: 50px;
+  margin-top: -5px;
 }
 
 #cart-icon {
@@ -792,6 +873,42 @@ header {
   flex-wrap: nowrap;
   align-items: center;
   flex-direction: column;
+}
+
+.alert-open {
+  transform: translateY(0px) !important;
+  opacity: 100% !important;
+}
+
+.alert-success {
+  background-color: #c3f3d7;
+  color: #24ad5d;
+}
+
+.alert-success > div:first-of-type {
+  background-color: $positive;
+}
+
+.alert-info {
+  background-color: #ffe3b1;
+  color: #ce8501;
+}
+
+.alert-info > div:first-of-type {
+  background-color: $optional;
+}
+
+.alert-error {
+  background-color: #ffe0e3;
+  color: #ff4858;
+}
+
+.alert-error > div:first-of-type {
+  background-color: $negative;
+}
+
+.alert-icon {
+  font-size: 27px;
 }
 
 .place-info-box {
