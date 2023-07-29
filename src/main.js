@@ -11,7 +11,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 library.add(fas, far, fab)
 
-import './assets/main.css'
+import './assets/css/main.scss'
 
 const app = createApp(App)
 
