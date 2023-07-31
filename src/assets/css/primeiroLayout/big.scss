@@ -275,6 +275,10 @@
         flex-direction: column;
     }
 
+    .no-scroll {
+        overflow: hidden;
+    }
+
     .alert-open {
         transform: translateY(0px) !important;
         opacity: 100% !important;

@@ -1,6 +1,6 @@
 <script>
 export default {
-    data() {
+  data() {
     return {
       isAlertOpen: false,
       alertType: "error",
@@ -181,7 +181,7 @@ export default {
           },
           {
             id: 19,
-            name: "Água com/sem gás",
+            name: "Água sem gás",
             description: "700ml de água com ou sem gás.",
             price: 4,
             image: "agua.webp"
@@ -303,6 +303,9 @@ export default {
       // Pré-carrega a imagem e aguarda o carregamento completo
       const preloadedImage = await this.preloadImage(this.imagesPath + item.image);
 
+      if (window.innerWidth < 1008) // Apenas se for mobile
+        document.body.classList.add('no-scroll');
+
       this.isItemOpen = true;
 
       setTimeout(() => {
@@ -315,6 +318,9 @@ export default {
       this.isEditing = false;
       this.isItemOpen = false;
       this.itemImageUrl = this.imagesPath + "default.webp";
+
+      if (window.innerWidth < 1008) // Apenas se for mobile
+        document.body.classList.remove('no-scroll');
     },
 
     refreshItemPrice() {
