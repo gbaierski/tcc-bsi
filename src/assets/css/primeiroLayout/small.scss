@@ -450,9 +450,9 @@
     .dropdown {
         position: absolute;
         background-color: $main;
-        transform: scale(1, 0);
+        transform: scale(0, 0);
         transition: transform .2s;
-        transform-origin: top;
+        transform-origin: 500px 50px;
     }
 
     .dropdown-open {
