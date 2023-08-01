@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+      isMobile: false,
       isAlertOpen: false,
       alertType: "error",
       alertMessage: "Erro desconhecido!",
@@ -221,6 +222,9 @@ export default {
     }
   },
   methods: {
+    updateIsMobile() {
+      this.isMobile = window.innerWidth < 1008;
+    },
     alert(type, message) {
       this.alertType = type;
       this.alertMessage = message;
@@ -303,7 +307,7 @@ export default {
       // Pré-carrega a imagem e aguarda o carregamento completo
       const preloadedImage = await this.preloadImage(this.imagesPath + item.image);
 
-      if (window.innerWidth < 1008) // Apenas se for mobile
+      if (this.isMobile)
         document.body.classList.add('no-scroll');
 
       this.isItemOpen = true;
@@ -319,7 +323,7 @@ export default {
       this.isItemOpen = false;
       this.itemImageUrl = this.imagesPath + "default.webp";
 
-      if (window.innerWidth < 1008) // Apenas se for mobile
+      if (this.isMobile)
         document.body.classList.remove('no-scroll');
     },
 
@@ -430,6 +434,16 @@ export default {
       };
     },
   },
+  mounted() {
+    this.updateIsMobile();
+    const resizeObserver = new ResizeObserver(this.updateIsMobile);
+    resizeObserver.observe(document.documentElement);
+    this.updateIsMobile();
+  },
+  beforeDestroy() {
+    const resizeObserver = new ResizeObserver(this.updateIsMobile);
+    resizeObserver.unobserve(document.documentElement);
+  }
 }
 </script>
 
@@ -507,8 +521,11 @@ export default {
       <p class="navigation-item" @click="scrollTo('otherDrinks')">Outras bebidas</p>
       <p class="navigation-item" @click="scrollTo('desserts')">Sobremesas</p>
     </div>
-    <font-awesome-icon :icon="['fas', 'cart-shopping']" id="cart-icon" @click="toggleCart()" :class="{ 'cart-active' : isCartOpen}"/>
-    <div id="cart-item-count" v-if="this.cartList.length" :class="{ 'cart-item-count-active' : isCartOpen}">{{ this.cartCount }}</div>
+    <div id="cart-icon" @click="toggleCart()" :class="{ 'cart-active' : isCartOpen}">
+      <font-awesome-icon :icon="['fas', 'cart-shopping']" v-if="!isCartOpen || !isMobile"/>
+      <div id="cart-back-mobile" v-else>VOLTAR</div>
+    </div>
+    <div id="cart-item-count" v-if="this.cartList.length && (!isCartOpen || !isMobile)" @click="toggleCart()" :class="{ 'cart-item-count-active' : isCartOpen}">{{ this.cartCount }}</div>
     <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">
       <h3 id="cart-title">Meu pedido</h3>
       <div id="cart-empty-message" v-if="!this.cartList.length">Opa! Seu carrinho está vazio!</div>
@@ -539,7 +556,7 @@ export default {
       </div>
     </nav>
   </section>
-  <section id="menu-items">
+  <section id="menu-items" v-if="!isCartOpen || !isMobile">
     <h2 class="menu-category" ref="hamburgers">Hambúrgueres</h2>
     <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id" @click="openItem('hamburgers', hamburger.id)">
       <div class="item-information">
