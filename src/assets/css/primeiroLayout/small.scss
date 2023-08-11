@@ -290,6 +290,25 @@
         flex-direction: column;
     }
 
+    #footer-content {
+        width: 100%;
+        padding: 15px 0px 35px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: 12px;
+        color: $complementary;
+    }
+
+    #footer-logo {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 15px;
+    }
+
     .no-scroll {
         overflow: hidden;
     }

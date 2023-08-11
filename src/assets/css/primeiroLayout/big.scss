@@ -282,6 +282,24 @@
         flex-direction: column;
     }
 
+    #footer-content {
+        width: 100%;
+        padding: 50px 0px 50px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: "Source Sans Pro", sans-serif;
+        color: $complementary;
+    }
+
+    #footer-logo {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 30px;
+    }
+
     .no-scroll {
         overflow: hidden;
     }

@@ -468,7 +468,7 @@ export default {
       </div>
     </div>
     <section id="header-content">
-        <img src="src/assets/img/logo.jpg" id="place-image">
+        <img src="src/assets/img/logo.jpg" id="place-image" alt="Foto da hamburgueria">
         <div id="place-name">Bersk Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
@@ -617,7 +617,14 @@ export default {
       <img class="item-image" :src="imagesPath + dessert.image">
     </div>
   </section>
-  <footer></footer>
+  <footer>
+    <div id="footer-content">
+      <img id="footer-logo" src="../assets/img/burger.png" alt="Logo do restaurante">
+      <div>Desenvolvido por Gustavo José Baierski</div>
+      <div>Instituto Federal Catarinense - Campus Araquari</div>
+      <div>2023</div>
+    </div>
+  </footer>
 </template>
 
 <style lang="scss">
