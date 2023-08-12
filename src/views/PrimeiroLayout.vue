@@ -309,7 +309,7 @@ export default {
     </section>
     <section id="options-modal-background" @click="closeItem()" :class="{'options-modal-background-open' : isItemOpen}"></section>
     <div id="options-modal" :class="{'options-modal-open' : isItemOpen}" >
-      <button type="button" id="modal-back" class="button" @click="closeItem()">VOLTAR</button>
+      <button type="button" id="modal-back" class="button" @click="closeItem()"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
       <div id="options-modal-item">
         <img id="item-image-modal" :src="itemImageUrl">
         <div id="item-information-modal">
@@ -350,7 +350,7 @@ export default {
     </div>
     <div id="cart-icon" @click="toggleCart()" :class="{ 'cart-active' : isCartOpen}">
       <font-awesome-icon :icon="['fas', 'cart-shopping']" v-if="!isCartOpen || !isMobile"/>
-      <div id="cart-back-mobile" v-else>VOLTAR</div>
+      <div id="cart-back-mobile" v-else><font-awesome-icon :icon="['fas', 'chevron-left']" /></div>
     </div>
     <div id="cart-item-count" v-if="this.cartList.length && (!isCartOpen || !isMobile)" @click="toggleCart()" :class="{ 'cart-item-count-active' : isCartOpen}">{{ this.cartCount }}</div>
     <nav id="cart" class="dropdown" :class="{ 'dropdown-open' : isCartOpen}">

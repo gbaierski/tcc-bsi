@@ -116,7 +116,7 @@
     }
 
     #modal-back {
-        width: 50%;
+        width: 18%;
         padding: 15px 20px 15px 20px;
     }
 
@@ -277,6 +277,7 @@
     }
 
     #finish-order {
+        background-color: black !important;
         margin-bottom: 20px;
     }
 
@@ -459,10 +460,10 @@
     .cart-active {
         background-color: $complementary !important;
         color: white !important;
-        width: 35% !important;
+        width: 5% !important;
         height: 15px !important;
         padding: 15px 20px 15px 20px !important;
-        transform: translate(-70%, -125%);
+        transform: translate(-600%, -125%);
     }
 
     .dropdown {
