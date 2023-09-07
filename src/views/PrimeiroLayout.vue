@@ -379,7 +379,7 @@ export default {
       </div>
       <div id="cart-info">
         <div id="cart-total-price">TOTAL: {{'R$' + this.totalPrice + ',00'}}</div>
-        <button type="button" id="finish-order" class="button">FINALIZAR PEDIDO</button>
+        <button type="button" id="finish-order" class="button" @click="alert('error', 'Pedido incorreto! Verifique o pedido no botão do canto superior esquerdo!')">FINALIZAR PEDIDO</button>
       </div>
     </nav>
   </section>
