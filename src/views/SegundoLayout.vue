@@ -295,8 +295,8 @@ export default {
       </div>
     </div>
     <section id="header-content">
-        <img src="src/assets/img/logo-l1.jpg" id="place-image" alt="Foto da hamburgueria">
-        <div id="place-name">Nice Burger</div>
+        <img src="src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
+        <div id="place-name">Great Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
           <div id="address-info">BR-280 - Colégio Agrícola, Araquari - SC, 89245-000</div>
@@ -455,7 +455,7 @@ export default {
 </template>
 
 <style lang="scss">
-  @import "../assets/css/primeiroLayout/big.scss";
-  @import "../assets/css/primeiroLayout/medium.scss";
-  @import "../assets/css/primeiroLayout/small.scss";
+  @import "../assets/css/segundoLayout/big.scss";
+  @import "../assets/css/segundoLayout/medium.scss";
+  @import "../assets/css/segundoLayout/small.scss";
 </style>

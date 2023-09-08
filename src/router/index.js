@@ -5,8 +5,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'index',
+      component: () => import('../views/PrimeiroLayout.vue')
+    },
+    {
+      path: '/l1',
       name: 'layout1',
       component: () => import('../views/PrimeiroLayout.vue')
+    },
+    {
+      path: '/l2',
+      name: 'layout2',
+      component: () => import('../views/SegundoLayout.vue')
     }
   ]
 })

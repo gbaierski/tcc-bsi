@@ -11,7 +11,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: url("../assets/img/background-example.jpeg");
+        background-image: url("../assets/img/background-l1.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position-y: 60%;
@@ -29,7 +29,7 @@
     #place-image {
         width: 100px;
         height: 100px;
-        border: solid 4px $main;
+        border: solid 4px #4a4a4a;
     }
 
     #place-name {
