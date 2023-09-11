@@ -284,6 +284,7 @@ export default {
 
       https://unsplash.com/s/photos/burger
       https://www.upscale.media/upload
+      https://storyset.com/
     -->
     <div id="alert" :class="alertClasses">
       <div id="alert-border"></div>

@@ -6,7 +6,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: () => import('../views/PrimeiroLayout.vue')
+      component: () => import('../views/Home.vue')
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: () => import('../views/Welcome.vue')
+    },
+    {
+      path: '/rules',
+      name: 'rules',
+      component: () => import('../views/Rules.vue')
     },
     {
       path: '/l1',
