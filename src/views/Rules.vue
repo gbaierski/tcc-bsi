@@ -8,18 +8,29 @@
         <RouterLink to="welcome" style="align-self: flex-start; margin: 30px 0px 30px 5%;">
             <button id="back-button"><font-awesome-icon :icon="['fas', 'caret-left']" /> VOLTAR</button>
         </RouterLink>
+        <div id="rules-container">
+            <div class="rules-box red-box">
+                <div class="rules-header red">Regras:</div>
+                <ul class="rules-list">
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'people-arrows']" /> Não dê informações para pessoas que ainda não fizeram o teste</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'bell-slash']" /> Faça o teste em um momento que você não será interrompido</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'thumbs-up']" /> Seja honesto ao utilizar e ao avaliar os layouts</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'truck-medical']" /> Não é permitido receber ajuda de outra pessoa durante o teste. (É permitido apenas para entender os objetivos)</li>
+                </ul>
+            </div>
+            <div class="rules-box gray-box">
+                <div class="rules-header gray">Informações:</div> 
+                <ul class="rules-list">
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'mobile-screen-button']" /> Faça o teste pelo celular</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'person-circle-minus']" /> Não serão solicitadas informações pessoais ao final do teste</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'stopwatch']" /> A duração do teste é relativa para cada participante, mas o tempo estimado é 5 minutos</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'circle-info']" /> Mais informações sobre o objetivo desse trabalho estarão no final do teste</li>
+                </ul>
+            </div>
+        </div>
+
         <p>Ao clicar no botão <span>INICIAR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
-        <p><b>Por favor, peço que as regras listadas abaixo sejam lidas com atenção.</b></p>
-        <div id="rules-container">
-            <div class="rules-box">
-                <div class="rules-header">Informações:</div> 
-            </div>
-        </div>
-        <div id="rules-container">
-            <div class="rules-box">
-                <div class="rules-header">Regras:</div> 
-            </div>
-        </div>
+
         <RouterLink to="l1"><button id="start-button">INICIAR</button></RouterLink>
     </main>
 </template>
@@ -39,12 +50,16 @@
         flex-direction: column;
     }
 
-    h1 {
-        font-size: 40px;
+    h2 {
+        width: 90%;
+        font-size: 22.5px;
         font-family: "Source Sans Pro", sans-serif;
     }
 
     p {
+        width: 90%;
+        text-indent: 30px;
+        font-size: 16px;
         font-family: "Source Sans Pro", sans-serif;
     }
 
@@ -70,6 +85,7 @@
 
     #start-button {
         padding: 25px 85px 25px 85px;
+        margin: 30px 0px 50px 0px;
         border: none;
         letter-spacing: 1px;
         border-radius: 10px;
@@ -86,6 +102,61 @@
         transform: translateY(-3px);
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
         cursor: pointer;
+    }
+
+    #rules-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .gray {
+        background-color: #b0bec5;
+    }
+
+    .gray-box {
+        background-color: #e4e4e4;
+    }
+
+    .red {
+        background-color: #911c36;
+    }
+
+    .red-box {
+        background-color: #f1cbcf;
+    }
+
+    .rules-box {
+        width: 20rem;
+        border-radius: 10px;
+    }
+
+    .rules-header {
+        width: 100%;
+        height: 3rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px 10px 0px 0px;
+        font-family: 'Montserrat', sans-serif;
+        color: $main;
+    }
+
+    .rules-list {
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .rule {
+        padding: 10px 15px 10px 15px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+    }
+
+    .icon {
+        font-size: 1.2rem;
     }
 
     .image {

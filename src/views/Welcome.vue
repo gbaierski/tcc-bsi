@@ -11,7 +11,7 @@
             <button id="back-button"><font-awesome-icon :icon="['fas', 'caret-left']" /> VOLTAR</button>
         </RouterLink>
 
-        <h1>Seja bem-vindo!</h1>
+        <h2>Objetivo do teste:</h2>
 
         <p>Este trabalho tem como objetivo final melhorar a usabilidade dos usuários em sistemas web de delivery por meio da análise de dados coletados durante o teste.</p>
 
@@ -45,14 +45,6 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-    }
-
-    h1 {
-        width: 90%;
-        margin: 25px 0px 0px 0px;
-        font-size: 35px;
-        font-family: "Source Sans Pro", sans-serif;
-        text-align: center;
     }
 
     h2 {
