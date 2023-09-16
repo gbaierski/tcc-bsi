@@ -374,7 +374,7 @@ export default {
 
         <div class="objective objective-done">
           <div class="objective-icon-status objective-status-done">
-            <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="objective-icon"/>
+            <font-awesome-icon :icon="['fas', 'circle-check']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
