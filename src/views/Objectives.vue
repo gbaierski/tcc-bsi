@@ -74,7 +74,7 @@ export default {
         border: none;
         letter-spacing: 1px;
         border-radius: 5px;
-        background-color: #b0bec5;
+        background-color: $gray;
         font-family: 'Montserrat', sans-serif;
         color: $main;
         word-spacing: 2px;
@@ -94,7 +94,7 @@ export default {
         border: none;
         letter-spacing: 1px;
         border-radius: 10px;
-        background-color: #b0bec5;
+        background-color: $gray;
         font-family: 'Montserrat', sans-serif;
         color: $main;
         word-spacing: 2px;
