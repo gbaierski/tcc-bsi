@@ -1,11 +1,20 @@
 <script>
+export default {
+  methods: {
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+      });
+    },
+  },
+};
 </script>
 <template>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
     <main>
         <img src="../assets/img/logo_ifc.png" alt="Hello" class="image">
 
-        <RouterLink to="welcome" style="align-self: flex-start; margin: 30px 0px 30px 5%;">
+        <RouterLink to="objectives"  @click="scrollToTop" style="align-self: flex-start; margin: 30px 0px 30px 5%;">
             <button id="back-button"><font-awesome-icon :icon="['fas', 'caret-left']" /> VOLTAR</button>
         </RouterLink>
         <div id="rules-container">
@@ -31,7 +40,7 @@
 
         <p>Ao clicar no botão <span>INICIAR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
 
-        <RouterLink to="l1"><button id="start-button">INICIAR</button></RouterLink>
+        <RouterLink to="l1" @click="scrollToTop"><button id="start-button">INICIAR</button></RouterLink>
     </main>
 </template>
 <style lang="scss" scoped>
