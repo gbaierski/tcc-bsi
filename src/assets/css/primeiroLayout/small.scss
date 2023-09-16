@@ -26,6 +26,22 @@
         color: $main;
     }
 
+    #objectives-icon {
+        width: 27px;
+        height: 27px;
+        font-size: 27px;
+        left: 10px;
+        top: 75px;
+        z-index: 4;
+        color: $complementary;
+        background-color: $main;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+        padding: 10px;
+        border-radius: 10px;
+        position: fixed;
+        transition: all 0.2s;
+    }
+
     #place-image {
         width: 100px;
         height: 100px;
@@ -99,6 +115,15 @@
         transform: scale(0, 0);
     }
 
+    #objectives-modal-background {
+        position: fixed;
+        z-index: 6;
+        width: 100vw;
+        min-height: 162.5vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        transform: scale(0, 0);
+    }
+
     #options-modal {
         position: fixed;
         top: 0%;
@@ -115,7 +140,28 @@
         overflow-y: auto;
     }
 
+    #objectives-modal {
+        position: fixed;
+        top: 0%;
+        z-index: 7;
+        width: 90.5vw;
+        height: 85vh;
+        padding: 20px 20px 120px 20px;
+        background-color: $main;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transform: scale(0, 0);
+        transition: transform .2s;
+        overflow-y: auto;
+    }
+
     #modal-back {
+        width: 18%;
+        padding: 15px 20px 15px 20px;
+    }
+
+    #modal-objectives-back {
         width: 18%;
         padding: 15px 20px 15px 20px;
     }
@@ -140,6 +186,23 @@
         text-transform: uppercase;
         font-weight: lighter;
         font-family: "Source Sans Pro", sans-serif;
+    }
+
+    #objectives-title-modal {
+        margin-top: 0px;
+        letter-spacing: 1px;
+        font-size: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: lighter;
+        font-family: "Source Sans Pro", sans-serif;
+    }
+
+    #objectives-modal-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
     }
 
     #item-description-modal {
@@ -377,8 +440,82 @@
         transform: scale(1, 1) !important;
     }
 
+    .objectives-modal-background-open {
+        transform: scale(1, 1) !important;
+    }
+
     .options-modal-open {
         transform: scale(1, 1) !important;
+    }
+
+    .objectives-modal-open {
+        transform: scale(1, 1) !important;
+    }
+
+    .objective-normal {
+        background-color: #b0bec55e;
+    }
+
+    .objective-done {
+        background-color: #2fd5744d;
+    }
+
+    .objective-wrong {
+        background-color: #ff485771;
+    }
+
+    .objective-status-normal {
+        background-color: $gray;
+    }
+
+    .objective-status-done {
+        background-color: $positive;
+    }
+
+    .objective-status-wrong {
+        background-color: $negative;
+    }
+
+    .objective {
+        width: 90%;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .objective-icon-status {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .objective-icon {
+        width: 50px;
+        height: 50px;
+        padding: 25px;
+        color: $main;
+    }
+
+    .objective-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .objective-title {
+        font-family: "Source Sans Pro", sans-serif;
+        text-align: center;
+    }
+
+    .objective-additional {
+        color: $dark;
+        text-align: center;
+        font-family: "Source Sans Pro", sans-serif;
     }
 
     .item-additional-modal-open {
