@@ -38,18 +38,16 @@ export default {
             </div>
         </div>
 
-        <p>Ao clicar no botão <span>INICIAR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
+        <p>Ao clicar no botão <span>PROSSEGUIR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
 
-        <RouterLink to="l1" @click="scrollToTop"><button id="start-button">INICIAR</button></RouterLink>
+        <RouterLink to="objectivesl1"  @click="scrollToTop" style="align-self: center;  margin: 0px 0px 100px 0px;">
+            <button id="next-button">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
+        </RouterLink>
     </main>
 </template>
 <style lang="scss" scoped>
     @import "../assets/css/colors.scss";
     @import "../assets/css/main.scss";
-
-    body {
-        background-color: $contrast;
-    }
 
     main {
         width: 100vw;
@@ -69,6 +67,7 @@ export default {
         width: 90%;
         text-indent: 30px;
         font-size: 16px;
+        margin: 30px;
         font-family: "Source Sans Pro", sans-serif;
     }
 
@@ -91,14 +90,13 @@ export default {
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
         cursor: pointer;
     }
-
-    #start-button {
+    
+    #next-button {
         padding: 25px 85px 25px 85px;
-        margin: 30px 0px 50px 0px;
         border: none;
         letter-spacing: 1px;
         border-radius: 10px;
-        background-color: #24ad5d;
+        background-color: $gray;
         font-family: 'Montserrat', sans-serif;
         color: $main;
         word-spacing: 2px;
@@ -106,8 +104,8 @@ export default {
         font-weight: bold;
     }
 
-    #start-button:hover {
-        background-color: #1e944f;
+    #next-button:hover {
+        background-color: #8e979c;
         transform: translateY(-3px);
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
         cursor: pointer;

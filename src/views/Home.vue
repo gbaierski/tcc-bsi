@@ -30,10 +30,6 @@ export default {
     @import "../assets/css/colors.scss";
     @import "../assets/css/main.scss";
 
-    body {
-        background-color: $contrast;
-    }
-
     main {
         width: 100vw;
         display: flex;

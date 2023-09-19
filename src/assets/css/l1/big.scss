@@ -1,10 +1,6 @@
 @import "../colors.scss";
 
 @media screen and (min-width:1008px) {
-    body {
-        background-color: $contrast;
-    }
-
     header {
         width: 100%;
         height: 600px;
@@ -280,6 +276,7 @@
         flex-wrap: nowrap;
         align-items: center;
         flex-direction: column;
+        background-color: $contrast;
     }
 
     #footer-content {
@@ -292,6 +289,7 @@
         text-align: center;
         font-family: "Source Sans Pro", sans-serif;
         color: $complementary;
+        background-color: $contrast;
     }
 
     #footer-logo {
