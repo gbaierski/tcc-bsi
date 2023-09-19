@@ -9,7 +9,7 @@ const menu = {
         },
         {
             id: 2,
-            name: "Duplo Cheddar",
+            name: "Duplo cheddar",
             description: "Pão brioche, 2x hambúrguer de 180g de costela, 3 camadas de queijo cheddar, maionese, bacon picadinho. Acompanha ketchup separadamente.",
             price: 32,
             image: "duploCheddar.webp"
@@ -30,10 +30,10 @@ const menu = {
         },
         {
             id: 5,
-            name: "Duplo salada",
+            name: "Duplo burger",
             description: "Pão brioche, 2x hambúrguer de 150g de costela, 3x queijo mussarela, maionese, molho especial, tomate, cebola e picles.",
             price: 32,
-            image: "duploSalada.webp"
+            image: "duploBurger.webp"
         },
         {
             id: 6,
