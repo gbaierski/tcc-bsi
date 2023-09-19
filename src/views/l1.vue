@@ -396,7 +396,7 @@ export default {
             <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="objective-icon"/>
           </div>
           <div class="objective-info">
-            <div class="objective-title">Peça um suco sabor <b>LARANJA</b></div>
+            <div class="objective-title">Peça um suco sabor <b>UVA</b></div>
           </div>
         </div>
       </div>
