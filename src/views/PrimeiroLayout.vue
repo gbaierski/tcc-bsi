@@ -368,7 +368,7 @@ export default {
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hambúrguer <b>DUPLO SALADA</b></div>
-            <div class="objective-additional">Sem tomate</div>
+            <div class="objective-additional"><b>Sem tomate</b></div>
           </div>
         </div>
 
