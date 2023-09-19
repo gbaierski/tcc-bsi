@@ -12,7 +12,6 @@ export default {
       itemImageUrl: "src/assets/img/items/default.webp",
       isCartOpen: false,
       isItemOpen: false,
-      isObjectivesOpen: false,
       hasAdditional: false,
       isEditing: false,
       additionalItems: {
@@ -81,21 +80,6 @@ export default {
     closeCart() {
       if(this.isCartOpen)
         this.isCartOpen = false;
-    },
-
-    openObjectives() {
-      this.isObjectivesOpen = true;
-
-      if (this.isMobile)
-        document.body.classList.add('no-scroll');
-    },
-
-    closeObjectives() {
-      if(this.isObjectivesOpen)
-        this.isObjectivesOpen = false;
-
-      if (this.isMobile)
-        document.body.classList.remove('no-scroll');
     },
 
     preloadImage(url) {
@@ -312,11 +296,8 @@ export default {
       </div>
     </div>
     <section id="header-content">
-        <div id="objectives-icon" @click="openObjectives()" :class="{ 'objectives-active' : isObjectivesOpen}">
-          <font-awesome-icon :icon="['fas', 'circle-question']" />
-        </div>
-        <img src="src/assets/img/logo-l1.jpg" id="place-image" alt="Foto da hamburgueria">
-        <div id="place-name">Nice Burger</div>
+        <img src="src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
+        <div id="place-name">Great Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
           <div id="address-info">BR-280 - Colégio Agrícola, Araquari - SC, 89245-000</div>
@@ -356,40 +337,6 @@ export default {
         </div>
       </div>
       <button type="button" id="modal-add" class="button" @click="addItem()">{{ isEditing ? 'ATUALIZAR' : 'ADICIONAR' }} <div id="item-price-modal">{{ 'R$' + this.activeItem.totalPrice + ',00'}}</div></button>
-    </div>
-    <section id="objectives-modal-background" :class="{'objectives-modal-background-open' : isObjectivesOpen}"></section>
-    <div id="objectives-modal" :class="{'objectives-modal-open' : isObjectivesOpen}" >
-      <button type="button" id="modal-objectives-back" class="button" @click="closeObjectives()"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
-      <div id="objectives-modal-items">
-        <h2 id="objectives-title-modal">OBJETIVOS</h2>
-        <div class="objective objective-wrong">
-          <div class="objective-icon-status objective-status-wrong">
-            <font-awesome-icon :icon="['fas', 'circle-xmark']" class="objective-icon"/>
-          </div>
-          <div class="objective-info">
-            <div class="objective-title">Peça um hambúrguer <b>DUPLO SALADA</b></div>
-            <div class="objective-additional"><b>Sem tomate</b></div>
-          </div>
-        </div>
-
-        <div class="objective objective-done">
-          <div class="objective-icon-status objective-status-done">
-            <font-awesome-icon :icon="['fas', 'circle-check']" class="objective-icon"/>
-          </div>
-          <div class="objective-info">
-            <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
-          </div>
-        </div>
-
-                <div class="objective objective-normal">
-          <div class="objective-icon-status objective-status-normal">
-            <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="objective-icon"/>
-          </div>
-          <div class="objective-info">
-            <div class="objective-title">Peça um suco sabor <b>LARANJA</b></div>
-          </div>
-        </div>
-      </div>
     </div>
   </header>
   <svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#ffffff" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,133.3C240,128,300,96,360,80C420,64,480,64,540,101.3C600,139,660,213,720,240C780,267,840,245,900,245.3C960,245,1020,267,1080,250.7C1140,235,1200,181,1260,176C1320,171,1380,213,1410,234.7L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
@@ -509,7 +456,7 @@ export default {
 </template>
 
 <style lang="scss">
-  @import "../assets/css/primeiroLayout/big.scss";
-  @import "../assets/css/primeiroLayout/medium.scss";
-  @import "../assets/css/primeiroLayout/small.scss";
+  @import "../assets/css/l2/big.scss";
+  @import "../assets/css/l2/medium.scss";
+  @import "../assets/css/l2/small.scss";
 </style>
