@@ -27,6 +27,16 @@ const router = createRouter({
       path: '/l2',
       name: 'layout2',
       component: () => import('../views/l2.vue')
+    },
+    {
+      path: '/objectivesl1',
+      name: 'objectivesL1',
+      component: () => import('../views/ObjectivesL1.vue')
+    },
+    {
+      path: '/objectivesl2',
+      name: 'objectivesL2',
+      component: () => import('../views/ObjectivesL2.vue')
     }
   ]
 })

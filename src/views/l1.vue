@@ -266,6 +266,10 @@ export default {
       this.activeItem.additional.remove.splice(0);
       this.activeItem.additional.add.splice(0);
     },
+
+    finishOrder() {
+      this.$router.push({ name: 'objectivesL2' });
+    }
   },
   computed: {
     alertClasses: function() {
@@ -282,6 +286,11 @@ export default {
     const resizeObserver = new ResizeObserver(this.updateIsMobile);
     resizeObserver.observe(document.documentElement);
     this.updateIsMobile();
+
+    // Evento que verifica mudança no histórico de navegação (voltar)
+    window.addEventListener('popstate', () => {
+      this.isMobile ? this.closeItem() : history.go(-1); 
+    });
   },
   beforeDestroy() {
     const resizeObserver = new ResizeObserver(this.updateIsMobile);
@@ -367,7 +376,7 @@ export default {
             <font-awesome-icon :icon="['fas', 'circle-xmark']" class="objective-icon"/>
           </div>
           <div class="objective-info">
-            <div class="objective-title">Peça um hambúrguer <b>DUPLO SALADA</b></div>
+            <div class="objective-title">Peça um hambúrguer <b>SALADA</b></div>
             <div class="objective-additional"><b>Sem tomate</b></div>
           </div>
         </div>
@@ -378,6 +387,7 @@ export default {
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
+            <div class="objective-additional"><b>Com adicional de fritas</b></div>
           </div>
         </div>
 
@@ -433,7 +443,7 @@ export default {
       </div>
       <div id="cart-info">
         <div id="cart-total-price">TOTAL: {{'R$' + this.totalPrice + ',00'}}</div>
-        <button type="button" id="finish-order" class="button" @click="alert('error', 'Pedido incorreto! Verifique o pedido no botão do canto superior esquerdo!')">FINALIZAR PEDIDO</button>
+        <button type="button" id="finish-order" class="button" @click="finishOrder()">FINALIZAR PEDIDO</button>
       </div>
     </nav>
   </section>
