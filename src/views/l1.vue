@@ -3,18 +3,35 @@ import menu from '../stores/menu';
 export default {
   data() {
     return {
+      // Variáveis do pedido:
+      itemsToCheck: [
+        {id: 1, requirements: [{ type: "remove", id: 3 }]}, // Salada - Tomate
+        {id: 7, requirements: [{ type: "add", id: 4 }]}, // Hotdog + Fritas
+        {id: 12,requirements: []}, // Suco de uva
+      ],
+      missingItems: [],
+      invalidItems: [],
+      extraItems: [],
+
+      // Verificações
       isMobile: false,
       isAlertOpen: false,
-      alertType: "error",
-      alertMessage: "Erro desconhecido!",
-      alertTimeout: 0,
-      imagesPath: "src/assets/img/items/",
-      itemImageUrl: "src/assets/img/items/default.webp",
       isCartOpen: false,
       isItemOpen: false,
       isObjectivesOpen: false,
       hasAdditional: false,
       isEditing: false,
+
+      // Alertas
+      alertType: "error",
+      alertMessage: "Erro desconhecido!",
+      alertTimeout: 0,
+
+      // Caminhos
+      imagesPath: "src/assets/img/items/",
+      itemImageUrl: "src/assets/img/items/default.webp",
+
+      // Declaração de variáveis
       additionalItems: {
         remove: [
           { id: 1, name: "Queijo", checked: false },
@@ -221,6 +238,7 @@ export default {
 
       this.openCart();
       this.refreshCartPrice();
+      this.validateObjectives();
       this.closeItem();
     },
 
@@ -228,6 +246,7 @@ export default {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
       this.cartCount--;
+      this.validateObjectives();
 
       if(this.cartCount == 0)
         this.alert('info', 'Seu carrinho está vazio!');
@@ -268,8 +287,84 @@ export default {
     },
 
     finishOrder() {
-      this.$router.push({ name: 'objectivesL2' });
-    }
+      this.validateObjectives();
+      // this.$router.push({ name: 'objectivesL2' });
+    },
+
+    validateObjectives() {
+      this.missingItems = [];
+      this.invalidItems = [];
+      this.extraItems = [];
+
+      // Cria um mapa de itens no carrinho para facilitar a verificação
+      const cartItemMap = new Map(this.cartList.map(item => [item.id, item]));
+
+      this.itemsToCheck.forEach(itemToCheck => {
+        const item = cartItemMap.get(itemToCheck.id);
+
+        if (!item) {
+          this.missingItems.push(itemToCheck.id);
+        } else {
+          itemToCheck.requirements.forEach(requirement => {
+            if (requirement.type === "remove") {
+              if (
+                item.additional &&
+                Array.isArray(item.additional.remove) &&
+                !item.additional.remove.some(removeItem => removeItem.id === requirement.id)
+              ) {
+                this.invalidItems.push(itemToCheck.id);
+              }
+            } else if (requirement.type === "add") {
+              if (
+                item.additional &&
+                Array.isArray(item.additional.add) &&
+                !item.additional.add.some(addItem => addItem.id === requirement.id)
+              ) {
+                this.invalidItems.push(itemToCheck.id);
+              }
+            }
+          });
+
+          // Verifica se há itens adicionais não especificados
+          if (
+            item.additional &&
+            (
+              (Array.isArray(item.additional.remove) && item.additional.remove.length > 1) ||
+              (Array.isArray(item.additional.add) && item.additional.add.length > 1)
+            )
+          ) {
+            this.invalidItems.push(itemToCheck.id);
+          }
+        }
+      });
+
+      // Verifica se há itens extras no carrinho
+      this.cartList.forEach(item => {
+        if (!this.itemsToCheck.some(itemToCheck => itemToCheck.id === item.id) && !this.extraItems.includes(item.id)) {
+          this.extraItems.push(item.id);
+        }
+      });
+
+      let errorMessage = "";
+
+      if (this.missingItems.length > 0) {
+        errorMessage += `Itens ausentes: ${this.missingItems.join(", ")}\n`;
+      }
+
+      if (this.invalidItems.length > 0) {
+        errorMessage += `Itens com problemas: ${this.invalidItems.join(", ")}\n`;
+      }
+
+      if (this.extraItems.length > 0) {
+        errorMessage += `Itens extras: ${this.extraItems.join(", ")}\n`;
+      }
+
+      if (errorMessage === "") {
+        console.log("O carrinho atende aos objetivos especificados.");
+      } else {
+        console.log(errorMessage);
+      }
+    },
   },
   computed: {
     alertClasses: function() {
