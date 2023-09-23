@@ -308,17 +308,17 @@ export default {
           itemToCheck.requirements.forEach(requirement => {
             if (requirement.type === "remove") {
               if (
-                item.additional &&
-                Array.isArray(item.additional.remove) &&
-                !item.additional.remove.some(removeItem => removeItem.id === requirement.id)
+                (item.additional && Array.isArray(item.additional.remove) && !item.additional.remove.some(removeItem => removeItem.id === requirement.id))
+                ||
+                (item.additional && Array.isArray(item.additional.add) && item.additional.add.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
               }
             } else if (requirement.type === "add") {
               if (
-                item.additional &&
-                Array.isArray(item.additional.add) &&
-                !item.additional.add.some(addItem => addItem.id === requirement.id)
+                (item.additional && Array.isArray(item.additional.add) && !item.additional.add.some(addItem => addItem.id === requirement.id))
+                ||
+                (item.additional && Array.isArray(item.additional.remove) && item.additional.remove.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
               }
