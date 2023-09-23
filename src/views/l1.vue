@@ -307,34 +307,27 @@ export default {
         } else {
           itemToCheck.requirements.forEach(requirement => {
             if (requirement.type === "remove") {
-              if (
+              if ( // Verifica se o adicional selecionado está correto:
                 (item.additional && Array.isArray(item.additional.remove) && !item.additional.remove.some(removeItem => removeItem.id === requirement.id))
-                ||
+                || // Verifica se há itens adicionais dentro de "remove" não especificados:
+                (Array.isArray(item.additional.remove) && item.additional.remove.length > 1)
+                || // Verifica se há itens adicionais dentro de "add" não especificados:
                 (item.additional && Array.isArray(item.additional.add) && item.additional.add.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
               }
             } else if (requirement.type === "add") {
-              if (
+              if ( // Verifica se o adicional selecionado está correto:
                 (item.additional && Array.isArray(item.additional.add) && !item.additional.add.some(addItem => addItem.id === requirement.id))
-                ||
+                || // Verifica se há itens adicionais dentro de "add" não especificados:
+                (Array.isArray(item.additional.add) && item.additional.add.length > 1)
+                || // Verifica se há itens adicionais dentro de "remove" não especificados:
                 (item.additional && Array.isArray(item.additional.remove) && item.additional.remove.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
               }
             }
           });
-
-          // Verifica se há itens adicionais não especificados
-          if (
-            item.additional &&
-            (
-              (Array.isArray(item.additional.remove) && item.additional.remove.length > 1) ||
-              (Array.isArray(item.additional.add) && item.additional.add.length > 1)
-            )
-          ) {
-            this.invalidItems.push(itemToCheck.id);
-          }
         }
       });
 
