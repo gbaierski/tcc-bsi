@@ -296,6 +296,8 @@ export default {
       this.invalidItems = [];
       this.extraItems = [];
 
+      this.resetObjectives();
+
       // Cria um mapa de itens no carrinho para facilitar a verificação
       const cartItemMap = new Map(this.cartList.map(item => [item.id, item]));
 
@@ -304,7 +306,13 @@ export default {
 
         if (!item) {
           this.missingItems.push(itemToCheck.id);
+          return;
         } else {
+          if (itemToCheck.requirements.length === 0) {
+            this.markObjective(itemToCheck.id, 'done');
+            return;
+          }
+
           itemToCheck.requirements.forEach(requirement => {
             if (requirement.type === "remove") {
               if ( // Verifica se o adicional selecionado está correto:
@@ -315,6 +323,8 @@ export default {
                 (item.additional && Array.isArray(item.additional.add) && item.additional.add.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
+                this.markObjective(itemToCheck.id, 'wrong');
+                return;
               }
             } else if (requirement.type === "add") {
               if ( // Verifica se o adicional selecionado está correto:
@@ -325,8 +335,12 @@ export default {
                 (item.additional && Array.isArray(item.additional.remove) && item.additional.remove.length > 0)
               ) {
                 this.invalidItems.push(itemToCheck.id);
+                this.markObjective(itemToCheck.id, 'wrong');
+                return;
               }
             }
+            this.markObjective(itemToCheck.id, 'done');
+            return;
           });
         }
       });
@@ -358,6 +372,37 @@ export default {
         console.log(errorMessage);
       }
     },
+    resetObjectives() {
+      const objectives = document.querySelectorAll(".objective");
+      const icons = document.querySelectorAll(".objective-icon-status");
+
+      objectives.forEach(objective => {
+        objective.classList.remove("objective-normal", "objective-done", "objective-wrong");
+      });
+      
+      objectives.forEach(objective => {
+        objective.classList.add("objective-normal");
+      });
+      
+      icons.forEach(icon => {
+        icon.classList.remove("objective-status-normal", "objective-status-done", "objective-status-wrong");
+      });
+
+      icons.forEach(icon => {
+        icon.classList.add("objective-status-normal");
+      });
+    },
+
+    markObjective(id, type) {
+      const objective = document.getElementById('objective-' + id.toString());
+      const icon = document.getElementById('objective-icon-' + id.toString());
+
+      objective.classList.remove("objective-normal", "objective-done", "objective-wrong");
+      objective.classList.add("objective-" + type);
+
+      icon.classList.remove("objective-status-normal", "objective-status-done", "objective-status-wrong");
+      icon.classList.add("objective-status-" + type);
+    }
   },
   computed: {
     alertClasses: function() {
@@ -459,9 +504,10 @@ export default {
       <button type="button" id="modal-objectives-back" class="button" @click="closeObjectives()"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
       <div id="objectives-modal-items">
         <h2 id="objectives-title-modal">OBJETIVOS</h2>
-        <div class="objective objective-wrong">
-          <div class="objective-icon-status objective-status-wrong">
-            <font-awesome-icon :icon="['fas', 'circle-xmark']" class="objective-icon"/>
+
+        <div id="objective-1" class="objective objective-normal">
+          <div id="objective-icon-1" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'burger']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hambúrguer <b>SALADA</b></div>
@@ -469,9 +515,9 @@ export default {
           </div>
         </div>
 
-        <div class="objective objective-done">
-          <div class="objective-icon-status objective-status-done">
-            <font-awesome-icon :icon="['fas', 'circle-check']" class="objective-icon"/>
+        <div id="objective-7" class="objective objective-normal">
+          <div id="objective-icon-7" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'hotdog']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
@@ -479,14 +525,15 @@ export default {
           </div>
         </div>
 
-                <div class="objective objective-normal">
-          <div class="objective-icon-status objective-status-normal">
-            <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="objective-icon"/>
+        <div id="objective-12" class="objective objective-normal">
+          <div id="objective-icon-12" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'whiskey-glass']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um suco sabor <b>UVA</b></div>
           </div>
         </div>
+
       </div>
     </div>
   </header>
