@@ -295,8 +295,26 @@ export default {
       this.missingItems = [];
       this.invalidItems = [];
       this.extraItems = [];
+      this.duplicateItems = [];
 
       this.resetObjectives();
+
+      // Verifica itens duplicados
+      const seenItemIds = {};
+
+      for (const item of this.cartList) {
+        const itemId = item.id;
+
+        if (seenItemIds[itemId])
+          this.duplicateItems.push(item.id);
+        else
+          seenItemIds[itemId] = true;
+      }
+
+      // Remove IDs duplicados dentro do array
+      this.duplicateItems = this.duplicateItems.filter((id, index, self) => {
+        return self.indexOf(id) === index;
+      });
 
       // Cria um mapa de itens no carrinho para facilitar a verificação
       const cartItemMap = new Map(this.cartList.map(item => [item.id, item]));
@@ -310,7 +328,6 @@ export default {
         } else {
           if (itemToCheck.requirements.length === 0) {
             this.markObjective(itemToCheck.id, 'done');
-            return;
           }
 
           itemToCheck.requirements.forEach(requirement => {
@@ -343,6 +360,13 @@ export default {
             return;
           });
         }
+
+        this.duplicateItems.forEach(duplicateItem => {
+          if(duplicateItem === itemToCheck.id) {
+            this.markObjective(itemToCheck.id, 'wrong');
+            return;
+          }
+        });
       });
 
       // Verifica se há itens extras no carrinho
@@ -364,6 +388,10 @@ export default {
 
       if (this.extraItems.length > 0) {
         errorMessage += `Itens extras: ${this.extraItems.join(", ")}\n`;
+      }
+
+      if (this.duplicateItems.length > 0) {
+        errorMessage += `Itens duplicados: ${this.duplicateItems.join(", ")}\n`;
       }
 
       if (errorMessage === "") {
