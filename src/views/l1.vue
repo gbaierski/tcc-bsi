@@ -21,6 +21,8 @@ export default {
       isObjectivesOpen: false,
       hasAdditional: false,
       isEditing: false,
+      hasObjectiveInformation: false,
+      objectivesDone: false,
 
       // Alertas
       alertType: "error",
@@ -562,6 +564,11 @@ export default {
           </div>
         </div>
 
+        <div id="objectives-information" :class="{'objectives-information-show' : hasObjectiveInformation, 'objectives-information-text-done' : objectivesDone}">
+          <font-awesome-icon :icon="['fas', 'circle-question']" id="objectives-information-icon" v-if="!objectivesDone"/>
+          <font-awesome-icon :icon="['fas', 'circle-check']" id="objectives-information-icon-done" v-else/>
+          <span id="objectives-information-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor enim doloribus iste, beatae dolore nostrum voluptas blanditiis expedita, praesentium minus nemo magni in, vero recusandae omnis veniam reiciendis necessitatibus repellendus.</span>
+        </div>
       </div>
     </div>
   </header>
