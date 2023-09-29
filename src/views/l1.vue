@@ -103,6 +103,7 @@ export default {
     },
 
     openObjectives() {
+      this.closeItem();
       this.isObjectivesOpen = true;
 
       if (this.isMobile)
@@ -127,6 +128,7 @@ export default {
     },
 
     async openItem(type, id, edit = false, additional = false, index = false) { 
+      this.closeObjectives();
       let item = this.menu[type].find(item => item.id === id);
 
       this.activeItem.id = id;
@@ -529,7 +531,7 @@ export default {
       </div>
       <button type="button" id="modal-add" class="button" @click="addItem()">{{ isEditing ? 'ATUALIZAR' : 'ADICIONAR' }} <div id="item-price-modal">{{ 'R$' + this.activeItem.totalPrice + ',00'}}</div></button>
     </div>
-    <section id="objectives-modal-background" :class="{'objectives-modal-background-open' : isObjectivesOpen}"></section>
+    <section id="objectives-modal-background" @click="closeObjectives()" :class="{'objectives-modal-background-open' : isObjectivesOpen}"></section>
     <div id="objectives-modal" :class="{'objectives-modal-open' : isObjectivesOpen}" >
       <button type="button" id="modal-objectives-back" class="button" @click="closeObjectives()"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
       <div id="objectives-modal-items">
