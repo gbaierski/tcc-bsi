@@ -44,15 +44,6 @@
         border: solid 4px #4a4a4a;
     }
 
-    #objectives-modal-background {
-        position: fixed;
-        z-index: 6;
-        width: 100vw;
-        min-height: 162.5vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        transform: scale(0, 0);
-    }
-
     #place-name {
         font-size: 20px;
         letter-spacing: 4px;
@@ -112,6 +103,15 @@
     }
 
     #options-modal-background {
+        position: fixed;
+        z-index: 6;
+        width: 100vw;
+        min-height: 162.5vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        transform: scale(0, 0);
+    }
+
+    #objectives-modal-background {
         position: fixed;
         z-index: 6;
         width: 100vw;
