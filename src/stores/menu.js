@@ -78,21 +78,21 @@ const menu = {
     juices: [
         {
             id: 11,
-            name: "Laranja",
+            name: "Suco de laranja",
             description: "600ml de suco de laranja natural.",
             price: 10,
             image: "sucoLaranja.webp"
         },
         {
             id: 12,
-            name: "Uva",
+            name: "Suco de uva",
             description: "600ml de suco de uva natural.",
             price: 10,
             image: "sucoUva.webp"
         },
         {
             id: 13,
-            name: "Abacaxi com Hortelã",
+            name: "Suco de abacaxi com hortelã",
             description: "600ml de suco de abacaxi com hortelã.",
             price: 10,
             image: "sucoAbacaxi.webp"

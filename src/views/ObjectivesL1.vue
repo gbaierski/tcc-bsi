@@ -35,7 +35,7 @@
                 <font-awesome-icon :icon="['fas', 'whiskey-glass']" class="objective-icon"/>
             </div>
             <div class="objective-info">
-                <div class="objective-title">Peça um suco sabor <b>UVA</b></div>
+                <div class="objective-title">Peça um <b>SUCO DE UVA</b></div>
             </div>
             </div>
         </div>
