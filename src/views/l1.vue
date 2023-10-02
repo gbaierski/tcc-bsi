@@ -383,10 +383,6 @@ export default {
 
       this.objectivesInformation = "";
 
-      if (this.missingItems.length > 0) {
-        this.objectivesInformation += `Itens ausentes: ${this.missingItems.join(", ")}<br>`;
-      }
-
       if (this.invalidItems.length > 0) {
         this.objectivesInformation += `Itens com problemas: ${this.invalidItems.join(", ")}<br>`;
       }
@@ -399,12 +395,16 @@ export default {
         this.objectivesInformation += `Itens duplicados: ${this.duplicateItems.join(", ")}<br>`;
       }
 
-      if (this.objectivesInformation === "") {
+      if (this.objectivesInformation === "" && this.missingItems.length === 0) {
         this.hasObjectiveInformation = true;
         this.objectivesDone = true;
         this.objectivesInformation = "O carrinho atende aos objetivos especificados.";
-      } else {
+      } else if (this.objectivesInformation !== ""){
         this.hasObjectiveInformation = true;
+        this.objectivesDone = false;
+      } else {
+        this.hasObjectiveInformation = false;
+        this.objectivesDone = false;
       }
     },
     resetObjectives() {
