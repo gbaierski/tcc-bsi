@@ -12,6 +12,7 @@ export default {
       missingItems: [],
       invalidItems: [],
       extraItems: [],
+      objectivesInformation: "",
 
       // Verificações
       isMobile: false,
@@ -380,28 +381,30 @@ export default {
         }
       });
 
-      let errorMessage = "";
+      this.objectivesInformation = "";
 
       if (this.missingItems.length > 0) {
-        errorMessage += `Itens ausentes: ${this.missingItems.join(", ")}\n`;
+        this.objectivesInformation += `Itens ausentes: ${this.missingItems.join(", ")}<br>`;
       }
 
       if (this.invalidItems.length > 0) {
-        errorMessage += `Itens com problemas: ${this.invalidItems.join(", ")}\n`;
+        this.objectivesInformation += `Itens com problemas: ${this.invalidItems.join(", ")}<br>`;
       }
 
       if (this.extraItems.length > 0) {
-        errorMessage += `Itens extras: ${this.extraItems.join(", ")}\n`;
+        this.objectivesInformation += `Itens extras: ${this.extraItems.join(", ")}<br>`;
       }
 
       if (this.duplicateItems.length > 0) {
-        errorMessage += `Itens duplicados: ${this.duplicateItems.join(", ")}\n`;
+        this.objectivesInformation += `Itens duplicados: ${this.duplicateItems.join(", ")}<br>`;
       }
 
-      if (errorMessage === "") {
-        console.log("O carrinho atende aos objetivos especificados.");
+      if (this.objectivesInformation === "") {
+        this.hasObjectiveInformation = true;
+        this.objectivesDone = true;
+        this.objectivesInformation = "O carrinho atende aos objetivos especificados.";
       } else {
-        console.log(errorMessage);
+        this.hasObjectiveInformation = true;
       }
     },
     resetObjectives() {
@@ -562,14 +565,14 @@ export default {
             <font-awesome-icon :icon="['fas', 'whiskey-glass']" class="objective-icon"/>
           </div>
           <div class="objective-info">
-            <div class="objective-title">Peça um suco sabor <b>UVA</b></div>
+            <div class="objective-title">Peça um <b>SUCO DE UVA</b></div>
           </div>
         </div>
 
         <div id="objectives-information" :class="{'objectives-information-show' : hasObjectiveInformation, 'objectives-information-text-done' : objectivesDone}">
           <font-awesome-icon :icon="['fas', 'circle-question']" id="objectives-information-icon" v-if="!objectivesDone"/>
           <font-awesome-icon :icon="['fas', 'circle-check']" id="objectives-information-icon-done" v-else/>
-          <span id="objectives-information-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor enim doloribus iste, beatae dolore nostrum voluptas blanditiis expedita, praesentium minus nemo magni in, vero recusandae omnis veniam reiciendis necessitatibus repellendus.</span>
+          <span id="objectives-information-text" v-html="objectivesInformation"></span>
         </div>
       </div>
     </div>
