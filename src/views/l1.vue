@@ -30,6 +30,11 @@ export default {
       alertMessage: "Erro desconhecido!",
       alertTimeout: 0,
 
+      // Timer
+      startTime: null,
+      timerRunning: false,
+      elapsedTime: 0,
+
       // Caminhos
       imagesPath: "src/assets/img/items/",
       itemImageUrl: "src/assets/img/items/default.webp",
@@ -293,6 +298,8 @@ export default {
 
     finishOrder() {
       this.validateObjectives();
+      //this.stopTimer();
+      console.log(this.getActualTime);
       // this.$router.push({ name: 'objectivesL2' });
     },
 
@@ -458,7 +465,32 @@ export default {
         return name || match; // Se o nome não for encontrado, mantém o número original
       });
       return updatedString;
-    }
+    },
+
+    startTimer() {
+      this.startTime = Date.now() / 1000;
+      this.timerRunning = true;
+      this.updateElapsedTime();
+    },
+
+    stopTimer() {
+      if (this.timerRunning) {
+        this.elapsedTime = Date.now() / 1000 - this.startTime;
+        this.timerRunning = false;
+      }
+      return this.formatElapsedTime(this.elapsedTime);
+    },
+
+    updateElapsedTime() {
+      if (this.timerRunning) {
+        this.elapsedTime = Date.now() / 1000 - this.startTime;
+        requestAnimationFrame(this.updateElapsedTime);
+      }
+    },
+
+    formatElapsedTime(timeInSeconds) {
+      return timeInSeconds.toFixed(2);
+    },
   },
   computed: {
     alertClasses: function() {
@@ -468,6 +500,10 @@ export default {
         'alert-info': this.alertType === 'info',
         'alert-error': this.alertType === 'error',
       };
+    },
+
+    getActualTime() {
+      return this.formatElapsedTime(this.elapsedTime);
     },
   },
   mounted() {
@@ -480,6 +516,8 @@ export default {
     window.addEventListener('popstate', () => {
       this.isMobile ? this.closeItem() : history.go(-1); 
     });
+
+    this.startTimer();
   },
   beforeDestroy() {
     const resizeObserver = new ResizeObserver(this.updateIsMobile);
