@@ -491,6 +491,10 @@ export default {
     <section id="header-content">
         <div id="objectives-icon" @click="openObjectives()" :class="{ 'objectives-active' : isObjectivesOpen}">
           <font-awesome-icon :icon="['fas', 'circle-question']" />
+          <div id="objectives-status-indicator" v-if="this.hasObjectiveInformation && (!isObjectivesOpen || !isMobile)" @click="openObjectives()">
+            <font-awesome-icon v-if="objectivesDone" :icon="['fas', 'circle-check']" class="objectives-status-indicator-icon indicator-icon-positive"/>
+            <font-awesome-icon v-else :icon="['fas', 'circle-xmark']" class="objectives-status-indicator-icon"/>
+          </div>
         </div>
         <img src="src/assets/img/logo-l1.jpg" id="place-image" alt="Foto da hamburgueria">
         <div id="place-name">Nice Burger</div>

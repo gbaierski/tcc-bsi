@@ -38,6 +38,23 @@
         transition: all 0.2s;
     }
 
+    #objectives-status-indicator {
+        width: 20px;
+        height: 20px;
+        left: 35px;
+        top: 0px;
+        z-index: 5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        background-color: $main;
+        font-family: "Source Sans Pro", sans-serif;
+        transition: all 0.2s;
+        background-color: $main;
+    }
+
     #place-image {
         width: 100px;
         height: 100px;
@@ -98,6 +115,7 @@
     }
 
     #alert-message {
+        max-width: 80%;
         font-size: 17px;
         font-family: "Source Sans Pro", sans-serif;
     }
@@ -434,7 +452,7 @@
 
     .alert-error {
         background-color: #ffe0e3;
-        color: #ff4858;
+        color: $negative;
     }
 
     .alert-error>div:first-of-type {
@@ -443,6 +461,15 @@
 
     .alert-icon {
         font-size: 27px;
+    }
+
+    .objectives-status-indicator-icon {
+        font-size: 20px;
+        color: $negative;
+    }
+
+    .indicator-icon-positive {
+        color: $positive;
     }
 
     .place-info-box {
