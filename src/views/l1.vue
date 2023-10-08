@@ -384,15 +384,15 @@ export default {
       this.objectivesInformation = "";
 
       if (this.invalidItems.length > 0) {
-        this.objectivesInformation += `Itens com problemas: ${this.invalidItems.join(", ")}<br>`;
+        this.objectivesInformation += `<b>Itens com problemas:</b> ${this.invalidItems.join(", ")}<br>`;
       }
 
       if (this.extraItems.length > 0) {
-        this.objectivesInformation += `Itens extras: ${this.extraItems.join(", ")}<br>`;
+        this.objectivesInformation += `<b>Itens extras:</b> ${this.extraItems.join(", ")}<br>`;
       }
 
       if (this.duplicateItems.length > 0) {
-        this.objectivesInformation += `Itens duplicados: ${this.duplicateItems.join(", ")}<br>`;
+        this.objectivesInformation += `<b>Itens duplicados:</b> ${this.duplicateItems.join(", ")}<br>`;
       }
 
       if (this.objectivesInformation === "" && this.missingItems.length === 0) {
@@ -402,11 +402,13 @@ export default {
       } else if (this.objectivesInformation !== ""){
         this.hasObjectiveInformation = true;
         this.objectivesDone = false;
+        this.objectivesInformation = this.getUpdatedObjectivesInformation();
       } else {
         this.hasObjectiveInformation = false;
         this.objectivesDone = false;
       }
     },
+
     resetObjectives() {
       const objectives = document.querySelectorAll(".objective");
       const icons = document.querySelectorAll(".objective-icon-status");
@@ -437,6 +439,25 @@ export default {
 
       icon.classList.remove("objective-status-normal", "objective-status-done", "objective-status-wrong");
       icon.classList.add("objective-status-" + type);
+    },
+
+    getMenuName(id) {
+      for (const category in this.menu) {
+        const item = this.menu[category].find(item => item.id === id);
+        if (item) {
+          return item.name;
+        }
+      }
+    },
+
+    getUpdatedObjectivesInformation() {
+      const regex = /(\d+)/g; // Busca os IDs na string para transformá-los no nome
+      const updatedString = this.objectivesInformation.replace(regex, (match) => {
+        const id = parseInt(match);
+        const name = this.getMenuName(id);
+        return name || match; // Se o nome não for encontrado, mantém o número original
+      });
+      return updatedString;
     }
   },
   computed: {
