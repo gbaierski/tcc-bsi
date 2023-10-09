@@ -24,6 +24,7 @@ export default {
       isEditing: false,
       hasObjectiveInformation: false,
       objectivesDone: false,
+      isFinishingOrder: false,
 
       // Alertas
       alertType: "error",
@@ -34,6 +35,13 @@ export default {
       startTime: null,
       timerRunning: false,
       elapsedTime: 0,
+      processingStartTime: 0,
+
+      // Valores medidos
+      stepsCount: 0, // Quantidade de passos que o usuário levou para finalizar os objetivos
+      finishAttempts: 0, // Quantidade de vezes que o usuário tentou finalizar o pedido
+      totalTime: 0, // Tempo total que o usuário levou no teste do layout
+      processingTime: 0, // Tempo de processamento da informação do usuário no modal de edição do item
 
       // Caminhos
       imagesPath: "src/assets/img/items/",
@@ -78,6 +86,7 @@ export default {
     updateIsMobile() {
       this.isMobile = window.innerWidth < 1008;
     },
+
     alert(type, message) {
       this.alertType = type;
       this.alertMessage = message;
@@ -181,6 +190,7 @@ export default {
         document.body.classList.add('no-scroll');
 
       this.isItemOpen = true;
+      this.updateProcessingTime();
 
       setTimeout(() => {
         this.itemImageUrl = preloadedImage.src;
@@ -191,6 +201,7 @@ export default {
       this.resetAdditionalChecks();
       this.isEditing = false;
       this.isItemOpen = false;
+      this.updateProcessingTime();
       this.itemImageUrl = this.imagesPath + "default.webp";
 
       if (this.isMobile)
@@ -297,10 +308,24 @@ export default {
     },
 
     finishOrder() {
-      this.validateObjectives();
-      //this.stopTimer();
-      console.log(this.getActualTime);
-      // this.$router.push({ name: 'objectivesL2' });
+      this.isFinishingOrder = true;
+      this.finishAttempts++;
+
+      if(this.objectivesDone) {
+        this.totalTime = this.stopTimer();
+        this.processingTime = this.formatTime(this.processingTime);
+
+        console.log("Tempo total: " + this.totalTime);
+        console.log("Quantidade de passos: " + this.stepsCount);
+        console.log("Tentativas de finalização: " + this.finishAttempts);
+        console.log("Tempo de processamento da informação: " + this.processingTime);
+
+        // this.$router.push({ name: 'objectivesL2' });
+      } else {
+        this.openObjectives();
+        this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
+        this.isFinishingOrder = false;
+      }
     },
 
     validateObjectives() {
@@ -414,6 +439,7 @@ export default {
         this.hasObjectiveInformation = false;
         this.objectivesDone = false;
       }
+      this.stepsCount++;
     },
 
     resetObjectives() {
@@ -478,7 +504,7 @@ export default {
         this.elapsedTime = Date.now() / 1000 - this.startTime;
         this.timerRunning = false;
       }
-      return this.formatElapsedTime(this.elapsedTime);
+      return this.formatTime(this.elapsedTime);
     },
 
     updateElapsedTime() {
@@ -488,8 +514,21 @@ export default {
       }
     },
 
-    formatElapsedTime(timeInSeconds) {
+    formatTime(timeInSeconds) {
       return timeInSeconds.toFixed(2);
+    },
+
+    updateProcessingTime() {
+      if (this.isItemOpen) {
+        this.processingStartTime = Date.now();
+      } else {
+        if (this.processingStartTime) {
+          const processingEndTime = Date.now();
+          const processingElapsedTime = (processingEndTime - this.processingStartTime) / 1000;
+          this.processingTime += processingElapsedTime;
+          this.processingStartTime = 0;
+        }
+      }
     },
   },
   computed: {
@@ -503,7 +542,7 @@ export default {
     },
 
     getActualTime() {
-      return this.formatElapsedTime(this.elapsedTime);
+      return this.formatTime(this.elapsedTime);
     },
   },
   mounted() {
@@ -681,7 +720,7 @@ export default {
       </div>
       <div id="cart-info">
         <div id="cart-total-price">TOTAL: {{'R$' + this.totalPrice + ',00'}}</div>
-        <button type="button" id="finish-order" class="button" @click="finishOrder()">FINALIZAR PEDIDO</button>
+        <button type="button" id="finish-order" class="button" @click="finishOrder()" :disabled="isFinishingOrder">FINALIZAR PEDIDO</button>
       </div>
     </nav>
   </section>
