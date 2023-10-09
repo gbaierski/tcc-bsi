@@ -3,18 +3,51 @@ import menu from '../stores/menu';
 export default {
   data() {
     return {
+      // Variáveis do pedido:
+      itemsToCheck: [
+        {id: 2, requirements: [{ type: "add", id: 4 }]}, // Duplo cheddar + Fritas
+        {id: 7, requirements: [{ type: "remove", id: 2 }]}, // Hotdog - Molho
+        {id: 16,requirements: []}, // Água sem gás
+      ],
+      missingItems: [],
+      invalidItems: [],
+      extraItems: [],
+      objectivesInformation: "",
+
+      // Verificações
       isMobile: false,
       isAlertOpen: false,
-      alertType: "error",
-      alertMessage: "Erro desconhecido!",
-      alertTimeout: 0,
-      imagesPath: "src/assets/img/items/",
-      itemImageUrl: "src/assets/img/items/default.webp",
       isCartOpen: false,
       isItemOpen: false,
       isObjectivesOpen: false,
       hasAdditional: false,
       isEditing: false,
+      hasObjectiveInformation: false,
+      objectivesDone: false,
+      isFinishingOrder: false,
+
+      // Alertas
+      alertType: "error",
+      alertMessage: "Erro desconhecido!",
+      alertTimeout: 0,
+
+      // Timer
+      startTime: null,
+      timerRunning: false,
+      elapsedTime: 0,
+      processingStartTime: 0,
+
+      // Valores medidos
+      stepCount: 0, // Quantidade de passos que o usuário levou para finalizar os objetivos
+      finishAttempts: 0, // Quantidade de vezes que o usuário tentou finalizar o pedido
+      totalTime: 0, // Tempo total que o usuário levou no teste do layout
+      processingTime: 0, // Tempo de processamento da informação do usuário no modal de edição do item
+
+      // Caminhos
+      imagesPath: "src/assets/img/items/",
+      itemImageUrl: "src/assets/img/items/default.webp",
+
+      // Declaração de variáveis
       additionalItems: {
         remove: [
           { id: 1, name: "Queijo", checked: false },
@@ -53,6 +86,7 @@ export default {
     updateIsMobile() {
       this.isMobile = window.innerWidth < 1008;
     },
+
     alert(type, message) {
       this.alertType = type;
       this.alertMessage = message;
@@ -84,6 +118,7 @@ export default {
     },
 
     openObjectives() {
+      this.closeItem();
       this.isObjectivesOpen = true;
 
       if (this.isMobile)
@@ -108,6 +143,7 @@ export default {
     },
 
     async openItem(type, id, edit = false, additional = false, index = false) { 
+      this.closeObjectives();
       let item = this.menu[type].find(item => item.id === id);
 
       this.activeItem.id = id;
@@ -154,6 +190,7 @@ export default {
         document.body.classList.add('no-scroll');
 
       this.isItemOpen = true;
+      this.updateProcessingTime();
 
       setTimeout(() => {
         this.itemImageUrl = preloadedImage.src;
@@ -164,6 +201,7 @@ export default {
       this.resetAdditionalChecks();
       this.isEditing = false;
       this.isItemOpen = false;
+      this.updateProcessingTime();
       this.itemImageUrl = this.imagesPath + "default.webp";
 
       if (this.isMobile)
@@ -221,6 +259,7 @@ export default {
 
       this.openCart();
       this.refreshCartPrice();
+      this.validateObjectives();
       this.closeItem();
     },
 
@@ -228,6 +267,7 @@ export default {
       this.cartList.splice(item, 1);
       this.refreshCartPrice();
       this.cartCount--;
+      this.validateObjectives();
 
       if(this.cartCount == 0)
         this.alert('info', 'Seu carrinho está vazio!');
@@ -268,8 +308,228 @@ export default {
     },
 
     finishOrder() {
-      this.$router.push({ name: 'index' });
-    }
+      this.isFinishingOrder = true;
+      this.finishAttempts++;
+
+      if(this.objectivesDone) {
+        this.totalTime = this.stopTimer();
+        this.processingTime = this.formatTime(this.processingTime);
+
+        console.log("Tempo total: " + this.totalTime);
+        console.log("Quantidade de passos: " + this.stepCount);
+        console.log("Tentativas de finalização: " + this.finishAttempts);
+        console.log("Tempo de processamento da informação: " + this.processingTime);
+
+        // this.$router.push({ name: 'objectivesL2' });
+      } else {
+        this.openObjectives();
+        this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
+        this.isFinishingOrder = false;
+      }
+    },
+
+    validateObjectives() {
+      this.missingItems = [];
+      this.invalidItems = [];
+      this.extraItems = [];
+      this.duplicateItems = [];
+
+      this.resetObjectives();
+
+      // Verifica itens duplicados
+      const seenItemIds = {};
+
+      for (const item of this.cartList) {
+        const itemId = item.id;
+
+        if (seenItemIds[itemId])
+          this.duplicateItems.push(item.id);
+        else
+          seenItemIds[itemId] = true;
+      }
+
+      // Remove IDs duplicados dentro do array
+      this.duplicateItems = this.duplicateItems.filter((id, index, self) => {
+        return self.indexOf(id) === index;
+      });
+
+      // Cria um mapa de itens no carrinho para facilitar a verificação
+      const cartItemMap = new Map(this.cartList.map(item => [item.id, item]));
+
+      this.itemsToCheck.forEach(itemToCheck => {
+        const item = cartItemMap.get(itemToCheck.id);
+
+        if (!item) {
+          this.missingItems.push(itemToCheck.id);
+          return;
+        } else {
+          if (itemToCheck.requirements.length === 0) {
+            this.markObjective(itemToCheck.id, 'done');
+          }
+
+          itemToCheck.requirements.forEach(requirement => {
+            if (requirement.type === "remove") {
+              if ( // Verifica se o adicional selecionado está correto:
+                (item.additional && Array.isArray(item.additional.remove) && !item.additional.remove.some(removeItem => removeItem.id === requirement.id))
+                || // Verifica se há itens adicionais dentro de "remove" não especificados:
+                (Array.isArray(item.additional.remove) && item.additional.remove.length > 1)
+                || // Verifica se há itens adicionais dentro de "add" não especificados:
+                (item.additional && Array.isArray(item.additional.add) && item.additional.add.length > 0)
+              ) {
+                this.invalidItems.push(itemToCheck.id);
+                this.markObjective(itemToCheck.id, 'wrong');
+                return;
+              }
+            } else if (requirement.type === "add") {
+              if ( // Verifica se o adicional selecionado está correto:
+                (item.additional && Array.isArray(item.additional.add) && !item.additional.add.some(addItem => addItem.id === requirement.id))
+                || // Verifica se há itens adicionais dentro de "add" não especificados:
+                (Array.isArray(item.additional.add) && item.additional.add.length > 1)
+                || // Verifica se há itens adicionais dentro de "remove" não especificados:
+                (item.additional && Array.isArray(item.additional.remove) && item.additional.remove.length > 0)
+              ) {
+                this.invalidItems.push(itemToCheck.id);
+                this.markObjective(itemToCheck.id, 'wrong');
+                return;
+              }
+            }
+            this.markObjective(itemToCheck.id, 'done');
+            return;
+          });
+        }
+
+        this.duplicateItems.forEach(duplicateItem => {
+          if(duplicateItem === itemToCheck.id) {
+            this.markObjective(itemToCheck.id, 'wrong');
+            return;
+          }
+        });
+      });
+
+      // Verifica se há itens extras no carrinho
+      this.cartList.forEach(item => {
+        if (!this.itemsToCheck.some(itemToCheck => itemToCheck.id === item.id) && !this.extraItems.includes(item.id)) {
+          this.extraItems.push(item.id);
+        }
+      });
+
+      this.objectivesInformation = "";
+
+      if (this.invalidItems.length > 0) {
+        this.objectivesInformation += `<b>Itens com problemas:</b> ${this.invalidItems.join(", ")}<br>`;
+      }
+
+      if (this.extraItems.length > 0) {
+        this.objectivesInformation += `<b>Itens extras:</b> ${this.extraItems.join(", ")}<br>`;
+      }
+
+      if (this.duplicateItems.length > 0) {
+        this.objectivesInformation += `<b>Itens duplicados:</b> ${this.duplicateItems.join(", ")}<br>`;
+      }
+
+      if (this.objectivesInformation === "" && this.missingItems.length === 0) {
+        this.hasObjectiveInformation = true;
+        this.objectivesDone = true;
+        this.objectivesInformation = "O carrinho atende aos objetivos especificados.";
+      } else if (this.objectivesInformation !== ""){
+        this.hasObjectiveInformation = true;
+        this.objectivesDone = false;
+        this.objectivesInformation = this.getUpdatedObjectivesInformation();
+      } else {
+        this.hasObjectiveInformation = false;
+        this.objectivesDone = false;
+      }
+      this.stepCount++;
+    },
+
+    resetObjectives() {
+      const objectives = document.querySelectorAll(".objective");
+      const icons = document.querySelectorAll(".objective-icon-status");
+
+      objectives.forEach(objective => {
+        objective.classList.remove("objective-normal", "objective-done", "objective-wrong");
+      });
+      
+      objectives.forEach(objective => {
+        objective.classList.add("objective-normal");
+      });
+      
+      icons.forEach(icon => {
+        icon.classList.remove("objective-status-normal", "objective-status-done", "objective-status-wrong");
+      });
+
+      icons.forEach(icon => {
+        icon.classList.add("objective-status-normal");
+      });
+    },
+
+    markObjective(id, type) {
+      const objective = document.getElementById('objective-' + id.toString());
+      const icon = document.getElementById('objective-icon-' + id.toString());
+
+      objective.classList.remove("objective-normal", "objective-done", "objective-wrong");
+      objective.classList.add("objective-" + type);
+
+      icon.classList.remove("objective-status-normal", "objective-status-done", "objective-status-wrong");
+      icon.classList.add("objective-status-" + type);
+    },
+
+    getMenuName(id) {
+      for (const category in this.menu) {
+        const item = this.menu[category].find(item => item.id === id);
+        if (item) {
+          return item.name;
+        }
+      }
+    },
+
+    getUpdatedObjectivesInformation() {
+      const regex = /(\d+)/g; // Busca os IDs na string para transformá-los no nome
+      const updatedString = this.objectivesInformation.replace(regex, (match) => {
+        const id = parseInt(match);
+        const name = this.getMenuName(id);
+        return name || match; // Se o nome não for encontrado, mantém o número original
+      });
+      return updatedString;
+    },
+
+    startTimer() {
+      this.startTime = Date.now() / 1000;
+      this.timerRunning = true;
+      this.updateElapsedTime();
+    },
+
+    stopTimer() {
+      if (this.timerRunning) {
+        this.elapsedTime = Date.now() / 1000 - this.startTime;
+        this.timerRunning = false;
+      }
+      return this.formatTime(this.elapsedTime);
+    },
+
+    updateElapsedTime() {
+      if (this.timerRunning) {
+        this.elapsedTime = Date.now() / 1000 - this.startTime;
+        requestAnimationFrame(this.updateElapsedTime);
+      }
+    },
+
+    formatTime(timeInSeconds) {
+      return timeInSeconds.toFixed(2);
+    },
+
+    updateProcessingTime() {
+      if (this.isItemOpen) {
+        this.processingStartTime = Date.now();
+      } else {
+        if (this.processingStartTime) {
+          const processingEndTime = Date.now();
+          const processingElapsedTime = (processingEndTime - this.processingStartTime) / 1000;
+          this.processingTime += processingElapsedTime;
+          this.processingStartTime = 0;
+        }
+      }
+    },
   },
   computed: {
     alertClasses: function() {
@@ -279,6 +539,10 @@ export default {
         'alert-info': this.alertType === 'info',
         'alert-error': this.alertType === 'error',
       };
+    },
+
+    getActualTime() {
+      return this.formatTime(this.elapsedTime);
     },
   },
   mounted() {
@@ -291,6 +555,8 @@ export default {
     window.addEventListener('popstate', () => {
       this.isMobile ? this.closeItem() : history.go(-1); 
     });
+
+    this.startTimer();
   },
   beforeDestroy() {
     const resizeObserver = new ResizeObserver(this.updateIsMobile);
@@ -323,9 +589,13 @@ export default {
     <section id="header-content">
         <div id="objectives-icon" @click="openObjectives()" :class="{ 'objectives-active' : isObjectivesOpen}">
           <font-awesome-icon :icon="['fas', 'circle-question']" />
+          <div id="objectives-status-indicator" v-if="this.hasObjectiveInformation && (!isObjectivesOpen || !isMobile)" @click="openObjectives()">
+            <font-awesome-icon v-if="objectivesDone" :icon="['fas', 'circle-check']" class="objectives-status-indicator-icon indicator-icon-positive"/>
+            <font-awesome-icon v-else :icon="['fas', 'circle-xmark']" class="objectives-status-indicator-icon"/>
+          </div>
         </div>
         <img src="src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
-        <div id="place-name">Great Burger</div>
+        <div id="place-name">Nice Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
           <div id="address-info">BR-280 - Colégio Agrícola, Araquari - SC, 89245-000</div>
@@ -366,38 +636,45 @@ export default {
       </div>
       <button type="button" id="modal-add" class="button" @click="addItem()">{{ isEditing ? 'ATUALIZAR' : 'ADICIONAR' }} <div id="item-price-modal">{{ 'R$' + this.activeItem.totalPrice + ',00'}}</div></button>
     </div>
-    <section id="objectives-modal-background" :class="{'objectives-modal-background-open' : isObjectivesOpen}"></section>
+    <section id="objectives-modal-background" @click="closeObjectives()" :class="{'objectives-modal-background-open' : isObjectivesOpen}"></section>
     <div id="objectives-modal" :class="{'objectives-modal-open' : isObjectivesOpen}" >
       <button type="button" id="modal-objectives-back" class="button" @click="closeObjectives()"><font-awesome-icon :icon="['fas', 'chevron-left']" /></button>
       <div id="objectives-modal-items">
         <h2 id="objectives-title-modal">OBJETIVOS</h2>
-        <div class="objective objective-wrong">
-          <div class="objective-icon-status objective-status-wrong">
-            <font-awesome-icon :icon="['fas', 'circle-xmark']" class="objective-icon"/>
+
+        <div id="objective-2" class="objective objective-normal">
+          <div id="objective-icon-2" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'burger']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hambúrguer <b>DUPLO CHEDDAR</b></div>
-            <div class="objective-additional"><b>Com adicional de batata frita</b></div>
+            <div class="objective-additional"><b>Com batata frita extra</b></div>
           </div>
         </div>
 
-        <div class="objective objective-done">
-          <div class="objective-icon-status objective-status-done">
-            <font-awesome-icon :icon="['fas', 'circle-check']" class="objective-icon"/>
+        <div id="objective-7" class="objective objective-normal">
+          <div id="objective-icon-7" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'hotdog']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
-            <div class="objective-additional"><b>Com adicional de maionese</b></div>
+            <div class="objective-additional"><b>Sem molho</b></div>
           </div>
         </div>
 
-                <div class="objective objective-normal">
-          <div class="objective-icon-status objective-status-normal">
-            <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="objective-icon"/>
+        <div id="objective-16" class="objective objective-normal">
+          <div id="objective-icon-16" class="objective-icon-status objective-status-normal">
+            <font-awesome-icon :icon="['fas', 'bottle-water']" class="objective-icon"/>
           </div>
           <div class="objective-info">
-            <div class="objective-title">Peça uma bebida <b>ÁGUA SEM GÁS</b></div>
+            <div class="objective-title">Peça uma <b>ÁGUA SEM GÁS</b></div>
           </div>
+        </div>
+
+        <div id="objectives-information" :class="{'objectives-information-show' : hasObjectiveInformation, 'objectives-information-text-done' : objectivesDone}">
+          <font-awesome-icon :icon="['fas', 'circle-question']" id="objectives-information-icon" v-if="!objectivesDone"/>
+          <font-awesome-icon :icon="['fas', 'circle-check']" id="objectives-information-icon-done" v-else/>
+          <span id="objectives-information-text" v-html="objectivesInformation"></span>
         </div>
       </div>
     </div>
@@ -443,7 +720,7 @@ export default {
       </div>
       <div id="cart-info">
         <div id="cart-total-price">TOTAL: {{'R$' + this.totalPrice + ',00'}}</div>
-        <button type="button" id="finish-order" class="button" @click="finishOrder()">FINALIZAR PEDIDO</button>
+        <button type="button" id="finish-order" class="button" @click="finishOrder()" :disabled="isFinishingOrder">FINALIZAR PEDIDO</button>
       </div>
     </nav>
   </section>

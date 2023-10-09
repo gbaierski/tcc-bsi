@@ -22,6 +22,39 @@
         color: $main;
     }
 
+    #objectives-icon {
+        width: 27px;
+        height: 27px;
+        font-size: 27px;
+        left: 10px;
+        top: 75px;
+        z-index: 4;
+        color: $complementary;
+        background-color: $main;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+        padding: 10px;
+        border-radius: 10px;
+        position: fixed;
+        transition: all 0.2s;
+    }
+
+    #objectives-status-indicator {
+        width: 20px;
+        height: 20px;
+        left: 35px;
+        top: 0px;
+        z-index: 5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        background-color: $main;
+        font-family: "Source Sans Pro", sans-serif;
+        transition: all 0.2s;
+        background-color: $main;
+    }
+
     #place-image {
         width: 100px;
         height: 100px;
@@ -82,6 +115,7 @@
     }
 
     #alert-message {
+        max-width: 80%;
         font-size: 17px;
         font-family: "Source Sans Pro", sans-serif;
     }
@@ -95,12 +129,37 @@
         transform: scale(0, 0);
     }
 
+    #objectives-modal-background {
+        position: fixed;
+        z-index: 6;
+        width: 100vw;
+        min-height: 162.5vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        transform: scale(0, 0);
+    }
+
     #options-modal {
         position: fixed;
         top: 0%;
         z-index: 7;
-        width: 90.5vw;
-        height: 85vh;
+        width: 95vw;
+        height: 90vh;
+        padding: 20px 20px 120px 20px;
+        background-color: $main;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transform: scale(0, 0);
+        transition: transform .2s;
+        overflow-y: auto;
+    }
+
+    #objectives-modal {
+        position: fixed;
+        top: 0%;
+        z-index: 7;
+        width: 95vw;
+        height: 90vh;
         padding: 20px 20px 120px 20px;
         background-color: $main;
         display: flex;
@@ -116,9 +175,31 @@
         padding: 15px 20px 15px 20px;
     }
 
+    #modal-objectives-back {
+        width: 18%;
+        padding: 15px 20px 15px 20px;
+    }
+
     #options-modal-item {
         display: flex;
         flex-direction: column;
+        gap: 20px;
+    }
+
+    #objectives-title-modal {
+        margin-top: 0px;
+        letter-spacing: 1px;
+        font-size: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: lighter;
+        font-family: "Source Sans Pro", sans-serif;
+    }
+
+    #objectives-modal-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: 20px;
     }
 
@@ -136,6 +217,41 @@
         text-transform: uppercase;
         font-weight: lighter;
         font-family: "Source Sans Pro", sans-serif;
+    }
+
+    #objectives-information {
+        margin-top: 40px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ff485771;
+        font-family: "Source Sans Pro", sans-serif;
+        display: none;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #objectives-information-icon {
+        width: 25px;
+        height: 25px;
+        padding: 10px;
+        color: $main;
+        background-color: $negative;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #objectives-information-icon-done {
+        width: 25px;
+        height: 25px;
+        padding: 10px;
+        color: $main;
+        background-color: $positive;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #item-description-modal {
@@ -336,7 +452,7 @@
 
     .alert-error {
         background-color: #ffe0e3;
-        color: #ff4858;
+        color: $negative;
     }
 
     .alert-error>div:first-of-type {
@@ -345,6 +461,15 @@
 
     .alert-icon {
         font-size: 27px;
+    }
+
+    .objectives-status-indicator-icon {
+        font-size: 20px;
+        color: $negative;
+    }
+
+    .indicator-icon-positive {
+        color: $positive;
     }
 
     .place-info-box {
@@ -370,12 +495,94 @@
         cursor: pointer;
     }
 
+    .objectives-modal-background-open {
+        transform: scale(1, 1) !important;
+    }
+
     .options-modal-background-open {
         transform: scale(1, 1) !important;
     }
 
     .options-modal-open {
         transform: scale(1, 1) !important;
+    }
+
+    .objectives-modal-open {
+        transform: scale(1, 1) !important;
+    }
+
+    .objective-normal {
+        background-color: #b0bec55e;
+    }
+
+    .objective-done {
+        background-color: #2fd5744d;
+    }
+
+    .objective-wrong {
+        background-color: #ff485771;
+    }
+
+    .objective-status-normal {
+        background-color: $gray;
+    }
+
+    .objective-status-done {
+        background-color: $positive;
+    }
+
+    .objective-status-wrong {
+        background-color: $negative;
+    }
+
+    .objective {
+        width: 90%;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .objective-icon-status {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .objective-icon {
+        width: 50px;
+        height: 50px;
+        padding: 25px;
+        color: $main;
+    }
+
+    .objective-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .objective-title {
+        font-family: "Source Sans Pro", sans-serif;
+        text-align: center;
+    }
+
+    .objective-additional {
+        color: $dark;
+        text-align: center;
+        font-family: "Source Sans Pro", sans-serif;
+    }
+
+    .objectives-information-show {
+        display: flex !important;
+    }
+
+    .objectives-information-text-done {
+        background-color: #2fd5744d !important;
     }
 
     .item-additional-modal-open {

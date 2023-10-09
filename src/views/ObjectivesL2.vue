@@ -13,7 +13,7 @@
             </div>
             <div class="objective-info">
                 <div class="objective-title">Peça um hambúrguer <b>DUPLO CHEDDAR</b></div>
-                <div class="objective-additional add"><b>Com adicional de batata frita</b></div>
+                <div class="objective-additional add"><b>Com batata frita extra</b></div>
             </div>
             </div>
 
@@ -23,7 +23,7 @@
             </div>
             <div class="objective-info">
                 <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
-                <div class="objective-additional add"><b>Com adicional de maionese</b></div>
+                <div class="objective-additional rem"><b>Sem molho</b></div>
             </div>
             </div>
 
@@ -32,7 +32,7 @@
                 <font-awesome-icon :icon="['fas', 'bottle-water']" class="objective-icon"/>
             </div>
             <div class="objective-info">
-                <div class="objective-title">Peça uma bebida <b>ÁGUA SEM GÁS</b></div>
+                <div class="objective-title">Peça uma <b>ÁGUA SEM GÁS</b></div>
             </div>
             </div>
         </div>
@@ -184,5 +184,9 @@
 
     .add {
         color: #24ad5d;
+    }
+
+    .rem {
+        color: #b1151d;
     }
 </style>
