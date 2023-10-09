@@ -38,7 +38,7 @@ export default {
       processingStartTime: 0,
 
       // Valores medidos
-      stepsCount: 0, // Quantidade de passos que o usuário levou para finalizar os objetivos
+      stepCount: 0, // Quantidade de passos que o usuário levou para finalizar os objetivos
       finishAttempts: 0, // Quantidade de vezes que o usuário tentou finalizar o pedido
       totalTime: 0, // Tempo total que o usuário levou no teste do layout
       processingTime: 0, // Tempo de processamento da informação do usuário no modal de edição do item
@@ -316,7 +316,7 @@ export default {
         this.processingTime = this.formatTime(this.processingTime);
 
         console.log("Tempo total: " + this.totalTime);
-        console.log("Quantidade de passos: " + this.stepsCount);
+        console.log("Quantidade de passos: " + this.stepCount);
         console.log("Tentativas de finalização: " + this.finishAttempts);
         console.log("Tempo de processamento da informação: " + this.processingTime);
 
@@ -439,7 +439,7 @@ export default {
         this.hasObjectiveInformation = false;
         this.objectivesDone = false;
       }
-      this.stepsCount++;
+      this.stepCount++;
     },
 
     resetObjectives() {
