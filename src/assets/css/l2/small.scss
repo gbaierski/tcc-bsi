@@ -955,7 +955,6 @@
     .menu-item {
         background-color: $main;
         width: 80%;
-        height: 150px;
         padding: 30px;
         border-radius: 10px;
         display: flex;
@@ -1014,7 +1013,12 @@
     }
 
     .item-price {
-        font-size: 15px;
+        font-size: 13px;
+        color: $main;
+        background-color: rgb(18, 122, 82);
+        width: fit-content;
+        padding: 7.5px;
+        border-radius: 5px;
     }
 
     .item-image {

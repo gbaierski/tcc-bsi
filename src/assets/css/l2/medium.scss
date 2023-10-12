@@ -954,7 +954,6 @@
     .menu-item {
         background-color: $main;
         width: 80%;
-        height: 150px;
         padding: 30px;
         border-radius: 10px;
         display: flex;
@@ -979,7 +978,7 @@
     }
 
     .item-name {
-        font-size: 17px;
+        font-size: 20px;
         margin: 0px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -1008,12 +1007,17 @@
     }
 
     .item-ingredient-description {
-        font-size: 11px;
+        font-size: 12px;
         width: 90%;
     }
 
     .item-price {
-        font-size: 15px;
+        font-size: 14px;
+        color: $main;
+        background-color: rgb(18, 122, 82);
+        width: fit-content;
+        padding: 7.5px;
+        border-radius: 5px;
     }
 
     .item-image {

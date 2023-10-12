@@ -941,7 +941,6 @@
     .menu-item {
         background-color: $main;
         width: 800px;
-        height: 150px;
         padding: 50px;
         border-radius: 10px;
         display: flex;
@@ -966,6 +965,7 @@
     }
 
     .item-name {
+        font-size: 21px;
         margin: 0px;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -999,7 +999,12 @@
     }
 
     .item-price {
-        font-size: 20px;
+        font-size: 16px;
+        color: $main;
+        background-color: rgb(18, 122, 82);
+        width: fit-content;
+        padding: 7.5px;
+        border-radius: 5px;
     }
 
     .item-image {
