@@ -144,7 +144,7 @@
 
     #options-modal {
         position: fixed;
-        margin-top: 15%;
+        margin-top: 5%;
         z-index: 4;
         width: 40%;
         padding: 20px;
@@ -204,7 +204,7 @@
 
     #item-image-modal {
         border-radius: 10px;
-        width: 250px;
+        width: 200px;
         align-self: center;
     }
 
@@ -253,7 +253,7 @@
 
     #item-description-modal {
         color: $complementary;
-        font-size: 18px;
+        font-size: 16px;
         font-family: "Source Sans Pro", sans-serif;
     }
 
