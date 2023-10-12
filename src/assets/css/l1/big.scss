@@ -729,8 +729,8 @@
 
     .cart-item-additional-remove {
         list-style-type: none;
-        text-decoration: line-through;
         color: $complementary;
+        margin-bottom: 10px;
     }
 
     .cart-item-additional-remove li {
@@ -739,6 +739,14 @@
 
     .cart-item-additional-add {
         color: $complementary;
+    }
+
+    .cart-item-additional-add li {
+        margin-bottom: 5px;
+    }
+
+    .cart-item-add-name {
+        width: 150px;
     }
 
     .cart-item-add-price {

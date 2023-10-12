@@ -704,10 +704,10 @@ export default {
             <div class="cart-item-name">{{ cartItem.name }}<div class="cart-item-price">{{'R$' + cartItem.price + ',00'}}</div></div>
             <div class="cart-item-additional">
               <ul class="cart-item-additional-list cart-item-additional-remove">
-                <li v-for="removeItem in this.cartList[index].additional.remove" :key="removeItem.id">{{ removeItem.name }}</li>
+                <li v-for="removeItem in this.cartList[index].additional.remove" :key="removeItem.id">{{'Sem ' + removeItem.name.toLowerCase() }}</li>
               </ul>
               <ul class="cart-item-additional-list cart-item-additional-add">
-                <li v-for="addItem in this.cartList[index].additional.add" :key="addItem.id">{{ addItem.name }}<div class="cart-item-add-price">{{'R$' + addItem.price + ',00'}}</div></li>
+                <li v-for="addItem in this.cartList[index].additional.add" :key="addItem.id"><div class="cart-item-add-name">{{ addItem.name }}</div><div class="cart-item-add-price">{{'R$' + addItem.price + ',00'}}</div></li>
               </ul>
             </div>
             <div class="cart-item-total" v-if="this.cartList[index].additional.add.length">Total do item:<div class="cart-item-total-price">{{'R$' + this.cartList[index].totalPrice + ',00'}}</div></div>

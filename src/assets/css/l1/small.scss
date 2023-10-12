@@ -731,7 +731,7 @@
 
     .cart-item-additional-list li {
         width: 100%;
-        font-size: 14px;
+        font-size: 13px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -739,8 +739,8 @@
 
     .cart-item-additional-remove {
         list-style-type: none;
-        text-decoration: line-through;
         color: $complementary;
+        margin-bottom: 10px;
     }
 
     .cart-item-additional-remove li {
@@ -749,6 +749,14 @@
 
     .cart-item-additional-add {
         color: $complementary;
+    }
+
+    .cart-item-additional-add li {
+        margin-bottom: 5px;
+    }
+
+    .cart-item-add-name {
+        width: 100px;
     }
 
     .cart-item-add-price {
