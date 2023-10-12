@@ -617,19 +617,20 @@ export default {
         </div>
       </div>
       <div id="item-additional-modal" :class="{'item-additional-modal-open': hasAdditional}">
-        <div class="item-additional-box">
-          <h3 class="item-additional-title">Remover</h3>
-          <ul class="item-additional-list">
-            <li v-for="(itemRemove, index) in this.additionalItems.remove" :key="index"> {{ itemRemove.name }}
-              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemRemove.checked }]" @click="checkAdditional(itemRemove, 'remove')">✔</div>
+        <div class="item-additional-box item-additional-box-remove">
+          <h3 class="item-additional-title item-additional-title-remove">Remover</h3>
+          <ul class="item-additional-list item-additional-list-remove">
+            <li v-for="(itemRemove, index) in this.additionalItems.remove" :key="index">
+              <div :class="{ 'item-additional-remove-text-checked': itemRemove.checked }">{{ itemRemove.name }}</div>
+              <div :class="['item-additional-checkbox', { 'item-additional-remove-checked': itemRemove.checked }]" @click="checkAdditional(itemRemove, 'remove')">✖</div>
             </li>
           </ul>
         </div>
-        <div class="item-additional-box">
-          <h3 class="item-additional-title">Adicionar</h3>
-          <ul class="item-additional-list">
+        <div class="item-additional-box item-additional-box-add">
+          <h3 class="item-additional-title item-additional-title-add">Adicionar</h3>
+          <ul class="item-additional-list item-additional-list-add">
             <li v-for="(itemAdd, index) in this.additionalItems.add" :key="index"> {{ itemAdd.name }} + R${{ itemAdd.price + ',00'}}
-              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemAdd.checked }]" @click="checkAdditional(itemAdd, 'add')">✔</div>
+              <div :class="['item-additional-checkbox', { 'item-additional-add-checked': itemAdd.checked }]" @click="checkAdditional(itemAdd, 'add')">✔</div>
             </li>
           </ul>
         </div>

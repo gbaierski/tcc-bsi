@@ -148,7 +148,7 @@
         background-color: $main;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 40px;
         transform: scale(0, 0);
         transition: transform .2s;
         overflow-y: auto;
@@ -270,7 +270,7 @@
     }
 
     #modal-add {
-        background-color: black;
+        background-color: rgb(18, 122, 82);
         font-size: 17px;
     }
 
@@ -601,6 +601,14 @@
         background-color: $contrast;
     }
 
+    .item-additional-box-remove {
+        background-color: #faefef;
+    }
+
+    .item-additional-box-add {
+        background-color: #effaf5;
+    }
+
     .item-additional-title {
         width: 100%;
         height: 25px;
@@ -614,6 +622,14 @@
         align-items: center;
         font-weight: lighter;
         font-family: "Source Sans Pro", sans-serif;
+    }
+
+    .item-additional-title-remove {
+        background-color: rgb(138, 41, 66);
+    }
+
+    .item-additional-title-add {
+        background-color: rgb(18, 122, 82);
     }
 
     .item-additional-list {
@@ -660,11 +676,23 @@
         border: solid 1px black;
     }
 
-    .item-additional-checked {
+    .item-additional-remove-text-checked {
+        text-decoration: line-through;
+        color: rgb(128, 54, 72);
+    }
+
+    .item-additional-remove-checked {
         cursor: pointer;
         color: $main !important;
-        border: solid 1px black !important;
-        background-color: black !important;
+        border: solid 1px rgb(138, 41, 66) !important;
+        background-color: rgb(138, 41, 66) !important;
+    }
+
+    .item-additional-add-checked {
+        cursor: pointer;
+        color: $main !important;
+        border: solid 1px rgb(18, 122, 82) !important;
+        background-color: rgb(18, 122, 82) !important;
     }
 
     .cart-active {
