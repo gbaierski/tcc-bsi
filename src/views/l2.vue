@@ -17,6 +17,7 @@ export default {
       // Verificações
       isMobile: false,
       isAlertOpen: false,
+      isConfirmOpen: false,
       isCartOpen: false,
       isItemOpen: false,
       isObjectivesOpen: false,
@@ -30,6 +31,8 @@ export default {
       alertType: "error",
       alertMessage: "Erro desconhecido!",
       alertTimeout: 0,
+      confirmMessage: "",
+      selectedConfirmItem: null,
 
       // Timer
       startTime: null,
@@ -98,6 +101,21 @@ export default {
       this.alertTimeout = setTimeout(() => {
         this.isAlertOpen = false;
       }, 2000);
+    },
+
+    closeAlert() {
+      this.isAlertOpen = false;
+    },
+
+    confirm(index) {
+      this.closeAlert();
+      this.isConfirmOpen = true;
+      this.selectedConfirmItem = index;
+      this.confirmMessage = this.cartList[index].name;
+    },
+
+    closeConfirm() {
+      this.isConfirmOpen = false;
     },
 
     scrollTo(section) {
@@ -269,6 +287,8 @@ export default {
       this.cartCount--;
       this.validateObjectives();
 
+      this.closeConfirm();
+      
       if(this.cartCount == 0)
         this.alert('info', 'Seu carrinho está vazio!');
     },
@@ -586,6 +606,15 @@ export default {
         <div id="alert-message">{{ this.alertMessage }}</div>
       </div>
     </div>
+    <section id="confirm-background" @click="closeConfirm()" :class="{'confirm-background-open' : isConfirmOpen}"></section>
+    <div id="confirm" :class="{ 'confirm-open' : isConfirmOpen}">
+      <font-awesome-icon :icon="['fas', 'circle-exclamation']" class="confirm-icon"/>
+      <div id="confirm-message">Deseja mesmo remover o item <b>{{ this.confirmMessage }}</b> do carrinho?</div>
+      <div id="confirm-options">
+        <button type="button" id="confirm-cancel-button" class="button" @click="closeConfirm()">Cancelar</button>
+        <button type="button" id="confirm-confirm-button" class="button" @click="removeItem(this.selectedConfirmItem)">Remover</button>
+      </div>
+    </div>
     <section id="header-content">
         <div id="objectives-icon" @click="openObjectives()" :class="{ 'objectives-active' : isObjectivesOpen}">
           <font-awesome-icon :icon="['fas', 'circle-question']" />
@@ -714,7 +743,7 @@ export default {
             <div class="cart-item-total" v-if="this.cartList[index].additional.add.length">Total do item:<div class="cart-item-total-price">{{'R$' + this.cartList[index].totalPrice + ',00'}}</div></div>
             <div  class="cart-item-actions">
               <button type="button" class="cart-item-button cart-item-edit" @click="editItem(index)"><font-awesome-icon :icon="['fas', 'pen-to-square']" /> Editar</button>
-              <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /> Remover</button>
+              <button type="button" class="cart-item-button cart-item-remove" @click="confirm(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /> Remover</button>
             </div>
           </div>
         </div>
