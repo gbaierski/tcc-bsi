@@ -14,6 +14,35 @@ export default {
       extraItems: [],
       objectivesInformation: "",
 
+      // Ícones dos ingredientes:
+      ingredientIcons: {
+        bread: ['fas', 'bread-slice'],
+        burger: ['fas', 'burger'],
+        cheese: ['fas', 'cheese'],
+        bacon: ['fas', 'bacon'],
+        sauce: ['fas', 'jar'],
+        salad: ['fas', 'wheat-awn'],
+        sausage: ['fas', 'hotdog'],
+        weight: ['fas', 'weight-hanging'],
+        juice: ['fas', 'glass-water'],
+        drink: ['fas', 'bottle-water'],
+        dessert: ['fas', 'ice-cream'],
+      },
+
+      ingredientColors: {
+        bread: '#a74928',
+        burger: '#b07b35',
+        cheese: '#f7af39',
+        bacon: '#f36969',
+        sauce: '#ff4300',
+        salad: '#21b221',
+        sausage: '#ea6d26',
+        weight: '#505050',
+        juice: '#bbae80',
+        drink: '#6698e1',
+        dessert: '#6d472c',
+      },
+
       // Verificações
       isMobile: false,
       isAlertOpen: false,
@@ -325,6 +354,22 @@ export default {
 
       this.activeItem.additional.remove.splice(0);
       this.activeItem.additional.add.splice(0);
+    },
+
+    verifyIngredientIcon(ingredient) {
+      if (ingredient in this.ingredientIcons) {
+        return this.ingredientIcons[ingredient];
+      } else {
+        return ['fas', 'question-circle'];
+      }
+    },
+
+    verifyIngredientColor(ingredient) {
+      if (ingredient in this.ingredientColors) {
+        return this.ingredientColors[ingredient];
+      } else {
+        return '#000000';
+      }
     },
 
     finishOrder() {
@@ -759,7 +804,12 @@ export default {
     <div class="menu-item" v-for="hamburger in menu.hamburgers" :key="hamburger.id" @click="openItem('hamburgers', hamburger.id)">
       <div class="item-information">
         <h3 class="item-name">{{ hamburger.name }}</h3>
-        <div class="item-description">{{ hamburger.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in hamburger.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + hamburger.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + hamburger.image">
@@ -769,7 +819,12 @@ export default {
     <div class="menu-item" v-for="hotdog in menu.hotdogs" :key="hotdog.id" @click="openItem('hotdogs', hotdog.id)">
       <div class="item-information">
         <h3 class="item-name">{{ hotdog.name }}</h3>
-        <div class="item-description">{{ hotdog.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in hotdog.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + hotdog.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + hotdog.image">
@@ -779,7 +834,12 @@ export default {
     <div class="menu-item" v-for="serving in menu.servings" :key="serving.id" @click="openItem('servings', serving.id)">
       <div class="item-information">
         <h3 class="item-name">{{ serving.name }}</h3>
-        <div class="item-description">{{ serving.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in serving.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + serving.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + serving.image">
@@ -789,7 +849,12 @@ export default {
     <div class="menu-item" v-for="juice in menu.juices" :key="juice.id" @click="openItem('juices', juice.id)">
       <div class="item-information">
         <h3 class="item-name">{{ juice.name }}</h3>
-        <div class="item-description">{{ juice.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in juice.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + juice.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + juice.image">
@@ -799,7 +864,12 @@ export default {
     <div class="menu-item" v-for="otherDrink in menu.otherDrinks" :key="otherDrink.id" @click="openItem('otherDrinks', otherDrink.id)">
       <div class="item-information">
         <h3 class="item-name">{{ otherDrink.name }}</h3>
-        <div class="item-description">{{ otherDrink.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in otherDrink.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + otherDrink.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + otherDrink.image">
@@ -809,7 +879,12 @@ export default {
     <div class="menu-item" v-for="dessert in menu.desserts" :key="dessert.id" @click="openItem('desserts', dessert.id)">
       <div class="item-information">
         <h3 class="item-name">{{ dessert.name }}</h3>
-        <div class="item-description">{{ dessert.description }}</div>
+        <div class="item-ingredients">
+          <div class="item-ingredient" v-for="(ingredient, index) in dessert.ingredients" :key="index">
+            <font-awesome-icon :icon="verifyIngredientIcon(index)" class="item-ingredient-icon" :style="{'color': verifyIngredientColor(index)}"/>
+            <div class="item-ingredient-description">{{ ingredient }}</div>
+          </div>
+        </div>
         <div class="item-price">{{ 'R$' + dessert.price + ',00'}}</div>
       </div>
       <img class="item-image" :src="imagesPath + dessert.image">

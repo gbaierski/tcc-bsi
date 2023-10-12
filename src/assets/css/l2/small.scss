@@ -955,7 +955,7 @@
     .menu-item {
         background-color: $main;
         width: 80%;
-        height: 100px;
+        height: 150px;
         padding: 30px;
         border-radius: 10px;
         display: flex;
@@ -987,14 +987,30 @@
         font-weight: lighter;
     }
 
-    .item-description {
-        width: 90%;
-        overflow: hidden;
+    .item-ingredients {
+        max-width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .item-ingredient {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-start;
+    }
+
+    .item-ingredient-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 13px;
+        height: 13px;
+    }
+
+    .item-ingredient-description {
         font-size: 10px;
-        color: $complementary;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        width: 90%;
     }
 
     .item-price {
