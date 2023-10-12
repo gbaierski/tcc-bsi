@@ -388,8 +388,12 @@
         gap: 10px;
     }
 
+    #cart-total-price {
+        color: rgb(18, 122, 82);
+    }
+
     #finish-order {
-        background-color: black !important;
+        background-color: rgb(18, 122, 82) !important;
         margin-bottom: 20px;
     }
 
@@ -740,7 +744,7 @@
     .cart-item-additional-remove {
         list-style-type: none;
         text-decoration: line-through;
-        color: $complementary;
+        color: rgb(128, 54, 72);
         margin-bottom: 10px;
     }
 
@@ -790,11 +794,10 @@
     }
 
     .cart-item-button {
-        width: 35px;
-        font-size: 13px;
+        font-size: 12px;
         padding: 5px;
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
         font-family: "Source Sans Pro", sans-serif;
         color: $main;
         font-weight: bold;
@@ -808,9 +811,17 @@
         cursor: pointer;
     }
 
+    .cart-item-edit {
+        background-color: rgb(212, 143, 79);
+    }
+
     .cart-item-edit:hover {
         background-color: black;
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
+    }
+
+    .cart-item-remove {
+        background-color: rgb(138, 41, 66);
     }
 
     .cart-item-remove:hover {

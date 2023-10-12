@@ -595,7 +595,7 @@ export default {
           </div>
         </div>
         <img src="src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
-        <div id="place-name">Nice Burger</div>
+        <div id="place-name">Great Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
           <div id="address-info">BR-280 - Colégio Agrícola, Araquari - SC, 89245-000</div>
@@ -707,13 +707,13 @@ export default {
                 <li v-for="removeItem in this.cartList[index].additional.remove" :key="removeItem.id">{{ removeItem.name }}</li>
               </ul>
               <ul class="cart-item-additional-list cart-item-additional-add">
-                <li v-for="addItem in this.cartList[index].additional.add" :key="addItem.id"><div class="cart-item-add-name">{{ addItem.name }}</div><div class="cart-item-add-price">{{'R$' + addItem.price + ',00'}}</div></li>
+                <li v-for="addItem in this.cartList[index].additional.add" :key="addItem.id"><div class="cart-item-add-name">{{'+ ' + addItem.name.replace('extra','') }}</div><div class="cart-item-add-price">{{'R$' + addItem.price + ',00'}}</div></li>
               </ul>
             </div>
             <div class="cart-item-total" v-if="this.cartList[index].additional.add.length">Total do item:<div class="cart-item-total-price">{{'R$' + this.cartList[index].totalPrice + ',00'}}</div></div>
             <div  class="cart-item-actions">
-              <button type="button" class="cart-item-button cart-item-edit" @click="editItem(index)"><font-awesome-icon :icon="['fas', 'pen-to-square']" /></button>
-              <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /></button>
+              <button type="button" class="cart-item-button cart-item-edit" @click="editItem(index)"><font-awesome-icon :icon="['fas', 'pen-to-square']" /> Editar</button>
+              <button type="button" class="cart-item-button cart-item-remove" @click="removeItem(index)"><font-awesome-icon :icon="['fas', 'trash-can']" /> Remover</button>
             </div>
           </div>
         </div>
