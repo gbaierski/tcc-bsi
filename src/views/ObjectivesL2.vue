@@ -114,10 +114,6 @@
         width: 18rem;
     }
 
-    .objectives-modal-open {
-        transform: scale(1, 1) !important;
-    }
-
     .objective-normal {
         background-color: #b0bec55e;
     }
