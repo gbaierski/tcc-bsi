@@ -664,7 +664,7 @@ export default {
 
         <div id="objective-12" class="objective objective-normal">
           <div id="objective-icon-12" class="objective-icon-status objective-status-normal">
-            <font-awesome-icon :icon="['fas', 'whiskey-glass']" class="objective-icon"/>
+            <font-awesome-icon :icon="['fas', 'glass-water']" class="objective-icon"/>
           </div>
           <div class="objective-info">
             <div class="objective-title">Peça um <b>SUCO DE UVA</b></div>

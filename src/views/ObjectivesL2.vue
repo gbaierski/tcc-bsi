@@ -6,7 +6,7 @@
         <img src="../assets/img/logo_ifc.png" alt="Hello" class="image">
 
         <div id="objectives-items">
-            <h2 id="objectives-title">PEDIDO 2:</h2>
+            <h2 id="objectives-title">PEDIDO:</h2>
             <div class="objective objective-normal">
             <div class="objective-icon-status objective-status-normal" style="background-color: orange">
                 <font-awesome-icon :icon="['fas', 'burger']" class="objective-icon"/>
@@ -106,6 +106,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 30px;
         gap: 20px;
     }
 

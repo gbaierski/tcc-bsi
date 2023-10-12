@@ -9,7 +9,7 @@
         </RouterLink>
 
         <div id="objectives-items">
-            <h2 id="objectives-title">PEDIDO 1:</h2>
+            <h2 id="objectives-title">PEDIDO:</h2>
             <div class="objective objective-normal">
             <div class="objective-icon-status objective-status-normal" style="background-color: orange">
                 <font-awesome-icon :icon="['fas', 'burger']" class="objective-icon"/>
@@ -32,7 +32,7 @@
 
                     <div class="objective objective-normal">
             <div class="objective-icon-status objective-status-normal" style="background-color: purple">
-                <font-awesome-icon :icon="['fas', 'whiskey-glass']" class="objective-icon"/>
+                <font-awesome-icon :icon="['fas', 'glass-water']" class="objective-icon"/>
             </div>
             <div class="objective-info">
                 <div class="objective-title">Peça um <b>SUCO DE UVA</b></div>
