@@ -119,7 +119,6 @@ export default {
                 </div>
             </div>
         </div>
-        <RouterLink to="finish" style="margin: 30px 0px 50px 0px;"></RouterLink>
         <button id="finish-button" @click="finish()">FINALIZAR</button>
     </main>
 </template>
@@ -186,6 +185,7 @@ export default {
 
     #finish-button {
         padding: 25px 85px 25px 85px;
+        margin: 30px 0px 50px 0px;
         border: none;
         letter-spacing: 1px;
         border-radius: 10px;
@@ -284,5 +284,37 @@ export default {
 
     .quiz-option-selected {
         border: solid 3px rgb(23, 172, 135) !important;
+    }
+
+    @media screen and (min-width: 641px) and (max-width:1007px) {
+
+        #quiz-age-options {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    @media screen and (min-width:1008px) {
+
+         #quiz-items {
+            width: 60%;
+        }
+
+        #quiz-age-options {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .quiz-options {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
     }
 </style>
