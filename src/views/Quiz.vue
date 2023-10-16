@@ -88,30 +88,30 @@ export default {
                 <div class="quiz-question">
                     <div class="quiz-text">3. Qual layout você prefere?</div>
                     <div class="quiz-options">
-                        <div :class="['quiz-option', { 'quiz-option-selected': cartPreference === 2}]" @click="selectPreference('cartPreference', 2)"> Layout 2 </div>
-                        <div :class="['quiz-option', { 'quiz-option-selected': cartPreference === 1}]" @click="selectPreference('cartPreference', 1)"> Layout 1 </div>
+                        <img src="../assets/img/quiz/q3_2.jpg" :class="['quiz-option', { 'quiz-option-selected': cartPreference === 2}]" @click="selectPreference('cartPreference', 2)">
+                        <img src="../assets/img/quiz/q3_1.jpg" :class="['quiz-option', { 'quiz-option-selected': cartPreference === 1}]" @click="selectPreference('cartPreference', 1)">
                     </div>
                 </div>
 
                 <div class="quiz-question">
                     <div class="quiz-text">4. Qual layout você prefere?</div>
                     <div class="quiz-options">
-                        <div :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 1}]" @click="selectPreference('additionalPreference', 1)"> Layout 1 </div>
-                        <div :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 2}]" @click="selectPreference('additionalPreference', 2)"> Layout 2 </div>
+                         <img src="../assets/img/quiz/q4_1.jpg" :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 1}]" @click="selectPreference('additionalPreference', 1)">
+                         <img src="../assets/img/quiz/q4_2.jpg" :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 2}]" @click="selectPreference('additionalPreference', 2)">
                     </div>
                 </div>
 
                 <div class="quiz-question">
                     <div class="quiz-text">5. Qual layout você prefere?</div>
                     <div class="quiz-options">
-                        <div :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 2}]" @click="selectPreference('itemDescriptionPreference', 2)"> Layout 2 </div>
-                        <div :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 1}]" @click="selectPreference('itemDescriptionPreference', 1)"> Layout 1 </div>
+                        <img src="../assets/img/quiz/q5_2.jpg" :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 2}]" @click="selectPreference('itemDescriptionPreference', 2)">
+                        <img src="../assets/img/quiz/q5_1.jpg" :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 1}]" @click="selectPreference('itemDescriptionPreference', 1)">
                     </div>
                 </div>
 
                 <div class="quiz-question">
                     <div class="quiz-text">6. Você prefere o sistema com ou sem alerta de confirmação na exclusão do item no carrinho?</div>
-                    <div class="quiz-option" id="quiz-delete-modal-image"></div>
+                    <img src="../assets/img/quiz/q6.jpg" class="quiz-option" id="quiz-delete-modal-image">
                     <div id="quiz-buttons-options">
                         <button type="button" :class="['quiz-button', { 'quiz-button-yes-selected': deleteModalPreference}]" @click="selectDeleteModalPreference(true)">COM ALERTA</button>
                         <button type="button" :class="['quiz-button', { 'quiz-button-no-selected': deleteModalPreference === false}]" @click="selectDeleteModalPreference(false)">SEM ALERTA</button>
@@ -275,7 +275,7 @@ export default {
 
     .quiz-option {
         width: 270px;
-        height: 200px;
+        height: 202.5px;
         border-radius: 10px;
         background-color: $gray;
         border: solid 3px transparent !important;
