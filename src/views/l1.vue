@@ -795,7 +795,7 @@ export default {
   </footer>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "../assets/css/l1/big.scss";
   @import "../assets/css/l1/medium.scss";
   @import "../assets/css/l1/small.scss";
