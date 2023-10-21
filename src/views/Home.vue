@@ -1,12 +1,15 @@
 <script>
 export default {
-  methods: {
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-      });
+    methods: {
+        scrollToTop() {
+            window.scrollTo({
+            top: 0,
+            });
+        },
     },
-  },
+    created() {
+        localStorage.clear();
+    }
 };
 </script>
 

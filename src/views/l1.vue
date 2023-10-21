@@ -328,7 +328,14 @@ export default {
         // Salva no local storage (Cache)
         dataStore.saveToLocalStorage();
 
-        this.$router.push({ name: 'objectivesL2' });
+        // Verifica se o usuário passou pelo layout 2
+        const passedLayout2Validation = localStorage.getItem('passed-layout2');
+
+        if(passedLayout2Validation)
+          this.$router.push({ name: 'quiz'});
+        else
+          this.$router.push({ name: 'objectivesL2'});
+
       } else {
         this.openObjectives();
         this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
