@@ -1,4 +1,6 @@
 <script>
+import { useDataStore } from '@/stores/dataStore';
+
 export default {
     data() {
         return {
@@ -56,6 +58,14 @@ export default {
             console.log("Preferência adicionais: " + this.additionalPreference);
             console.log("Preferência descrição do item: " + this.itemDescriptionPreference);
             console.log("Prefere modal de exclusão: " + this.deleteModalPreference);
+
+            const dataStore = useDataStore();
+            dataStore.loadFromLocalStorage();
+
+            console.log(dataStore.layout1)
+            console.log(dataStore.layout2)
+
+            // Lógica para enviar para a Firebase
         }
     }
 }

@@ -1,5 +1,7 @@
 <script>
 import menu from '../stores/menu';
+import { useDataStore } from '@/stores/dataStore';
+
 export default {
   data() {
     return {
@@ -315,12 +317,18 @@ export default {
         this.totalTime = this.stopTimer();
         this.processingTime = this.formatTime(this.processingTime);
 
-        console.log("Tempo total: " + this.totalTime);
-        console.log("Quantidade de passos: " + this.stepCount);
-        console.log("Tentativas de finalização: " + this.finishAttempts);
-        console.log("Tempo de processamento da informação: " + this.processingTime);
+        // Lógica para guardar os dados obtidos
+        const dataStore = useDataStore();
 
-        // this.$router.push({ name: 'objectivesL2' });
+        dataStore.setStepCountL1(this.stepCount);
+        dataStore.setFinishAttemptsL1(this.finishAttempts);
+        dataStore.setTotalTimeL1(this.totalTime);
+        dataStore.setProcessingTimeL1(this.processingTime);
+
+        // Salva no local storage (Cache)
+        dataStore.saveToLocalStorage();
+
+        this.$router.push({ name: 'objectivesL2' });
       } else {
         this.openObjectives();
         this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
