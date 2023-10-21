@@ -25,6 +25,7 @@ export default {
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'bell-slash']" /> Faça o teste em um momento que você não será interrompido</li>
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'thumbs-up']" /> Seja honesto ao utilizar e ao avaliar os layouts</li>
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'truck-medical']" /> Não é permitido receber ajuda de outra pessoa durante o teste. (É permitido apenas para entender os objetivos)</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'rotate']" /> Evite atualizar a página ou utilizar comandos "voltar" do navegador</li>
                 </ul>
             </div>
             <div class="rules-box gray-box">
