@@ -27,7 +27,7 @@ export default {
         <img src="../assets/img/storyset/uxdesign.png" alt="Hello" class="image">
 
         <h2>Como o teste funciona?</h2>
-        <p>Serão apresentados 2 protótipos de sistemas de delivery com objetivos a serem cumpridos. Por exemplo "Peça um duplo bacon" ou "Peça um salada sem cebola". Os objetivos sempre estarão disponíveis para visualização no canto superior direito, para evitar que você se esqueça:</p>
+        <p>Serão apresentados 2 protótipos de sistemas de delivery com objetivos a serem cumpridos. Por exemplo "Peça um duplo bacon" ou "Peça um salada sem cebola". Os objetivos sempre estarão disponíveis para visualização no canto superior esquerdo, para evitar que você se esqueça:</p>
 
         <p>Quando os objetivos forem cumpridos, eles serão atualizados na lista de objetivos:</p>
 
