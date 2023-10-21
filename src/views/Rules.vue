@@ -2,10 +2,18 @@
 export default {
   methods: {
     scrollToTop() {
-      window.scrollTo({
-        top: 0,
-      });
+        window.scrollTo({
+            top: 0,
+        });
     },
+
+    randomRedirect() {
+        const routes = ['objectivesL1', 'objectivesL2'];
+        const randomRoute = routes[Math.floor(Math.random() * routes.length)];
+
+        this.scrollToTop();
+        this.$router.push({ name: randomRoute });
+    }
   },
 };
 </script>
@@ -41,9 +49,8 @@ export default {
 
         <p>Ao clicar no botão <span>PROSSEGUIR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
 
-        <RouterLink to="objectivesl1"  @click="scrollToTop" style="align-self: center;  margin: 0px 0px 100px 0px;">
-            <button id="next-button">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
-        </RouterLink>
+        
+        <button id="next-button" @click="randomRedirect">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
     </main>
 </template>
 <style lang="scss" scoped>
@@ -93,6 +100,8 @@ export default {
     }
     
     #next-button {
+        align-self: center;  
+        margin: 0px 0px 100px 0px;
         padding: 25px 85px 25px 85px;
         border: none;
         letter-spacing: 1px;
