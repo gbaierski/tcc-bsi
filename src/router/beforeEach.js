@@ -1,6 +1,9 @@
 import { useDataStore } from '@/stores/dataStore';
 
 export default async function (to, from, next) {
+    if (!to.name) 
+        next({ name: 'index' });
+
     if(to.name === 'layout1' || to.name === 'layout2')
         localStorage.setItem('passed-'+to.name, true);
 
