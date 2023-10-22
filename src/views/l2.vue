@@ -57,12 +57,14 @@ export default {
       hasObjectiveInformation: false,
       objectivesDone: false,
       isFinishingOrder: false,
+      isFinished: false,
 
       // Alertas
       alertType: "error",
       alertMessage: "Erro desconhecido!",
       alertTimeout: 0,
       confirmMessage: "",
+      finishedMessage: "",
       selectedConfirmItem: null,
 
       // Timer
@@ -395,12 +397,22 @@ export default {
 
         // Verifica se o usuário passou pelo layout 1
         const passedLayout1Validation = localStorage.getItem('passed-layout1');
+        this.isFinished = true;
+        document.body.classList.add('no-scroll');
 
-        if(passedLayout1Validation)
-          this.$router.push({ name: 'quiz'});
-        else
-          this.$router.push({ name: 'objectivesL1'});
-
+        if (passedLayout1Validation) {
+          this.finishedMessage = 'Você será redirecionado para o questionário final!';
+          setTimeout(() => {
+            document.body.classList.remove('no-scroll');
+            this.$router.push({ name: 'quiz' });
+          }, 4000);
+        } else {
+          this.finishedMessage = 'Você será redirecionado para o segundo layout!';
+          setTimeout(() => {
+            document.body.classList.remove('no-scroll');
+            this.$router.push({ name: 'objectivesL1' });
+          }, 4000);
+        }
       } else {
         this.openObjectives();
         this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
@@ -665,6 +677,11 @@ export default {
         <font-awesome-icon v-else-if="alertType === 'success'" :icon="['fas', 'circle-check']" class="alert-icon"/>
         <div id="alert-message">{{ this.alertMessage }}</div>
       </div>
+    </div>
+    <div id="finish-screen" v-if="isFinished">
+      <font-awesome-icon :icon="['fas', 'circle-check']" id="finish-screen-icon"/>
+      Pedido correto!
+      <span id="finish-screen-text">{{ this.finishedMessage }}</span>
     </div>
     <section id="confirm-background" @click="closeConfirm()" :class="{'confirm-background-open' : isConfirmOpen}"></section>
     <div id="confirm" :class="{ 'confirm-open' : isConfirmOpen}">

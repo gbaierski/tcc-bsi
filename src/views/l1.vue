@@ -27,11 +27,13 @@ export default {
       hasObjectiveInformation: false,
       objectivesDone: false,
       isFinishingOrder: false,
+      isFinished: false,
 
       // Alertas
       alertType: "error",
       alertMessage: "Erro desconhecido!",
       alertTimeout: 0,
+      finishedMessage: "",
 
       // Timer
       startTime: null,
@@ -330,12 +332,22 @@ export default {
 
         // Verifica se o usuário passou pelo layout 2
         const passedLayout2Validation = localStorage.getItem('passed-layout2');
+        this.isFinished = true;
+        document.body.classList.add('no-scroll');
 
-        if(passedLayout2Validation)
-          this.$router.push({ name: 'quiz'});
-        else
-          this.$router.push({ name: 'objectivesL2'});
-
+        if (passedLayout2Validation) {
+          this.finishedMessage = 'Você será redirecionado para o questionário final!';
+          setTimeout(() => {
+            document.body.classList.remove('no-scroll');
+            this.$router.push({ name: 'quiz' });
+          }, 4000);
+        } else {
+          this.finishedMessage = 'Você será redirecionado para o segundo layout!';
+          setTimeout(() => {
+            document.body.classList.remove('no-scroll');
+            this.$router.push({ name: 'objectivesL2' });
+          }, 4000);
+        }
       } else {
         this.openObjectives();
         this.alert('error', 'Pedido incorreto! Verifique os objetivos.');
@@ -600,6 +612,11 @@ export default {
         <font-awesome-icon v-else-if="alertType === 'success'" :icon="['fas', 'circle-check']" class="alert-icon"/>
         <div id="alert-message">{{ this.alertMessage }}</div>
       </div>
+    </div>
+    <div id="finish-screen" v-if="isFinished">
+      <font-awesome-icon :icon="['fas', 'circle-check']" id="finish-screen-icon"/>
+      Pedido correto!
+      <span id="finish-screen-text">{{ this.finishedMessage }}</span>
     </div>
     <section id="header-content">
         <div id="objectives-icon" @click="openObjectives()" :class="{ 'objectives-active' : isObjectivesOpen}">

@@ -25,6 +25,12 @@ export default {
         }
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo({
+            top: 0,
+            });
+        },
+
         selectAge(age) {
             this.selectedAge = age;
             this.age = this.ages.find(item => item.id === age)?.value ?? null;
@@ -67,6 +73,9 @@ export default {
 
             // Lógica para enviar para a Firebase
         }
+    },
+    mounted() {
+        this.scrollToTop();
     }
 }
 </script>
