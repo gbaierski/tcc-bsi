@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             // Dados obtidos:
-            age: '',
+            age: null,
             worksWithIT: null,
             cartPreference: null,
             additionalPreference: null,
@@ -14,6 +14,16 @@ export default {
 
             // Validações:
             selectedAge: null,
+            isAlertOpen: false,
+            fieldsToValidate: [
+                { field: 'age', ref: 'question-age' },
+                { field: 'worksWithIT', ref: 'question-worksWithIT' },
+                { field: 'cartPreference', ref: 'question-cartPreference' },
+                { field: 'additionalPreference', ref: 'question-additionalPreference' },
+                { field: 'itemDescriptionPreference', ref: 'question-itemDescriptionPreference' },
+                { field: 'deleteModalPreference', ref: 'question-deleteModalPreference' },
+            ],
+            validationPerformed: false,
 
             // Variáveis:
             ages: [
@@ -29,6 +39,35 @@ export default {
             window.scrollTo({
             top: 0,
             });
+        },
+
+        alert() {
+            this.isAlertOpen = true;
+
+            if (this.alertTimeout)
+                clearTimeout(this.alertTimeout);
+
+            this.alertTimeout = setTimeout(() => {
+                this.isAlertOpen = false;
+            }, 2000);
+        },
+
+        scrollTo(section) {
+            this.$refs[section].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+
+        validateFields() {
+            this.validationPerformed = true;
+            let allValid = true;
+            for (const fieldData of this.fieldsToValidate) {
+                if (this[fieldData.field] === null) {
+                    this.scrollTo(fieldData.ref);
+                    allValid = false;
+                    break;
+                }
+            }
+
+            return allValid;
         },
 
         selectAge(age) {
@@ -58,20 +97,24 @@ export default {
         },
 
         finish() {
-            console.log("Faixa etária: " + this.age);
-            console.log("Trabalha com TI: " + this.worksWithIT);
-            console.log("Preferência carrinho: " + this.cartPreference);
-            console.log("Preferência adicionais: " + this.additionalPreference);
-            console.log("Preferência descrição do item: " + this.itemDescriptionPreference);
-            console.log("Prefere modal de exclusão: " + this.deleteModalPreference);
+            if (this.validateFields()) {
+                console.log("Faixa etária: " + this.age);
+                console.log("Trabalha com TI: " + this.worksWithIT);
+                console.log("Preferência carrinho: " + this.cartPreference);
+                console.log("Preferência adicionais: " + this.additionalPreference);
+                console.log("Preferência descrição do item: " + this.itemDescriptionPreference);
+                console.log("Prefere modal de exclusão: " + this.deleteModalPreference);
 
-            const dataStore = useDataStore();
-            dataStore.loadFromLocalStorage();
+                const dataStore = useDataStore();
+                dataStore.loadFromLocalStorage();
 
-            console.log(dataStore.layout1)
-            console.log(dataStore.layout2)
+                console.log(dataStore.layout1)
+                console.log(dataStore.layout2)
 
-            // Lógica para enviar para a Firebase
+                // Lógica para enviar para a Firebase
+            } else {
+                this.alert();
+            }
         }
     },
     mounted() {
@@ -82,13 +125,22 @@ export default {
 <template>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
     <main>
+        <div id="alert" :class="{ 'alert-open' : isAlertOpen}">
+            <div id="alert-border"></div>
+            <div id="alert-text">
+                <font-awesome-icon :icon="['fas', 'circle-exclamation']" id="alert-icon"/>
+                <div id="alert-message">Por favor, responda todas as perguntas!</div>
+            </div>
+        </div>
         <img src="../assets/img/logo_ifc.png" alt="Hello" id="image-banner">
 
         <div id="quiz-items">
             <h2 id="quiz-title">QUESTIONÁRIO FINAL:</h2>
             <div id="quiz-questions">
                 <div class="quiz-question">
-                    <div class="quiz-text">1. Qual sua faixa etária?</div>
+                    <div ref="question-age" :class="['quiz-text', { 'error-text': this.age === null && this.validationPerformed }]">
+                        1. Qual sua faixa etária? <span v-if="this.age === null && this.validationPerformed">*</span>
+                    </div>
                     <div id="quiz-age-options">
                         <div :class="['quiz-age-option', { 'quiz-age-selected': selectedAge == age.id }]" v-for="age in this.ages" :key="age.id" @click="selectAge(age.id)">
                             {{ age.text }} <font-awesome-icon :icon="['fas', 'circle-check']" :class="['quiz-age-icon', { 'quiz-age-icon-selected': selectedAge == age.id }]"/>
@@ -97,7 +149,9 @@ export default {
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-text">2. Você atua ou estuda na área de Tecnologia da Informação?</div>
+                    <div ref="question-worksWithIT" :class="['quiz-text', { 'error-text': this.worksWithIT === null && this.validationPerformed }]">
+                        2. Você atua ou estuda na área de Tecnologia da Informação? <span v-if="this.worksWithIT === null && this.validationPerformed">*</span>
+                    </div>
                     <div id="quiz-buttons-options">
                         <button type="button" :class="['quiz-button', { 'quiz-button-yes-selected': worksWithIT}]" @click="selectWorksWithIT(true)">SIM</button>
                         <button type="button" :class="['quiz-button', { 'quiz-button-no-selected': worksWithIT === false}]" @click="selectWorksWithIT(false)">NÃO</button>
@@ -105,7 +159,9 @@ export default {
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-text">3. Qual layout você prefere?</div>
+                    <div ref="question-cartPreference" :class="['quiz-text', { 'error-text': this.cartPreference === null && this.validationPerformed }]">
+                        3. Qual layout você prefere? <span v-if="this.cartPreference === null && this.validationPerformed">*</span>
+                    </div>
                     <div class="quiz-options">
                         <img src="../assets/img/quiz/q3_2.jpg" :class="['quiz-option', { 'quiz-option-selected': cartPreference === 2}]" @click="selectPreference('cartPreference', 2)">
                         <img src="../assets/img/quiz/q3_1.jpg" :class="['quiz-option', { 'quiz-option-selected': cartPreference === 1}]" @click="selectPreference('cartPreference', 1)">
@@ -113,7 +169,9 @@ export default {
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-text">4. Qual layout você prefere?</div>
+                    <div ref="question-additionalPreference" :class="['quiz-text', { 'error-text': this.additionalPreference === null && this.validationPerformed }]">
+                        4. Qual layout você prefere? <span v-if="this.additionalPreference === null && this.validationPerformed">*</span>
+                    </div>
                     <div class="quiz-options">
                          <img src="../assets/img/quiz/q4_1.jpg" :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 1}]" @click="selectPreference('additionalPreference', 1)">
                          <img src="../assets/img/quiz/q4_2.jpg" :class="['quiz-option', { 'quiz-option-selected': additionalPreference === 2}]" @click="selectPreference('additionalPreference', 2)">
@@ -121,7 +179,9 @@ export default {
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-text">5. Qual layout você prefere?</div>
+                    <div ref="question-itemDescriptionPreference" :class="['quiz-text', { 'error-text': this.itemDescriptionPreference === null && this.validationPerformed }]">
+                        5. Qual layout você prefere? <span v-if="this.itemDescriptionPreference === null && this.validationPerformed">*</span>
+                    </div>
                     <div class="quiz-options">
                         <img src="../assets/img/quiz/q5_2.jpg" :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 2}]" @click="selectPreference('itemDescriptionPreference', 2)">
                         <img src="../assets/img/quiz/q5_1.jpg" :class="['quiz-option', { 'quiz-option-selected': itemDescriptionPreference === 1}]" @click="selectPreference('itemDescriptionPreference', 1)">
@@ -129,7 +189,9 @@ export default {
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-text">6. Você prefere o sistema com ou sem alerta de confirmação na exclusão do item no carrinho?</div>
+                    <div ref="question-deleteModalPreference" :class="['quiz-text', { 'error-text': this.deleteModalPreference === null && this.validationPerformed }]">
+                        6. Você prefere o sistema com ou sem alerta de confirmação na exclusão do item no carrinho? <span v-if="this.deleteModalPreference === null && this.validationPerformed">*</span>
+                    </div>
                     <img src="../assets/img/quiz/q6.jpg" class="quiz-option" id="quiz-delete-modal-image">
                     <div id="quiz-buttons-options">
                         <button type="button" :class="['quiz-button', { 'quiz-button-yes-selected': deleteModalPreference}]" @click="selectDeleteModalPreference(true)">COM ALERTA</button>
@@ -151,6 +213,47 @@ export default {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+    }
+
+    #alert {
+        position: fixed;
+        width: 250px;
+        height: 80px;
+        top: 20px;
+        border-radius: 5px;
+        z-index: 8;
+        display: flex;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 5px;
+        transform: translateY(-200px);
+        opacity: 100%;
+        transition: all .2s;
+        background-color: #ffe0e3;
+        color: $negative;
+    }
+
+    #alert-border {
+        width: 10px;
+        height: 100%;
+        border-radius: 5px 0px 0px 5px;
+        background-color: $negative;
+    }
+
+    #alert-text {
+        display: flex;
+        gap: 15px;
+        margin-left: 15px;
+        align-items: center;
+    }
+
+    #alert-icon {
+        font-size: 27px;
+    }
+
+    #alert-message {
+        max-width: 80%;
+        font-size: 17px;
+        font-family: "Source Sans Pro", sans-serif;
     }
 
     #image-banner {
@@ -221,6 +324,16 @@ export default {
         transform: translateY(-3px);
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
         cursor: pointer;
+    }
+
+    .alert-open {
+        transform: translateY(0px) !important;
+        opacity: 100% !important;
+    }
+
+    .error-text {
+        font-weight: bold !important;
+        color: $negative !important;
     }
 
     .quiz-question {
