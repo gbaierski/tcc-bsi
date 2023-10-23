@@ -1,5 +1,6 @@
 <script>
 import { useDataStore } from '@/stores/dataStore';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 export default {
     data() {
@@ -98,20 +99,50 @@ export default {
 
         finish() {
             if (this.validateFields()) {
-                console.log("Faixa etária: " + this.age);
-                console.log("Trabalha com TI: " + this.worksWithIT);
-                console.log("Preferência carrinho: " + this.cartPreference);
-                console.log("Preferência adicionais: " + this.additionalPreference);
-                console.log("Preferência descrição do item: " + this.itemDescriptionPreference);
-                console.log("Prefere modal de exclusão: " + this.deleteModalPreference);
-
                 const dataStore = useDataStore();
                 dataStore.loadFromLocalStorage();
 
-                console.log(dataStore.layout1)
-                console.log(dataStore.layout2)
+                // Valores enviados para a firebase
+                // console.log("Faixa etária: " + this.age);
+                // console.log("Trabalha com TI: " + this.worksWithIT);
+                // console.log("Preferência carrinho: " + this.cartPreference);
+                // console.log("Preferência adicionais: " + this.additionalPreference);
+                // console.log("Preferência descrição do item: " + this.itemDescriptionPreference);
+                // console.log("Prefere modal de exclusão: " + this.deleteModalPreference);
+                // console.log(dataStore.layout1)
+                // console.log(dataStore.layout2)
 
-                // Lógica para enviar para a Firebase
+                const dataToStore = {
+                    age: this.age,
+                    cartPreference: this.cartPreference,
+                    additionalPreference: this.additionalPreference,
+                    deleteModalPreference: this.deleteModalPreference,
+                    itemDescriptionPreference: this.itemDescriptionPreference,
+                    worksWithIT: this.worksWithIT,
+                    layout1: {
+                        finishAttempts: dataStore.layout1.finishAttempts,
+                        processingTime: dataStore.layout1.processingTime,
+                        stepCount: dataStore.layout1.stepCount,
+                        totalTime: dataStore.layout1.totalTime,
+                    },
+                    layout2: {
+                        finishAttempts: dataStore.layout2.finishAttempts,
+                        processingTime: dataStore.layout2.processingTime,
+                        stepCount: dataStore.layout2.stepCount,
+                        totalTime: dataStore.layout2.totalTime,
+                    },
+                };
+
+                const db = getFirestore();
+                const collectionRef = collection(db, "dados");
+
+                addDoc(collectionRef, dataToStore)
+                .then((docRef) => {
+                    console.log("Documento adicionado com sucesso com ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Erro ao adicionar documento: ", error);
+                });
             } else {
                 this.alert();
             }

@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
+import { app } from "./firebase";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -13,11 +14,11 @@ library.add(fas, far, fab)
 
 import './assets/css/main.scss'
 
-const app = createApp(App)
+const vueApp = createApp(App)
 
-app.use(createPinia())
-app.use(router)
+vueApp.use(createPinia())
+vueApp.use(router)
 
-app.component('font-awesome-icon', FontAwesomeIcon)
+vueApp.component('font-awesome-icon', FontAwesomeIcon)
 
-app.mount('#app')
+vueApp.mount('#app')
