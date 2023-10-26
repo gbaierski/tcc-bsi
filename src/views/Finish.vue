@@ -1,8 +1,20 @@
 <script>
+import { useDataStore } from '@/stores/dataStore';
+
 export default {
     methods: {
         about() {
             this.$router.push({ name: 'about' });
+        }
+    },
+    created() {
+        var dataStore = useDataStore();
+        dataStore.loadFromLocalStorage();
+        
+        if(dataStore.layout1.stepCount || dataStore.layout2.stepCount) {
+            localStorage.clear();
+            location.reload();
+            console.log('reload!');
         }
     }
 }
