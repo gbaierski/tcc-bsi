@@ -48,6 +48,11 @@ const router = createRouter({
       path: '/finish',
       name: 'finish',
       component: () => import('../views/Finish.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/About.vue')
     }
   ]
 })

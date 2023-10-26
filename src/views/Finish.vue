@@ -1,9 +1,18 @@
+<script>
+export default {
+    methods: {
+        about() {
+            this.$router.push({ name: 'about' });
+        }
+    }
+}
+</script>
 <template>
     <div id="finish-screen">
       <font-awesome-icon :icon="['fas', 'circle-check']" id="finish-screen-icon"/>
       MUITO OBRIGADO! :)
       <span id="finish-screen-text">O teste foi finalizado, mas se você deseja entender melhor o objetivo do trabalho, clique no botão abaixo:</span>
-      <button id="more-button">SABER MAIS</button>
+      <button id="more-button" @click="about">SABER MAIS</button>
     </div>
 </template>
 <style lang="scss" scoped>
