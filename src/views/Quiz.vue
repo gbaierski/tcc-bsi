@@ -32,7 +32,8 @@ export default {
                 {id: 2, value: '19 - 33', text: '19 anos - 33 anos'},
                 {id: 3, value: '34 - 54', text: '34 anos - 54 anos'},
                 {id: 4, value: '>= 55', text: '55 anos ou mais'},
-            ]
+            ],
+            alertMessage: '',
         }
     },
     methods: {
@@ -139,11 +140,15 @@ export default {
                 addDoc(collectionRef, dataToStore)
                 .then((docRef) => {
                     console.log("Documento adicionado com sucesso com ID: ", docRef.id);
+                    this.$router.push({ name: 'finish' });
                 })
                 .catch((error) => {
                     console.error("Erro ao adicionar documento: ", error);
+                    this.alertMessage = 'Erro no envio. Se persistir, fale com o Gustavo!';
+                    this.alert();
                 });
             } else {
+                this.alertMessage = 'Por favor, responda todas as perguntas!';
                 this.alert();
             }
         }
@@ -160,7 +165,7 @@ export default {
             <div id="alert-border"></div>
             <div id="alert-text">
                 <font-awesome-icon :icon="['fas', 'circle-exclamation']" id="alert-icon"/>
-                <div id="alert-message">Por favor, responda todas as perguntas!</div>
+                <div id="alert-message"> {{ this.alertMessage }}</div>
             </div>
         </div>
         <img src="../assets/img/logo_ifc.png" alt="Hello" id="image-banner">
