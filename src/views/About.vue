@@ -115,7 +115,7 @@
         margin-bottom: 15px;  
     }
 
-    a:visited {
+    a, a:visited {
         color: rgb(23, 172, 135);
     }
 
