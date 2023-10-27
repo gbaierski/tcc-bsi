@@ -3,14 +3,14 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4MIIFVlKPU_eCCnuQqMMQMJVVnTs3254",
-  authDomain: "tcc-bsi.firebaseapp.com",
-  databaseURL: "https://tcc-bsi-default-rtdb.firebaseio.com",
-  projectId: "tcc-bsi",
-  storageBucket: "tcc-bsi.appspot.com",
-  messagingSenderId: "698327480667",
-  appId: "1:698327480667:web:593aa7cffffd9077ea427e",
-  measurementId: "G-NTKY4F3ZGM"
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_APP_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID
 };
 
 
