@@ -14,7 +14,6 @@ export default {
         if(dataStore.layout1.stepCount || dataStore.layout2.stepCount) {
             localStorage.clear();
             location.reload();
-            console.log('reload!');
         }
     }
 }
