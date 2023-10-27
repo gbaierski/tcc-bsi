@@ -80,8 +80,8 @@ export default {
       processingTime: 0, // Tempo de processamento da informação do usuário no modal de edição do item
 
       // Caminhos
-      imagesPath: "/src/assets/img/items/",
-      itemImageUrl: "/src/assets/img/items/default.webp",
+      imagesPath: "/img/items/",
+      itemImageUrl: "/img/items/default.webp",
 
       // Declaração de variáveis
       additionalItems: {
