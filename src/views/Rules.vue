@@ -41,13 +41,13 @@ export default {
                 <ul class="rules-list">
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'mobile-screen-button']" /> Faça o teste pelo celular</li>
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'person-circle-minus']" /> Não serão solicitadas informações pessoais ao final do teste</li>
-                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'stopwatch']" /> A duração do teste é relativa para cada participante, mas o tempo estimado é 5 minutos</li>
+                    <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'stopwatch']" /> A duração do teste é relativa para cada participante, mas o tempo estimado é de 4 minutos</li>
                     <li class="rule"><font-awesome-icon class="icon" :icon="['fas', 'circle-info']" /> Mais informações sobre o objetivo desse trabalho estarão no final do teste</li>
                 </ul>
             </div>
         </div>
 
-        <p>Ao clicar no botão <span>PROSSEGUIR</span> você será redirecionado para uma tela que explicará brevemente os objetivos do primeiro protótipo.</p>
+        <p>Ao clicar no botão <b>PROSSEGUIR</b> você será redirecionado para uma tela que mostrará os objetivos do primeiro protótipo.</p>
 
         
         <button id="next-button" @click="randomRedirect">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>

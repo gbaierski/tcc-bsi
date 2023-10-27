@@ -22,7 +22,7 @@ export default {
         <h3>Bacharelado em Sistemas de Informação</h3>
         <img src="../assets/img/storyset/thesis.png" alt="Hello" class="image">
         <h4>Aluno: Gustavo José Baierski</h4>
-        <h4>Orientador: Eduardo da Silva</h4>
+        <h4>Orientador: Prof. Dr. Eduardo da Silva</h4>
         <RouterLink to="objectives" @click="scrollToTop" style="align-self: center;  margin: 20px 0px 50px 0px;">
             <button id="next-button">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
         </RouterLink>

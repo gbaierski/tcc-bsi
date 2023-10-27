@@ -27,7 +27,7 @@ export default {
         <img src="../assets/img/storyset/uxdesign.png" alt="Hello" class="image">
 
         <h2>Como o teste funciona?</h2>
-        <p>Serão apresentados 2 protótipos de sistemas de delivery com objetivos a serem cumpridos. Por exemplo "Peça um duplo bacon" ou "Peça um salada sem cebola".</p> 
+        <p>Serão apresentados 2 protótipos de sistemas de delivery com objetivos a serem cumpridos. Por exemplo "Peça um hambúrguer duplo bacon" ou "Peça um cachorro-quente sem cebola".</p> 
         <p>Os objetivos sempre estarão disponíveis para visualização no canto superior esquerdo, para evitar que você se esqueça:</p>
         
         <img src="../assets/img/objectives_1.png" class="image" alt="Local onde ficam os objetivos na tela (Canto superior esquerdo)">
@@ -36,11 +36,11 @@ export default {
 
         <img src="../assets/img/objectives_2.png" class="image" alt="Visualização de um objetivo concluído (Item fica verde)">
 
-        <p>Quando todos os objetivos forem cumpridos, o pedido poderá ser encerrado. Para isso, acesse o botão <span>FINALIZAR PEDIDO</span> no carrinho:</p>
+        <p>Quando todos os objetivos forem cumpridos, o pedido poderá ser encerrado. Para isso, acesse o botão <b>FINALIZAR PEDIDO</b> no carrinho:</p>
 
         <img src="../assets/img/objectives_3.png" class="image" alt="Botão de finalizar (Ao abrir o carrinho, no final da tela)">
 
-        <p>Após finalizar o teste no primeiro protótipo, você deverá realizar outro pedido no segundo protótipo. A ideia é a mesma, porém os objetivos serão diferentes.</p>
+        <p>Após finalizar o teste no primeiro layout, você deverá realizar outro pedido no segundo protótipo. A ideia é a mesma, porém os objetivos serão diferentes.</p>
         <RouterLink to="rules"  @click="scrollToTop" style="align-self: center;  margin: 30px 0px 100px 0px;">
             <button id="next-button">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
         </RouterLink>
