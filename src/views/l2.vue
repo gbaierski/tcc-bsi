@@ -700,7 +700,7 @@ export default {
             <font-awesome-icon v-else :icon="['fas', 'circle-xmark']" class="objectives-status-indicator-icon"/>
           </div>
         </div>
-        <img src="src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
+        <img src="/src/assets/img/logo-l2.jpg" id="place-image" alt="Foto da hamburgueria">
         <div id="place-name">Great Burger</div>
         <div id="place-address" class="place-info-box">
           <font-awesome-icon :icon="['fass', 'location-dot']" /> 
