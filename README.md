@@ -1,29 +1,55 @@
-# tcc-bsi
+# Teste de Desempenho e Preferência de Sistema de Delivery
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descrição do Projeto
 
-## Recommended IDE Setup
+O objetivo deste projeto é obter medidas reais de desempenho dos usuários em dois protótipos de sistemas de delivery, com o intuito de realizar análises posteriores. Além de medidas de desempenho, a preferência dos usuários será analisada com base em sua faixa etária.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Objetivo
 
-## Customize configuration
+Este trabalho tem como finalidade contribuir para estudos relacionados à UX (User Experience) e UI (User Interface). As análises realizadas neste estudo servirão como material de apoio para pesquisas e testes futuros na área de tecnologia, visando aprimorar as interfaces de sistemas web e a interação humano-computador.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Motivação
 
-## Project Setup
+A escolha desse tema se baseia no cenário atual em que diversas pessoas com idades e níveis de conhecimento variados acessam a internet. Foi observada a dificuldade enfrentada por muitas pessoas, especialmente aquelas com menos familiaridade com a tecnologia, ao utilizar sistemas web.
+
+## Medidas de Desempenho Utilizadas
+
+O desempenho do usuário em cada layout é medido com base em quatro métricas principais:
+
+1. **finishAttempts:** Quantidade de vezes que o usuário tentou finalizar o teste.
+2. **processingTime:** Tempo que o usuário levou para observar detalhes do item (tempo gasto em um modal ao selecionar o item desejado).
+3. **stepCount:** Quantidade de passos necessários para finalizar o objetivo solicitado, ou seja, cada item adicionado ao carrinho (o ideal é 3 passos para a perfeição).
+4. **totalTime:** Tempo total que o usuário levou para finalizar o pedido.
+
+Além disso, no final do teste são coletados dados com base na opinião do usuário (verificar tela quiz).
+
+## Instalação do Projeto
+
+Para configurar o projeto em sua máquina, siga as instruções abaixo:
+
+### 1. Clonar o repositório
+
+```sh
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+cd nome-do-repositorio
+```
+
+### 2. Instalar as dependências
+
+Certifique-se de ter o Node.js e o npm instalados em sua máquina. Em seguida, execute:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3. Compilar e Iniciar o Servidor de Desenvolvimento
+
+Para compilar o projeto e iniciar um servidor de desenvolvimento com hot-reload, execute o seguinte comando:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Isso fará com que o projeto esteja disponível localmente para testes e desenvolvimento.
 
-```sh
-npm run build
-```
+Agora você está pronto para começar a utilizar o sistema de delivery e coletar medidas de desempenho e preferência do usuário.
