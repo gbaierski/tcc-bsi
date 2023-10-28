@@ -13,7 +13,7 @@
             </div>
             <div class="objective-info">
                 <div class="objective-title">Peça um hambúrguer <b>SALADA</b></div>
-                <div class="objective-additional rem"><b>Sem tomate</b></div>
+                <div class="objective-additional rem">✱ <b>Sem tomate</b></div>
             </div>
             </div>
 
@@ -23,7 +23,7 @@
             </div>
             <div class="objective-info">
                 <div class="objective-title">Peça um hotdog <b>DOG SIMPLES</b></div>
-                <div class="objective-additional add"><b>Com batata frita extra</b></div>
+                <div class="objective-additional add">✱ <b>Com batata frita extra</b></div>
             </div>
             </div>
 
