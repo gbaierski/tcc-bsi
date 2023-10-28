@@ -42,7 +42,34 @@ Certifique-se de ter o Node.js e o npm instalados em sua máquina. Em seguida, e
 npm install
 ```
 
-### 3. Compilar e Iniciar o Servidor de Desenvolvimento
+### 3. Configuração do Firebase
+
+Antes de prosseguir, é necessário configurar o Firebase para que o sistema de delivery funcione corretamente. Siga as etapas abaixo:
+
+#### 3.1. Copiar o arquivo `.env-example`
+
+No diretório raiz do projeto, você encontrará um arquivo chamado `.env-example`. Copie este arquivo e renomeie a cópia para `.env`.
+
+#### 3.2. Configurar as Variáveis de Ambiente
+
+Abra o arquivo `.env` em um editor de texto de sua escolha e preencha as variáveis de ambiente necessárias com as informações da sua conta Firebase. As variáveis que você deve configurar incluem:
+
+- `VITE_APP_FIREBASE_API_KEY=seu_api_key`
+- `VITE_APP_FIREBASE_AUTH_DOMAIN=seu_auth_domain`
+- `VITE_APP_FIREBASE_DATABASE_URL=seu_database_url`
+- `VITE_APP_FIREBASE_PROJECT_ID=seu_project_id`
+- `VITE_APP_FIREBASE_STORAGE_BUCKET=seu_storage_bucket`
+- `VITE_APP_FIREBASE_MESSAGING_SENDER_ID=seu_messaging_sender_id`
+- `VITE_APP_FIREBASE_APP_ID=seu_app_id`
+- `VITE_APP_FIREBASE_MEASUREMENT_ID=seu_measurement_id`
+
+Você pode encontrar essas informações na seção de configurações do seu projeto Firebase.
+
+Depois de preencher corretamente as variáveis de ambiente, o sistema de delivery estará configurado para se conectar à sua conta Firebase.
+
+Lembre-se de não compartilhar o arquivo `.env` publicamente, pois ele contém informações sensíveis. Certifique-se de mantê-lo seguro e protegido.
+
+### 4. Compilar e Iniciar o Servidor de Desenvolvimento
 
 Para compilar o projeto e iniciar um servidor de desenvolvimento com hot-reload, execute o seguinte comando:
 
