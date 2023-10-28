@@ -25,6 +25,7 @@ export default {
                 { field: 'deleteModalPreference', ref: 'question-deleteModalPreference' },
             ],
             validationPerformed: false,
+            isButtonDisabled: false,
 
             // Variáveis:
             ages: [
@@ -34,6 +35,7 @@ export default {
                 {id: 4, value: '>= 55', text: '55 anos ou mais'},
             ],
             alertMessage: '',
+            finishButtonText: 'FINALIZAR',
         }
     },
     methods: {
@@ -100,6 +102,8 @@ export default {
 
         finish() {
             if (this.validateFields()) {
+                this.isButtonDisabled = true;
+                this.finishButtonText = 'ENVIANDO...';
                 const dataStore = useDataStore();
                 dataStore.loadFromLocalStorage();
 
@@ -143,6 +147,8 @@ export default {
                     this.$router.push({ name: 'finish' });
                 })
                 .catch((error) => {
+                    this.isButtonDisabled = false;
+                    this.finishButtonText = 'FINALIZAR';
                     console.error("Erro ao adicionar documento: ", error);
                     this.alertMessage = 'Erro no envio. Se persistir, fale com o Gustavo!';
                     this.alert();
@@ -236,7 +242,7 @@ export default {
                 </div>
             </div>
         </div>
-        <button id="finish-button" @click="finish()">FINALIZAR</button>
+        <button id="finish-button" @click="finish()" :disabled="isButtonDisabled">{{ this.finishButtonText }}</button>
     </main>
 </template>
 <style lang="scss" scoped>
