@@ -652,16 +652,16 @@ export default {
         <div class="item-additional-box">
           <h3 class="item-additional-title">Remover</h3>
           <ul class="item-additional-list">
-            <li v-for="(itemRemove, index) in this.additionalItems.remove" :key="index"> {{ itemRemove.name }}
-              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemRemove.checked }]" @click="checkAdditional(itemRemove, 'remove')">✔</div>
+            <li v-for="(itemRemove, index) in this.additionalItems.remove" :key="index" @click="checkAdditional(itemRemove, 'remove')"> {{ itemRemove.name }}
+              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemRemove.checked }]">✔</div>
             </li>
           </ul>
         </div>
         <div class="item-additional-box">
           <h3 class="item-additional-title">Adicionar</h3>
           <ul class="item-additional-list">
-            <li v-for="(itemAdd, index) in this.additionalItems.add" :key="index"> {{ itemAdd.name }} + R${{ itemAdd.price + ',00'}}
-              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemAdd.checked }]" @click="checkAdditional(itemAdd, 'add')">✔</div>
+            <li v-for="(itemAdd, index) in this.additionalItems.add" :key="index" @click="checkAdditional(itemAdd, 'add')"> {{ itemAdd.name }} + R${{ itemAdd.price + ',00'}}
+              <div :class="['item-additional-checkbox', { 'item-additional-checked': itemAdd.checked }]">✔</div>
             </li>
           </ul>
         </div>
