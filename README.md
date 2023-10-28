@@ -30,8 +30,8 @@ Para configurar o projeto em sua máquina, siga as instruções abaixo:
 ### 1. Clonar o repositório
 
 ```sh
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
-cd nome-do-repositorio
+git clone https://github.com/gbaierski/tcc-bsi.git
+cd tcc-bsi
 ```
 
 ### 2. Instalar as dependências
