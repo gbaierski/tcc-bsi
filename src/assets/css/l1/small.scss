@@ -407,6 +407,7 @@
     }
 
     #cart-info {
+        height: 250px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -419,7 +420,7 @@
 
     #finish-order {
         background-color: black !important;
-        margin-bottom: 100px;
+        margin-bottom: 20px;
     }
 
     #menu-items {

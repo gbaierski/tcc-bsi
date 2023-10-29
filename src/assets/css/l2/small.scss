@@ -462,6 +462,7 @@
     }
 
     #cart-info {
+        height: 250px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -478,7 +479,7 @@
 
     #finish-order {
         background-color: rgb(18, 122, 82) !important;
-        margin-bottom: 100px;
+        margin-bottom: 20px;
     }
 
     #menu-items {
