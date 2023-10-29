@@ -349,7 +349,7 @@ export default {
 
     #finish-button {
         padding: 25px 85px 25px 85px;
-        margin: 30px 0px 50px 0px;
+        margin: 30px 0px 100px 0px;
         border: none;
         letter-spacing: 1px;
         border-radius: 10px;
