@@ -104,6 +104,8 @@ export default {
             if (this.validateFields()) {
                 this.isButtonDisabled = true;
                 this.finishButtonText = 'ENVIANDO...';
+                this.$router.push({ name: 'finish' });
+                /* 
                 const dataStore = useDataStore();
                 dataStore.loadFromLocalStorage();
 
@@ -152,7 +154,7 @@ export default {
                     console.error("Erro ao adicionar documento: ", error);
                     this.alertMessage = 'Erro no envio. Se persistir, fale com o Gustavo!';
                     this.alert();
-                });
+                }); */
             } else {
                 this.alertMessage = 'Por favor, responda todas as perguntas!';
                 this.alert();

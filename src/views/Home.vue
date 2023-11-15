@@ -23,9 +23,16 @@ export default {
         <img src="../assets/img/storyset/thesis.png" alt="Hello" class="image">
         <h4>Aluno: Gustavo José Baierski</h4>
         <h4>Orientador: Prof. Dr. Eduardo da Silva</h4>
-        <RouterLink to="objectives" @click="scrollToTop" style="align-self: center;  margin: 20px 0px 50px 0px;">
+        <RouterLink to="objectives" @click="scrollToTop" style="align-self: center;  margin: 20px 0px;">
             <button id="next-button">PROSSEGUIR <font-awesome-icon :icon="['fas', 'caret-right']" /></button>
         </RouterLink>
+        <div id="finished-alert">
+            <font-awesome-icon :icon="['fas', 'circle-exclamation']" id="finished-alert-icon"/>
+            <span id="finished-alert-text">
+                <b>Atenção:</b>
+                Os resultados já foram coletados. Porém você ainda pode realizar o teste se desejar!
+            </span>
+        </div>
     </main>
 </template>
 
@@ -92,6 +99,23 @@ export default {
         transform: translateY(-3px);
         box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 5px;
         cursor: pointer;
+    }
+
+    #finished-alert {
+        margin: 20px;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Montserrat', sans-serif;
+        background-color: #ffe3b1;
+        color: #ce8501;
+    }
+
+    #finished-alert-icon {
+        width: 30px;
+        height: 30px;
     }
 
     .image {
